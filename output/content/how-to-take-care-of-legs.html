@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Interactive Guide to Leg &amp; Muscle Health</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <!-- Chosen Palette: Soothing Neutrals with Calming Green Accent -->
+    <!-- Application Structure Plan: The SPA is structured thematically to guide the user from understanding to action. It starts with 'Understanding Pain' to provide foundational knowledge. 'Pillars of Prevention' offers proactive, daily strategies. The 'Guided Exercise Hub' is the core actionable section. 'Immediate Relief' provides quick-access self-care, and 'When to Seek Help' offers critical safety information. This task-oriented flow is more user-friendly than the report's linear structure, allowing users to find relevant information quickly. -->
+    <!-- Visualization & Content Choices: 
+        1.  Common Causes of Leg Pain -> Goal: Compare -> Viz: Interactive Polar Area Chart (Chart.js) -> Interaction: Hover tooltips for details -> Justification: To visually represent the multifaceted nature of leg pain causes in an engaging format, allowing users to see the relative impact of injuries, nerve issues, and circulatory problems.
+        2.  Common Leg Conditions -> Goal: Organize/Inform -> Viz: Sortable/Filterable Card Grid (HTML/CSS/JS) -> Interaction: Buttons to sort by type (Injury, Nerve, Joint) -> Justification: To create an interactive glossary that lets users easily explore different conditions, promoting understanding without overwhelming them.
+        3.  Targeted Muscle Exercises -> Goal: Organize/Demonstrate -> Viz: Filterable Card Gallery with illustrated steps (HTML/CSS/JS) -> Interaction: Filter by muscle group (Quads, Hamstrings, Glutes, Calves); click for detailed instructions -> Justification: To provide a practical, easy-to-use tool for rehabilitation and prevention, enhancing user engagement.
+        4.  Red Flag Symptoms -> Goal: Warn/Instruct -> Viz: High-contrast alert-style cards (HTML/CSS) -> Justification: To present life-critical safety information with maximum clarity and impact, ensuring the urgent message is immediately understood.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .bg-stone-50 { background-color: #FAFAF9; }
+        .bg-stone-100 { background-color: #F5F5F4; }
+        .text-stone-800 { color: #292524; }
+        .accent-green { color: #166534; }
+        .bg-green-700 { background-color: #15803d; }
+        .border-green-700 { border-color: #15803d; }
+        nav a {
+            transition: color 0.3s ease;
+        }
+        nav a.active, nav a:hover {
+            color: #14532d; 
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        .card-item {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="flex items-center justify-between h-16" id="main-nav">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold accent-green">Leg Health Guide</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium" href="#causes">Causes</a>
+                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium" href="#prevention">Prevention</a>
+                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium" href="#exercises">Exercises</a>
+                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium" href="#relief">Relief</a>
+                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium text-red-600 font-bold" href="#seek-help">Seek Help</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:bg-gray-200 focus:outline-none" id="mobile-menu-button">
+                        <span class="sr-only">Open main menu</span>
+                        <span aria-hidden="true" class="block h-6 w-6">☰</span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium" href="#causes">Causes</a>
+                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium" href="#prevention">Prevention</a>
+                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium" href="#exercises">Exercises</a>
+                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium" href="#relief">Relief</a>
+                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium text-red-600 font-bold" href="#seek-help">Seek Help</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        
+        <section class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">The Foundation of Mobility: A Guide to Leg Health</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-600">Here are a few options, all of similar length to the original:
+
+*   **Legs: Your body's base. Explore interactive tools to address pain, practice prevention, and boost leg strength for a healthy, active future.**
+
+*   **Strong legs: They support your body. This guide offers interactive resources for understanding leg pain, preventing issues, and developing strength.**
+
+*   **Your legs: The body's pillars. Use these interactive tools to diagnose pain, learn proactive care, and strengthen legs for a vital, mobile life.**</p>
+        </section>
+
+        <section class="mb-16 scroll-mt-20" id="causes">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Understanding Leg Pain</h3>
+            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">Lower extremity discomfort stems from diverse origins: trauma, repetitive strain, nerve issues, and poor circulation. Identifying the root cause is crucial for successful treatment and healing.</p>
+            <div class="bg-white p-6 md:p-8 rounded-lg shadow-xl mb-12">
+                <h4 class="text-xl font-semibold mb-4 text-center">Common Categories of Leg Pain</h4>
+                <div class="chart-container">
+                    <canvas id="causesChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="bg-stone-100 p-6 md:p-8 rounded-lg shadow-lg">
+                <h4 class="text-xl font-semibold mb-4 text-center">Explore Common Conditions</h4>
+                <div class="flex flex-wrap justify-center gap-2 mb-6" id="condition-filters">
+                    <button class="filter-btn bg-green-700 text-white px-4 py-2 rounded-full text-sm" data-filter="all">All</button>
+                    <button class="filter-btn bg-white text-stone-800 px-4 py-2 rounded-full text-sm border" data-filter="Injury">Injury</button>
+                    <button class="filter-btn bg-white text-stone-800 px-4 py-2 rounded-full text-sm border" data-filter="Nerve-Related">Nerve-Related</button>
+                    <button class="filter-btn bg-white text-stone-800 px-4 py-2 rounded-full text-sm border" data-filter="Joint">Joint</button>
+                    <button class="filter-btn bg-white text-stone-800 px-4 py-2 rounded-full text-sm border" data-filter="Circulatory">Circulatory</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="conditions-gallery">
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16 scroll-mt-20" id="prevention">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Pillars of Prevention</h3>
+             <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">Prioritizing leg health means weaving easy, preventative practices into your routine. Good posture, mindful movement, and a healthy lifestyle protect against leg pain and problems.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md text-center card-item">
+                    <span class="text-4xl">🧍</span>
+                    <h4 class="font-semibold text-lg my-2">Good Posture</h4>
+                    <p class="text-sm text-gray-600">Maintain good posture: straighten up. Balance head, shoulders, and hips for even weight distribution, lessening stress.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center card-item">
+                    <span class="text-4xl">🏋️</span>
+                    <h4 class="font-semibold text-lg my-2">Safe Lifting</h4>
+                    <p class="text-sm text-gray-600">Prioritize leg strength, not back strain. Hold items near your core, and don't twist your torso.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center card-item">
+                    <span class="text-4xl">👟</span>
+                    <h4 class="font-semibold text-lg my-2">Proper Footwear</h4>
+                    <p class="text-sm text-gray-600">Here are a few options, keeping the size roughly similar:
+
+*   **Choose activity-appropriate shoes with good support to avoid biomechanical issues.**
+
+*   **Prevent imbalances: wear supportive shoes suited to your chosen activity.**
+
+*   **For biomechanical health, select shoes providing support, matched to your activity.**</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center card-item">
+                    <span class="text-4xl">⚖️</span>
+                    <h4 class="font-semibold text-lg my-2">Weight Management</h4>
+                    <p class="text-sm text-gray-600">Here are a few options, all similar in length:
+
+*   **Sustain a healthy weight to ease joint strain in knees, hips, and ankles.**
+*   **Keep weight in check to lessen joint stress on your knees, hips, and ankles.**
+*   **Managing weight helps lessen knee, hip, and ankle stress due to mechanics.**
+*   **A healthy weight can relieve mechanical pressure on knees, hips, and ankles.**</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16 scroll-mt-20" id="exercises">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Guided Exercise Hub</h3>
+             <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">Building leg muscle strength is crucial for stability, better performance, and injury prevention. Explore these exercises, categorized by muscle group, below.</p>
+            <div class="flex justify-center flex-wrap gap-2 mb-8" id="exercise-filters">
+                <button class="ex-filter-btn bg-green-700 text-white px-4 py-2 rounded-full" data-filter="all">All</button>
+                <button class="ex-filter-btn bg-white text-stone-800 px-4 py-2 rounded-full border" data-filter="Quadriceps">Quadriceps</button>
+                <button class="ex-filter-btn bg-white text-stone-800 px-4 py-2 rounded-full border" data-filter="Hamstrings">Hamstrings</button>
+                <button class="ex-filter-btn bg-white text-stone-800 px-4 py-2 rounded-full border" data-filter="Glutes">Glutes</button>
+                <button class="ex-filter-btn bg-white text-stone-800 px-4 py-2 rounded-full border" data-filter="Calves">Calves</button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="exercise-gallery">
+            </div>
+        </section>
+
+        <section class="mb-16 scroll-mt-20" id="relief">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Immediate Relief Strategies</h3>
+            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">Here are a few options, all similar in length and meaning:
+
+*   **Home remedies often ease minor leg pain from strains or overuse. Understanding when to apply heat or cold is crucial.**
+
+*   **For leg pain from strain or overuse, home care is often effective. Knowing the proper use of heat and cold helps self-treatment.**
+
+*   **Simple home care can greatly help with minor leg pain from strains or overuse. Heat and cold are key for effective self-care.**</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-400 card-item">
+                    <h4 class="text-xl font-semibold mb-3 flex items-center"><span class="mr-2">❄️</span> Cold Therapy (First 48 Hours)</h4>
+                    <p class="font-semibold">Best for acute injuries &amp; inflammation.</p>
+                    <p class="text-gray-600 mt-2">Place a towel-wrapped ice pack on the area for 15-20 minutes to lessen swelling and discomfort.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-red-400 card-item">
+                    <h4 class="text-xl font-semibold mb-3 flex items-center"><span class="mr-2">🔥</span> Heat Therapy (After 48 Hours)</h4>
+                    <p class="font-semibold">Best for chronic stiffness &amp; muscle soreness.</p>
+                    <p class="text-gray-600 mt-2">Here are a few options, all similar in length:
+
+*   Apply a heating pad for 15-20 minutes to soothe muscles and boost circulation.
+*   Use a heating pad for 15-20 mins to ease muscle tension and encourage blood flow.
+*   Relax muscles and enhance blood flow with a heating pad, 15-20 minutes.
+*   Place a heating pad on for 15-20 minutes to relax muscles &amp; improve circulation.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="scroll-mt-20" id="seek-help">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8 text-red-700">Red Flags: When to Seek Immediate Medical Help</h3>
+            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">Although many leg ailments can be treated at home, some signs could point to a severe issue. If you notice any of these, seek immediate medical attention.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="red-flags-container">
+            </div>
+        </section>
+    </main>
+ 
+<!--
+    <footer class="bg-stone-100 mt-16">
+        <div class="container mx-auto py-6 px-4 text-center text-gray-500">
+            <p class="text-sm">This guide is for informational purposes only and is not a substitute for professional medical advice. Always consult a physician or qualified health provider for diagnosis and treatment.</p>
+        </div>
+    </footer>
+-->
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const causesChartCtx = document.getElementById('causesChart').getContext('2d');
+        new Chart(causesChartCtx, {
+            type: 'polarArea',
+            data: {
+                labels: ['Injuries (Strains, Sprains, Fractures)', 'Nerve-Related (Sciatica, Stenosis)', 'Overuse Syndromes (Tendinitis)', 'Joint Conditions (Arthritis)', 'Circulatory Issues (PAD, DVT)'],
+                datasets: [{
+                    label: 'Common Causes of Leg Pain',
+                    data: [35, 25, 20, 15, 5],
+                    backgroundColor: ['rgba(21, 128, 61, 0.7)', 'rgba(22, 163, 74, 0.7)', 'rgba(34, 197, 94, 0.7)', 'rgba(74, 222, 128, 0.7)', 'rgba(134, 239, 172, 0.7)'],
+                    borderColor: '#ffffff',
+                    borderWidth: 2,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        ticks: { backdropColor: 'rgba(0,0,0,0)', color: '#44403c' },
+                        grid: { color: '#e7e5e4' }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#44403c' }
+                    }
+                }
+            }
+        });
+
+        const conditionsData = [
+            { name: 'Muscle Strain', type: 'Injury', desc: 'Stretching or tearing of muscle fibers, often from overexertion.' },
+            { name: 'Sprain', type: 'Injury', desc: 'Stretching or tearing of ligaments, commonly affecting the ankle.' },
+            { name: 'Shin Splints', type: 'Injury', desc: 'Pain along the shin bone, typically from repetitive stress like running.' },
+            { name: 'Sciatica', type: 'Nerve-Related', desc: 'Pain radiating along the sciatic nerve, from the lower back down the leg.' },
+            { name: 'Peripheral Neuropathy', type: 'Nerve-Related', desc: 'Damage to peripheral nerves, causing weakness, numbness, and pain.' },
+            { name: 'Spinal Stenosis', type: 'Nerve-Related', desc: 'Narrowing of the spinal canal, which can compress nerves causing leg pain.' },
+            { name: 'Osteoarthritis', type: 'Joint', desc: '"Wear-and-tear" arthritis where cartilage breaks down, causing pain in knees and hips.' },
+            { name: 'Bursitis', type: 'Joint', desc: 'Inflammation of the bursae (fluid-filled sacs) that cushion joints.' },
+            { name: 'Peripheral Artery Disease (PAD)', type: 'Circulatory', desc: 'Narrowed arteries reduce blood flow to the limbs, causing cramping with exertion.' },
+            { name: 'Deep Vein Thrombosis (DVT)', type: 'Circulatory', desc: 'A serious condition where a blood clot forms in a deep vein, causing swelling and pain.' },
+        ];
+        const conditionsGallery = document.getElementById('conditions-gallery');
+        const conditionFilters = document.getElementById('condition-filters');
+
+        function renderConditions(filter) {
+            conditionsGallery.innerHTML = '';
+            const filtered = filter === 'all' ? conditionsData : conditionsData.filter(c => c.type === filter);
+            filtered.forEach(c => {
+                const card = document.createElement('div');
+                card.className = 'card-item bg-white p-4 rounded-lg shadow-md';
+                card.innerHTML = `
+                    <h5 class="font-semibold text-md mb-2">${c.name}</h5>
+                    <p class="text-sm text-gray-600 mb-2">${c.desc}</p>
+                    <span class="text-xs font-semibold px-2 py-1 rounded-full bg-gray-200 text-gray-800">${c.type}</span>
+                `;
+                conditionsGallery.appendChild(card);
+            });
+        }
+        
+        conditionFilters.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                document.querySelector('#condition-filters .bg-green-700').classList.replace('bg-green-700', 'bg-white');
+                document.querySelector('#condition-filters .text-white').classList.replace('text-white', 'text-stone-800');
+                e.target.classList.replace('bg-white', 'bg-green-700');
+                e.target.classList.replace('text-stone-800', 'text-white');
+                renderConditions(e.target.dataset.filter);
+            }
+        });
+
+        const exercisesData = [
+            { name: 'Squats', type: 'Quadriceps', desc: 'A fundamental compound exercise for overall leg strength.' },
+            { name: 'Lunges', type: 'Quadriceps', desc: 'Excellent for targeting each leg individually, improving balance.' },
+            { name: 'Hamstring Curls', type: 'Hamstrings', desc: 'Isolates and strengthens the muscles on the back of the thigh.' },
+            { name: 'Romanian Deadlifts', type: 'Hamstrings', desc: 'Targets hamstrings and glutes, improves flexibility.' },
+            { name: 'Glute Bridges', type: 'Glutes', desc: 'Activates and strengthens the gluteal muscles and hamstrings.' },
+            { name: 'Clamshells', type: 'Glutes', desc: 'Targets the hip abductors, crucial for pelvic stability.' },
+            { name: 'Standing Calf Raises', type: 'Calves', desc: 'Strengthens the gastrocnemius and soleus muscles for ankle stability.' },
+            { name: 'Seated Calf Raises', type: 'Calves', desc: 'Specifically isolates and strengthens the soleus muscle.' },
+        ];
+        const exerciseGallery = document.getElementById('exercise-gallery');
+        const exerciseFilters = document.getElementById('exercise-filters');
+
+        function renderExercises(filter) {
+            exerciseGallery.innerHTML = '';
+            const filtered = filter === 'all' ? exercisesData : exercisesData.filter(ex => ex.type === filter);
+            filtered.forEach(ex => {
+                const card = document.createElement('div');
+                card.className = 'card-item bg-white p-4 rounded-lg shadow-md flex flex-col items-center text-center';
+                card.innerHTML = `
+                    <div class="h-16 w-16 bg-stone-100 rounded-full mb-3 flex items-center justify-center text-3xl">🦵</div>
+                    <h5 class="font-semibold">${ex.name}</h5>
+                    <p class="text-xs text-gray-500 mb-2">${ex.desc}</p>
+                    <span class="text-xs font-semibold px-2 py-1 rounded-full bg-green-100 text-green-800">${ex.type}</span>
+                `;
+                exerciseGallery.appendChild(card);
+            });
+        }
+
+        exerciseFilters.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                document.querySelector('.ex-filter-btn.bg-green-700').classList.replace('bg-green-700', 'bg-white');
+                document.querySelector('.ex-filter-btn.text-white').classList.replace('text-white', 'text-stone-800');
+                e.target.classList.replace('bg-white', 'bg-green-700');
+                e.target.classList.replace('text-stone-800', 'text-white');
+                renderExercises(e.target.dataset.filter);
+            }
+        });
+
+        const redFlagsData = [
+            { icon: '💥', title: 'Inability to Bear Weight', desc: 'A sudden inability to walk or put weight on the leg could signal a fracture or severe injury.' },
+            { icon: '🧠', title: 'Severe Weakness or Numbness', desc: 'Progressive weakness or numbness in the legs or feet can indicate serious nerve compression.' },
+            { icon: '🩸', title: 'Calf Pain & Swelling', desc: 'Pain, swelling, warmth, and redness in the calf could be a DVT (blood clot), a medical emergency.' },
+            { icon: '🌡️', title: 'Signs of Infection', desc: 'Leg pain accompanied by fever, chills, redness, or pus points to a serious infection.' },
+            { icon: '⚖️', title: 'Unexplained Weight Loss', desc: 'Leg pain combined with unexplained weight loss can be a sign of a tumor or systemic illness.' },
+            { icon: '🚽', title: 'Loss of Bladder/Bowel Control', desc: 'A critical sign of cauda equina syndrome, requiring immediate surgical attention.' },
+        ];
+
+        const redFlagsContainer = document.getElementById('red-flags-container');
+        redFlagsData.forEach(flag => {
+            const item = document.createElement('div');
+            item.className = 'bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg flex items-start card-item';
+            item.innerHTML = `
+                <span class="text-3xl mr-4">${flag.icon}</span>
+                <div>
+                    <h5 class="font-bold text-red-700">${flag.title}</h5>
+                    <p class="text-sm text-red-600">${flag.desc}</p>
+                </div>
+            `;
+            redFlagsContainer.appendChild(item);
+        });
+        
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        document.querySelectorAll('#main-nav a, #mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+        
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('main section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active', 'accent-green', 'font-bold');
+                        if (`#${entry.target.id}` === link.getAttribute('href')) {
+                            link.classList.add('active', 'accent-green', 'font-bold');
+                        }
+                    });
+                }
+            });
+        }, { rootMargin: '-30% 0px -70% 0px' });
+
+        sections.forEach(section => observer.observe(section));
+
+        renderConditions('all');
+        renderExercises('all');
+    });
+    </script>
+
+
+<html><head></head><body><footer class="bg-gray-800 text-gray-300">
+  <div class="container mx-auto px-6 py-12 lg:px-8">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+      
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Lowback</h5>
+        <ul class="space-y-2">
+          <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/"></a>Taking care of lowback</li>
+          <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">Different type of pains</a></li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">
+          </a><li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/"></a><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-of-frozen-shoulder.html"></a>Frozen Shoulder</li>
+		  <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-upper-back.html"></a>Frozen Shoulder</li>
+          <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">Different type of pains</a></li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">
+		  
+		  
+		  
+		  </a><li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">	</a><a href="https://www.lowback.org/yoga/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Yoga</a></li>	
+
+
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/food/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Food</a></li>	
+		<a href="https://www.lowback.org/food/diet-compass.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Food</a>	
+												
+
+
+
+
+
+		 
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Injuries and Cure</h5>
+        <ul class="space-y-2">
+	
+	<li>								
+		<a href="https://www.lowback.org/Back-Spine-Problems.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Back-Spine-Problems</a>
+            </li>	
+		<a href="https://www.lowback.org/related-body-parts/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Related Body Parts</a>	
+
+		<a href="https://www.lowback.org/health-leg-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Leg</a>	
+		<a href="https://www.lowback.org/health-neck-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Neck</a>	
+		<a href="https://www.lowback.org/health-shoulder-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Shoulder</a>	
+		<a href="https://www.lowback.org/health-knee-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Knee</a>	
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/BackInjuries.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">BackInjuries</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/BackPain.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl03_title">BackPain</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/benefits-of-yoga-for-mental-health.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl04_title">benefits-of-yoga-for-mental-health</a>
+            </li>	
+
+
+
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Taking Care</h5>
+        <ul class="space-y-2">
+		<li><a href="https://www.lowback.org/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Home</a></li>	
+		<li><a href="https://www.lowback.org/sitemap.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Sitemap</a></li>	
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Contact Us</h5>
+        <div class="space-y-2">
+          <p>Redmond<br/>WA, USA</p>
+          <p>
+            <a class="hover:text-white hover:underline transition-colors duration-200" href="mailto:contact@dataknobs.com">contact@kreatewebsites.com</a>
+			<br/>This is an unofficial blog provided solely for educational and informational purposes. The content is not intended to constitute medical or health advice. Always consult a qualified healthcare professional regarding any questions or concerns about your health.
+          </p>
+          <p>
+            <a class="hover:text-white hover:underline transition-colors duration-200" href="tel:+14253411222">+1 (425) 341-1222</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 border-t border-gray-700 pt-8 flex flex-col items-center justify-between sm:flex-row">
+      <p class="text-sm text-gray-400">© 2025 Lowback. All rights reserved.</p>
+      
+      <div class="flex space-x-4 mt-4 sm:mt-0">
+        <a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.facebook.com/kreatewebsites/">
+          <span class="sr-only">Facebook</span>
+          <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path clip-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.772-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" fill-rule="evenodd"></path>
+          </svg>
+        </a>
+        <a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.twitter.com/kreatewebsites/">
+          <span class="sr-only">Twitter</span>
+          <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+          </svg>
+        </a>
+        <a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.linkedin.com/company/kreatewebsites/">
+          <span class="sr-only">LinkedIn</span>
+          <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path clip-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.783-1.75-1.75s.784-1.75 1.75-1.75 1.75.783 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill-rule="evenodd"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer></body></html></body></html>

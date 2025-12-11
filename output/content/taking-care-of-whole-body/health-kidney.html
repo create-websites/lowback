@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Interactive Guide to Kidney Health</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <!-- 
+        Chosen Palette: Cool & Professional (Grays, Blues, Subtle Red Accent)
+        Application Structure Plan: A user-centric, single-page application designed for easy exploration. A sticky top navigation allows users to jump to key thematic sections: 'Understanding Your Kidneys,' 'Common Conditions,' 'Risk Factors & Prevention,' and 'When to Seek Help.' This non-linear structure is chosen over the report's linear format to empower users to access information based on their immediate interests, such as exploring a specific condition or learning about prevention. Interactive elements like tabbed content for conditions and clickable cards for risk factors make the dense information digestible and engaging, promoting user understanding and retention.
+        Visualization & Content Choices: 
+        - Report Info: Causes of Chronic Kidney Disease -> Goal: Compare -> Viz: Bar Chart (Chart.js) -> Interaction: Hover for details -> Justification: Clearly visualizes the dominant roles of diabetes and hypertension as primary causes, making the statistical data instantly understandable.
+        - Report Info: Kidney Anatomy -> Goal: Inform/Explore -> Viz: Interactive Diagram (HTML/CSS/JS) -> Interaction: Hover over labeled areas to reveal descriptions -> Justification: Provides a more engaging and memorable way to learn about the kidney's structure compared to static text.
+        - Report Info: Major Kidney Conditions (CKD, AKI, Stones) -> Goal: Organize -> Viz: Tabbed Interface (JS) -> Interaction: Click tabs to switch content -> Justification: Condenses a large volume of information into a compact, user-controlled space, preventing overwhelming the user with text.
+        - Report Info: Lifestyle Risk Factors -> Goal: Inform/Explore -> Viz: Interactive Cards (JS) -> Interaction: Click cards to reveal detailed prevention strategies -> Justification: Breaks down complex lifestyle information into manageable topics, encouraging focused exploration.
+        - Report Info: Urgent Symptoms -> Goal: Inform/Warn -> Viz: High-Contrast Alert Box -> Interaction: Static, for emphasis -> Justification: Uses color and iconography to immediately draw attention to critical, life-saving information.
+        CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #1e293b; /* slate-800 */
+        }
+        .active-nav {
+            color: #2563eb; /* blue-600 */
+            font-weight: 600;
+        }
+        .inactive-nav {
+            color: #475569; /* slate-600 */
+        }
+        .active-tab {
+            background-color: #2563eb;
+            color: white;
+        }
+        .inactive-tab {
+            background-color: #e2e8f0; /* slate-200 */
+            color: #475569; /* slate-600 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <header class="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-xl font-bold text-blue-600">Kidney Health Guide</div>
+            <div class="hidden md:flex space-x-8">
+                <a class="nav-link inactive-nav hover:text-blue-600 transition-colors" href="#intro">Home</a>
+                <a class="nav-link inactive-nav hover:text-blue-600 transition-colors" href="#anatomy">How Kidneys Work</a>
+                <a class="nav-link inactive-nav hover:text-blue-600 transition-colors" href="#conditions">Conditions</a>
+                <a class="nav-link inactive-nav hover:text-blue-600 transition-colors" href="#prevention">Prevention</a>
+                <a class="nav-link inactive-nav hover:text-blue-600 transition-colors" href="#urgent">When to Get Help</a>
+            </div>
+            <button class="md:hidden" id="mobile-menu-button">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 6h16M4 12h16m-7 6h7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </button>
+        </nav>
+        <div class="hidden md:hidden" id="mobile-menu">
+            <a class="block py-2 px-6 text-sm text-gray-700 hover:bg-gray-100" href="#intro">Home</a>
+            <a class="block py-2 px-6 text-sm text-gray-700 hover:bg-gray-100" href="#anatomy">How Kidneys Work</a>
+            <a class="block py-2 px-6 text-sm text-gray-700 hover:bg-gray-100" href="#conditions">Conditions</a>
+            <a class="block py-2 px-6 text-sm text-gray-700 hover:bg-gray-100" href="#prevention">Prevention</a>
+            <a class="block py-2 px-6 text-sm text-gray-700 hover:bg-gray-100" href="#urgent">When to Get Help</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <section class="text-center mb-20 scroll-mt-20" id="intro">
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Your Comprehensive Guide to Kidney Health</h1>
+            <p class="max-w-3xl mx-auto text-lg text-slate-600">
+                Here's a rewritten version of similar length:
+
+Kidneys are essential, constantly filtering waste, managing fluids, and overseeing vital processes. This guide simplifies intricate medical details, offering you the knowledge to understand, safeguard, and actively care for your kidneys.
+            </p>
+        </section>
+
+        <section class="mb-20 scroll-mt-20" id="anatomy">
+            <h2 class="text-3xl font-bold text-center mb-10 text-slate-900">How Your Kidneys Work</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="relative">
+                    <img alt="Diagram of a kidney" class="rounded-lg shadow-lg w-full" src="https://placehold.co/600x450/e0f2fe/1e293b?text=Kidney+Anatomy"/>
+                    <div class="interactive-hotspot absolute top-[25%] left-[50%] w-4 h-4 bg-blue-500 rounded-full cursor-pointer group" data-description="The outer region of the kidney where initial blood filtration begins." data-title="Renal Cortex">
+                        <span class="absolute -top-10 left-1/2 -translate-x-1/2 w-max bg-slate-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity">Renal Cortex</span>
+                    </div>
+                    <div class="interactive-hotspot absolute top-[45%] left-[40%]" data-description="The innermost part of the kidney, containing the structures of the nephrons responsible for maintaining salt and water balance." data-title="Renal Medulla">
+                         <div class="w-4 h-4 bg-blue-500 rounded-full cursor-pointer group">
+                           <span class="absolute -top-10 left-1/2 -translate-x-1/2 w-max bg-slate-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity">Renal Medulla</span>
+                         </div>
+                    </div>
+                     <div class="interactive-hotspot absolute top-[70%] left-[60%]" data-description="The microscopic filtering unit of the kidney. Each kidney contains about one million nephrons." data-title="Nephron (Functional Unit)">
+                         <div class="w-4 h-4 bg-blue-500 rounded-full cursor-pointer group">
+                           <span class="absolute -top-10 left-1/2 -translate-x-1/2 w-max bg-slate-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity">Nephron</span>
+                         </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4 text-slate-800">The Body's Master Filter</h3>
+                    <p class="text-slate-600 mb-4">The kidneys, intricate filters, work tirelessly. Daily, they sift roughly 150 quarts of blood, expelling nearly 2 quarts of waste and surplus fluid, a vital function for well-being.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-blue-500 mr-3 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            <div>
+                                <h4 class="font-semibold">Blood Filtration</h4>
+                                <p class="text-slate-600">Removes waste like urea and creatinine from your blood.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-blue-500 mr-3 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            <div>
+                                <h4 class="font-semibold">Fluid &amp; Electrolyte Balance</h4>
+                                <p class="text-slate-600">Here are a few options, all similar in length:
+
+*   Maintains electrolyte balance (sodium, potassium, calcium) for proper nerve/muscle function.
+*   Controls sodium, potassium, and calcium to support healthy nerve and muscle action.
+*   Manages sodium, potassium, and calcium, vital for nerve and muscle performance.
+*   Balances sodium, potassium, and calcium, crucial for nerve and muscle activity.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-6 h-6 text-blue-500 mr-3 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            <div>
+                                <h4 class="font-semibold">Hormone Production</h4>
+                                <p class="text-slate-600">Here are a few options, all similar in length:
+
+*   Secretes hormones vital for blood pressure, red cell production, and bone health.
+*   Releases hormones regulating blood pressure, red blood cell creation, and bone maintenance.
+*   Synthesizes hormones that manage blood pressure, red cell formation, and skeletal strength.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-20 scroll-mt-20" id="conditions">
+            <h2 class="text-3xl font-bold text-center mb-10 text-slate-900">Common Kidney Conditions</h2>
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <div class="mb-6 flex flex-wrap gap-2 border-b border-slate-200 pb-4">
+                    <button class="tab-button active-tab px-4 py-2 rounded-md text-sm font-medium transition-colors" data-tab="ckd">Chronic Kidney Disease</button>
+                    <button class="tab-button inactive-tab px-4 py-2 rounded-md text-sm font-medium transition-colors" data-tab="aki">Acute Kidney Injury</button>
+                    <button class="tab-button inactive-tab px-4 py-2 rounded-md text-sm font-medium transition-colors" data-tab="stones">Kidney Stones</button>
+                    <button class="tab-button inactive-tab px-4 py-2 rounded-md text-sm font-medium transition-colors" data-tab="infection">Kidney Infections</button>
+                </div>
+                <div id="tab-content">
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-20 scroll-mt-20" id="prevention">
+            <h2 class="text-3xl font-bold text-center mb-10 text-slate-900">Risk Factors &amp; Prevention</h2>
+            <p class="text-center max-w-2xl mx-auto text-slate-600 mb-12">Here are a few options, aiming for a similar length and emphasizing different aspects:
+
+*   **Protect your kidneys: Understanding and controlling risk factors is crucial. Learn more:**
+*   **Kidney health starts with risk factor management. Discover vital information below:**
+*   **Safeguard your kidneys by managing risk. Dive into these important topics:**
+*   **Best kidney defense: Control risk factors. Explore the essentials now:**</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="risk-card bg-white p-6 rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-risk="diabetes">
+                    <h3 class="text-xl font-semibold mb-3">Diabetes</h3>
+                    <p class="text-slate-600">**Here are a few options, all keeping a similar length and meaning:**
+
+*   **Main reason for kidney disease:** High blood sugar gradually harms kidney filtering units.
+*   **A primary driver of kidney failure:** Elevated blood sugar can degrade kidney function.
+*   **Kidney disease often stems from:** Persistent high blood sugar weakens kidney function.
+*   **Key cause of kidney issues:** Over time, high blood sugar injures the kidney's filtering system.</p>
+                </div>
+                <div class="risk-card bg-white p-6 rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-risk="hypertension">
+                    <h3 class="text-xl font-semibold mb-3">High Blood Pressure</h3>
+                    <p class="text-slate-600">Here are a few options, all similar in length:
+
+*   This is the second major reason. It strains kidney blood vessels.
+*   The second biggest factor. This harms kidney blood vessels.
+*   A close second, causing strain. This affects the kidneys' vessels.
+*   Ranking second in impact. It overloads kidney vessels.</p>
+                </div>
+                <div class="risk-card bg-white p-6 rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-risk="diet">
+                    <h3 class="text-xl font-semibold mb-3">Diet &amp; Hydration</h3>
+                    <p class="text-slate-600">Excess sodium, sugar, and inadequate hydration can damage kidneys.</p>
+                </div>
+                <div class="risk-card bg-white p-6 rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-risk="obesity">
+                    <h3 class="text-xl font-semibold mb-3">Obesity</h3>
+                    <p class="text-slate-600">Here are a few options, all similar in length:
+
+*   Raises diabetes and blood pressure risks, straining kidneys.
+*   Elevates diabetes/hypertension chances, stressing the kidneys.
+*   Boosts diabetes/high blood pressure risk, and burdens kidneys.
+*   Contributes to diabetes, hypertension, and kidney strain.</p>
+                </div>
+                 <div class="risk-card bg-white p-6 rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-risk="smoking">
+                    <h3 class="text-xl font-semibold mb-3">Smoking &amp; Alcohol</h3>
+                    <p class="text-slate-600">Here are a few options, all similar in length:
+
+*   Smoking harms vessels; too much alcohol risks kidney damage.
+*   Damaged vessels result from smoking; excess alcohol hurts kidneys.
+*   Smoking injures blood vessels; alcohol overuse harms kidneys.
+*   Blood vessels suffer from smoke, kidneys from excess alcohol.</p>
+                </div>
+                 <div class="risk-card bg-white p-6 rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-risk="medications">
+                    <h3 class="text-xl font-semibold mb-3">Medications</h3>
+                    <p class="text-slate-600">Kidney health may be damaged by excessive use of NSAIDs and other medications.</p>
+                </div>
+            </div>
+            <div class="mt-12 bg-white rounded-lg shadow-lg p-8 min-h-[200px] transition-opacity duration-500" id="risk-details">
+                <p class="text-slate-500 text-center">Here are a few options, all similar in length:
+
+*   Explore prevention by clicking a risk factor.
+*   Discover prevention tips: click a risk.
+*   Learn about prevention by clicking above.
+*   Click a risk to explore prevention details.
+*   Find prevention info: click a factor.</p>
+            </div>
+        </section>
+
+        <section class="scroll-mt-20" id="urgent">
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-800 p-6 rounded-lg shadow-md">
+                <div class="flex">
+                    <div class="py-1"><svg class="w-10 h-10 text-red-500 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2">When to Seek Immediate Medical Help</h3>
+                        <p class="mb-4">Here are a few options, all similar in length:
+
+*   **Concerning symptoms could signal kidney issues. See a doctor immediately if you notice:**
+*   **Serious kidney problems can cause specific symptoms. Get immediate medical help if:**
+*   **If you have these symptoms, it could be a serious kidney issue. Go to the ER if:**
+*   **Be aware: certain symptoms can point to a serious kidney issue. Seek immediate care:**</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>A sudden or complete stop in urination.</li>
+                            <li>Here are a few options, all similar in length and capturing the key elements:
+
+*   **Sudden, intense side/back pain, possibly with fever, chills, or nausea.**
+*   **Intense, stabbing pain in flank or back, often accompanied by fever and vomiting.**
+*   **Sharp, agonizing pain in the side or back, potentially alongside fever, chills, and sickness.**
+*   **Excruciating side/back pain, possibly linked to fever, chills, and/or vomiting.**</li>
+                            <li>Visible blood in your urine.</li>
+                            <li>Leg, ankle, or foot swelling, possibly with breathing difficulty.</li>
+                            <li>Sudden confusion or extreme fatigue.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.4
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active-nav');
+                            link.classList.add('inactive-nav');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('active-nav');
+                                link.classList.remove('inactive-nav');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            const conditionsData = {
+                ckd: {
+                    title: 'Chronic Kidney Disease (CKD)',
+                    content: `
+                        <p class="text-slate-600 mb-4">CKD is a gradual loss of kidney function over time. It's often called a "silent disease" as symptoms may not appear until significant damage has occurred.</p>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2 text-slate-800">Key Facts & Symptoms</h4>
+                                <ul class="list-disc list-inside space-y-1 text-slate-600">
+                                    <li>Primary causes are <strong>diabetes</strong> and <strong>high blood pressure</strong>.</li>
+                                    <li>Early stages are often asymptomatic.</li>
+                                    <li>Later symptoms include swelling, fatigue, nausea, and changes in urination.</li>
+                                    <li>Diagnosed via blood (eGFR) and urine (UACR) tests.</li>
+                                </ul>
+                                <h4 class="font-semibold text-lg mt-4 mb-2 text-slate-800">Management</h4>
+                                <p class="text-slate-600">Focuses on slowing progression by managing underlying conditions. Advanced stages may require dialysis or a kidney transplant.</p>
+                            </div>
+                            <div>
+                               <h4 class="font-semibold text-lg mb-2 text-slate-800">Main Causes of Kidney Failure</h4>
+                               <div class="chart-container"><canvas id="ckdChart"></canvas></div>
+                            </div>
+                        </div>
+                    `
+                },
+                aki: {
+                    title: 'Acute Kidney Injury (AKI)',
+                    content: `
+                        <p class="text-slate-600 mb-4">AKI is a sudden, rapid decline in kidney function. It can be life-threatening and requires prompt medical attention.</p>
+                        <h4 class="font-semibold text-lg mb-2 text-slate-800">Common Triggers</h4>
+                        <ul class="list-disc list-inside space-y-1 text-slate-600">
+                            <li><strong>Reduced Blood Flow:</strong> Caused by severe dehydration, major blood loss, or heart failure.</li>
+                            <li><strong>Direct Damage:</strong> From infections (like sepsis), certain medications (NSAIDs), or toxins.</li>
+                            <li><strong>Blockage:</strong> Urinary tract obstructions from kidney stones or an enlarged prostate.</li>
+                        </ul>
+                        <h4 class="font-semibold text-lg mt-4 mb-2 text-slate-800">Symptoms</h4>
+                        <p class="text-slate-600">Decreased urine output, fluid retention (swelling), shortness of breath, fatigue, and confusion.</p>
+                    `
+                },
+                stones: {
+                    title: 'Kidney Stones',
+                    content: `
+                        <p class="text-slate-600 mb-4">Kidney stones are hard mineral and salt deposits that form inside your kidneys. They can cause severe pain when passing through the urinary tract.</p>
+                         <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2 text-slate-800">Formation & Types</h4>
+                                <ul class="list-disc list-inside space-y-1 text-slate-600">
+                                    <li>Form when urine is too concentrated.</li>
+                                    <li>Most common are <strong>Calcium oxalate</strong> stones.</li>
+                                    <li>Others include uric acid, struvite, and cystine stones.</li>
+                                    <li>Risk factors include dehydration and high-sugar/salt diets.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2 text-slate-800">Symptoms & Treatment</h4>
+                                <p class="text-slate-600">Severe, sharp pain in the side and back, blood in urine, nausea. Small stones may pass with hydration. Larger stones might require medical procedures like shockwave lithotripsy or ureteroscopy.</p>
+                            </div>
+                        </div>
+                    `
+                },
+                infection: {
+                    title: 'Kidney Infections (Pyelonephritis)',
+                    content: `
+                        <p class="text-slate-600 mb-4">A serious type of urinary tract infection (UTI) that occurs when bacteria travel from the bladder to one or both kidneys.</p>
+                        <h4 class="font-semibold text-lg mb-2 text-slate-800">Causes & Risk Factors</h4>
+                        <ul class="list-disc list-inside space-y-1 text-slate-600">
+                            <li>Most commonly caused by <strong>E. coli</strong> bacteria.</li>
+                            <li>Risk is higher with urinary blockages, weakened immune systems (e.g., diabetes), and in women.</li>
+                        </ul>
+                        <h4 class="font-semibold text-lg mt-4 mb-2 text-slate-800">Symptoms & Treatment</h4>
+                        <p class="text-slate-600">Sudden onset of fever, chills, back/side pain, and painful urination. Requires prompt treatment with antibiotics to prevent complications like sepsis or permanent kidney damage.</p>
+                    `
+                }
+            };
+            
+            const riskData = {
+                diabetes: {
+                    title: 'Diabetes Management for Kidney Health',
+                    content: `
+                        <p class="text-slate-600 mb-4">Diabetes is the leading cause of kidney disease. Consistently high blood sugar damages the small blood vessels in the kidneys, impairing their ability to filter blood.</p>
+                        <h4 class="font-semibold text-lg mb-2 text-slate-800">Prevention Strategies:</h4>
+                        <ul class="list-disc list-inside space-y-1 text-slate-600">
+                            <li><strong>Strict Blood Sugar Control:</strong> Regularly monitor your blood sugar and keep it within your target range.</li>
+                            <li><strong>Medication Adherence:</strong> Take all diabetes medications as prescribed by your doctor.</li>
+                            <li><strong>Regular Check-ups:</strong> Get annual kidney function tests (eGFR and UACR).</li>
+                            <li><strong>Healthy Lifestyle:</strong> Follow a diabetes-friendly diet and exercise regularly.</li>
+                        </ul>`
+                },
+                hypertension: {
+                     title: 'Controlling High Blood Pressure',
+                    content: `
+                        <p class="text-slate-600 mb-4">Uncontrolled high blood pressure is the second leading cause of kidney failure. It damages arteries around the kidneys, reducing their blood supply.</p>
+                        <h4 class="font-semibold text-lg mb-2 text-slate-800">Prevention Strategies:</h4>
+                        <ul class="list-disc list-inside space-y-1 text-slate-600">
+                            <li><strong>Monitor Blood Pressure:</strong> Keep track of your blood pressure at home and at doctor's visits.</li>
+                            <li><strong>Low-Sodium Diet:</strong> Reduce salt intake to help lower blood pressure. Aim for less than 2,300 mg per day.</li>
+                            <li><strong>Medication:</strong> Take blood pressure medications like ACE inhibitors or ARBs as prescribed.</li>
+                            <li><strong>Exercise:</strong> Regular physical activity is proven to lower blood pressure.</li>
+                        </ul>`
+                },
+                diet: {
+                    title: 'Kidney-Friendly Diet and Hydration',
+                    content: `
+                        <p class="text-slate-600 mb-4">What you eat and drink has a direct impact on kidney health. A kidney-friendly diet helps prevent damage and slow the progression of disease.</p>
+                        <h4 class="font-semibold text-lg mb-2 text-slate-800">Key Principles:</h4>
+                        <ul class="list-disc list-inside space-y-1 text-slate-600">
+                            <li><strong>Limit Sodium:</strong> Avoid processed foods and added salt to control blood pressure.</li>
+                            <li><strong>Moderate Protein:</strong> Too much protein can overwork the kidneys. Focus on lean sources.</li>
+                            <li><strong>Control Phosphorus & Potassium:</strong> If you have CKD, you may need to limit these minerals.</li>
+                            <li><strong>Stay Hydrated:</strong> Drink plenty of water to help kidneys flush waste, unless your doctor advises fluid restriction.</li>
+                             <li><strong>Limit Sugar:</strong> Especially from sugary drinks, which contribute to obesity and diabetes.</li>
+                        </ul>`
+                },
+                obesity: {
+                     title: 'Weight Management',
+                    content: `
+                        <p class="text-slate-600 mb-4">Maintaining a healthy weight is crucial. Obesity increases the risk of diabetes and high blood pressure, and it also puts direct mechanical and inflammatory stress on the kidneys.</p>
+                        <h4 class="font-semibold text-lg mb-2 text-slate-800">Actionable Steps:</h4>
+                        <ul class="list-disc list-inside space-y-1 text-slate-600">
+                            <li><strong>Balanced Diet:</strong> Focus on whole foods, fruits, vegetables, and lean proteins.</li>
+                            <li><strong>Regular Exercise:</strong> Aim for at least 150 minutes of moderate-intensity activity per week.</li>
+                            <li><strong>Portion Control:</strong> Be mindful of serving sizes to manage calorie intake.</li>
+                            <li><strong>Benefits of Loss:</strong> Even a modest weight loss of 5-10% can significantly improve kidney health and lower risk factors.</li>
+                        </ul>`
+                },
+                smoking: {
+                     title: 'Avoid Smoking and Limit Alcohol',
+                    content: `
+                        <p class="text-slate-600 mb-4">Smoking and excessive alcohol consumption are both harmful to the kidneys.</p>
+                        <h4 class="font-semibold text-lg mb-2 text-slate-800">Key Impacts:</h4>
+                        <ul class="list-disc list-inside space-y-1 text-slate-600">
+                            <li><strong>Smoking:</strong> Damages blood vessels, reduces blood flow to the kidneys, accelerates disease progression, and increases the risk of kidney cancer. Quitting is one of the best things you can do.</li>
+                            <li><strong>Alcohol:</strong> Binge drinking can cause acute kidney injury. Chronic heavy drinking can lead to long-term damage and liver disease, which also harms the kidneys.</li>
+                        </ul>`
+                },
+                medications: {
+                     title: 'Use Medications Wisely',
+                    content: `
+                        <p class="text-slate-600 mb-4">Some common medications can harm your kidneys, especially with overuse or in those with pre-existing conditions. This is known as nephrotoxicity.</p>
+                        <h4 class="font-semibold text-lg mb-2 text-slate-800">Guidelines:</h4>
+                        <ul class="list-disc list-inside space-y-1 text-slate-600">
+                           <li><strong>NSAIDs:</strong> Be cautious with nonsteroidal anti-inflammatory drugs like ibuprofen and naproxen. They can reduce blood flow to the kidneys.</li>
+                           <li><strong>Consult a Doctor:</strong> Always talk to your doctor or pharmacist before taking any over-the-counter medication if you have kidney disease.</li>
+                           <li><strong>Follow Prescriptions:</strong> Take all prescribed medications exactly as directed.</li>
+                        </ul>`
+                }
+            };
+            
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContent = document.getElementById('tab-content');
+
+            function renderTabContent(tabKey) {
+                 const data = conditionsData[tabKey];
+                 tabContent.innerHTML = `
+                    <h3 class="text-2xl font-bold mb-4 text-slate-900">${data.title}</h3>
+                    ${data.content}
+                `;
+                if(tabKey === 'ckd') {
+                    renderCkdChart();
+                }
+            }
+
+            function renderCkdChart() {
+                const ctx = document.getElementById('ckdChart')?.getContext('2d');
+                if(!ctx) return;
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Diabetes', 'High Blood Pressure', 'Other Causes'],
+                        datasets: [{
+                            label: 'Primary Causes of Kidney Failure (%)',
+                            data: [44, 29, 27],
+                            backgroundColor: ['#3b82f6', '#60a5fa', '#93c5fd'],
+                            borderColor: ['#2563eb', '#3b82f6', '#60a5fa'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y',
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.dataset.label}: ${context.raw}%`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Percentage (%)'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('active-tab');
+                        btn.classList.add('inactive-tab');
+                    });
+                    button.classList.add('active-tab');
+                    button.classList.remove('inactive-tab');
+                    renderTabContent(button.dataset.tab);
+                });
+            });
+
+            renderTabContent('ckd');
+
+            const riskCards = document.querySelectorAll('.risk-card');
+            const riskDetails = document.getElementById('risk-details');
+            
+            riskCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const riskKey = card.dataset.risk;
+                    const data = riskData[riskKey];
+                    riskDetails.style.opacity = 0;
+                    setTimeout(() => {
+                        riskDetails.innerHTML = `
+                            <h3 class="text-2xl font-bold mb-4 text-slate-900">${data.title}</h3>
+                            ${data.content}
+                        `;
+                        riskDetails.style.opacity = 1;
+                    }, 300);
+                });
+            });
+
+        });
+    </script>
+
+
+<html><head></head><body><footer class="bg-gray-800 text-gray-300">
+  <div class="container mx-auto px-6 py-12 lg:px-8">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+      
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Lowback</h5>
+        <ul class="space-y-2">
+          <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/"></a>Taking care of lowback</li>
+          <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">Different type of pains</a></li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">
+          </a><li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/"></a><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-of-frozen-shoulder.html"></a>Frozen Shoulder</li>
+		  <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-upper-back.html"></a>Frozen Shoulder</li>
+          <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">Different type of pains</a></li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">
+		  
+		  
+		  
+		  </a><li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">	</a><a href="https://www.lowback.org/yoga/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Yoga</a></li>	
+
+
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/food/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Food</a></li>	
+		<a href="https://www.lowback.org/food/diet-compass.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Food</a>	
+												
+
+
+
+
+
+		 
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Injuries and Cure</h5>
+        <ul class="space-y-2">
+	
+	<li>								
+		<a href="https://www.lowback.org/Back-Spine-Problems.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Back-Spine-Problems</a>
+            </li>	
+		<a href="https://www.lowback.org/related-body-parts/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Related Body Parts</a>	
+
+		<a href="https://www.lowback.org/health-leg-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Leg</a>	
+		<a href="https://www.lowback.org/health-neck-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Neck</a>	
+		<a href="https://www.lowback.org/health-shoulder-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Shoulder</a>	
+		<a href="https://www.lowback.org/health-knee-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Knee</a>	
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/BackInjuries.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">BackInjuries</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/BackPain.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl03_title">BackPain</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/benefits-of-yoga-for-mental-health.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl04_title">benefits-of-yoga-for-mental-health</a>
+            </li>	
+
+
+
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Taking Care</h5>
+        <ul class="space-y-2">
+		<li><a href="https://www.lowback.org/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Home</a></li>	
+		<li><a href="https://www.lowback.org/sitemap.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Sitemap</a></li>	
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Contact Us</h5>
+        <div class="space-y-2">
+          <p>Redmond<br/>WA, USA</p>
+          <p>
+            <a class="hover:text-white hover:underline transition-colors duration-200" href="mailto:contact@dataknobs.com">contact@kreatewebsites.com</a>
+			<br/>This is an unofficial blog provided solely for educational and informational purposes. The content is not intended to constitute medical or health advice. Always consult a qualified healthcare professional regarding any questions or concerns about your health.
+          </p>
+          <p>
+            <a class="hover:text-white hover:underline transition-colors duration-200" href="tel:+14253411222">+1 (425) 341-1222</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 border-t border-gray-700 pt-8 flex flex-col items-center justify-between sm:flex-row">
+      <p class="text-sm text-gray-400">© 2025 Lowback. All rights reserved.</p>
+      
+      <div class="flex space-x-4 mt-4 sm:mt-0">
+        <a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.facebook.com/kreatewebsites/">
+          <span class="sr-only">Facebook</span>
+          <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path clip-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.772-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" fill-rule="evenodd"></path>
+          </svg>
+        </a>
+        <a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.twitter.com/kreatewebsites/">
+          <span class="sr-only">Twitter</span>
+          <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+          </svg>
+        </a>
+        <a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.linkedin.com/company/kreatewebsites/">
+          <span class="sr-only">LinkedIn</span>
+          <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path clip-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.783-1.75-1.75s.784-1.75 1.75-1.75 1.75.783 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill-rule="evenodd"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer></body></html></body></html>

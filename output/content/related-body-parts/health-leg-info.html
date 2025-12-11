@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Infographic: A Guide to Leg &amp; Muscle Health</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+    <!-- Chosen Palette: Brilliant Blues -->
+    <!-- Application Structure Plan: The infographic follows a logical narrative from understanding the problem to implementing solutions and recognizing emergencies. It begins with "The Root Causes" to visualize the primary categories and risk factors for leg pain. It then transitions to "Your Proactive Playbook," offering actionable prevention advice through clear diagrams and icon-based tips. A section on "Building Your Foundation" highlights key muscle groups and exercises. The narrative culminates in the most critical section, "Urgent Warnings," which uses a high-contrast design to emphasize red flag symptoms, ensuring this vital safety information is unmissable. -->
+    <!-- Visualization & Content Choices: 
+        1.  Primary Categories of Leg Pain -> Goal: Compare -> Viz: Donut Chart (Chart.js) -> Justification: To provide a quick, proportional overview of the main sources of leg pain, such as injuries vs. nerve-related issues.
+        2.  Key Lifestyle Risk Factors -> Goal: Rank/Compare -> Viz: Horizontal Bar Chart (Chart.js) -> Justification: To visually rank the impact of major risk factors like sedentary habits and excess weight, making the most significant threats immediately clear.
+        3.  Safe Lifting Technique -> Goal: Organize/Instruct -> Viz: HTML/CSS diagram with Unicode icons -> Justification: To present a clear, scannable "do vs. don't" guide for a critical prevention strategy without using SVG.
+        4.  Red Flag Symptoms -> Goal: Warn/Inform -> Viz: High-contrast alert-style cards (HTML/CSS) -> Justification: To create a visually arresting section that conveys the seriousness and urgency of critical medical symptoms, prioritizing user safety.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            color: #051923; /* Deepest Blue from Palette */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 320px;
+            }
+        }
+        .text-accent-light { color: #00A6FB; }
+        .bg-accent-light { background-color: #00A6FB; }
+        .border-accent-light { border-color: #00A6FB; }
+        
+        .text-accent-medium { color: #0582CA; }
+        .bg-accent-medium { background-color: #0582CA; }
+        
+        .text-accent-dark { color: #006494; }
+        .bg-accent-dark { background-color: #006494; }
+        
+        .bg-deep-blue { background-color: #051923; }
+        
+        .header-gradient {
+            background: linear-gradient(135deg, #003554, #0582CA);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-6xl font-black text-accent-dark mb-4 tracking-tight">POWER YOUR MOVEMENT</h1>
+            <p class="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto">Here are a few options, aiming for a similar length and meaning:
+
+*   **Infographic: Your guide to powerful, healthy legs for a pain-free, active lifestyle.**
+*   **Strengthen Legs: An infographic on resilience, key factors, and a pain-free life.**
+*   **Build Strong Legs: An infographic exploring health, resilience, and active living.**
+*   **The Ultimate Leg Guide: Infographic for strength, pain-free movement &amp; active living.**</p>
+        </header>
+
+        <section class="mb-20" id="causes">
+            <h2 class="text-3xl font-bold text-center mb-10 text-accent-dark">The Root Causes of Leg Pain</h2>
+            <p class="text-center max-w-3xl mx-auto text-gray-600 mb-12">Leg pain's causes are diverse: injuries, strain, nerve issues, and circulation. Identifying the root is key to effective prevention and treatment.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="bg-white p-6 rounded-xl shadow-2xl border-t-4 border-accent-light">
+                    <h3 class="text-xl font-semibold mb-4 text-center">Primary Categories of Leg Pain</h3>
+                    <div class="chart-container">
+                        <canvas id="causesChart"></canvas>
+                    </div>
+                    <p class="text-sm text-gray-500 text-center mt-4">Common culprits are injuries and overuse, with nerve and joint issues next in line.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-2xl border-t-4 border-accent-light">
+                    <h3 class="text-xl font-semibold mb-4 text-center">Key Lifestyle Risk Factors</h3>
+                    <div class="chart-container">
+                        <canvas id="riskFactorsChart"></canvas>
+                    </div>
+                    <p class="text-sm text-gray-500 text-center mt-4">Here are a few options, all similar in length and conveying the same meaning:
+
+*   **Leg health and pain are significantly impacted by daily routines and physical state.**
+*   **Your daily actions and fitness level greatly influence leg health and the onset of pain.**
+*   **Leg pain and overall health are largely determined by daily habits and physical fitness.**
+*   **Both physical condition and daily habits significantly contribute to leg health and pain issues.**</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-20 bg-gray-100 p-8 rounded-xl shadow-lg" id="prevention">
+            <h2 class="text-3xl font-bold text-center mb-10 text-accent-dark">Your Proactive Playbook for Prevention</h2>
+            <p class="text-center max-w-3xl mx-auto text-gray-600 mb-12">Here are a few options, all similar in length and emphasizing prevention:
+
+*   **Preventing leg pain is key.** Consistent movement, mindful eating, and proper rest create lasting protection against injury and discomfort.
+*   **Leg pain? Prevention first.** Smart movement, healthy diet, and sufficient rest fortify your body and significantly reduce pain risks.
+*   **Combat leg pain proactively:** Incorporate healthy movement, balanced nutrition, and adequate rest into your routine for injury and chronic pain defense.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <span class="text-5xl mb-3">🏋️</span>
+                    <h4 class="font-bold text-lg mb-2">Lift Smart</h4>
+                    <p class="text-gray-600 mb-4">To lift safely: Use legs, not back. Hold close, avoid twisting.</p>
+                    <div class="w-full text-left text-sm">
+                        <div class="flex items-center text-green-600 mb-2"><span class="mr-2 text-xl">✓</span> Bend knees, straight back.</div>
+                        <div class="flex items-center text-red-600"><span class="mr-2 text-xl">✗</span> Bend at waist, curved back.</div>
+                    </div>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <span class="text-5xl mb-3">🍎</span>
+                    <h4 class="font-bold text-lg mb-2">Eat for Strength</h4>
+                    <p class="text-gray-600">Here are a few options, all similar in length:
+
+*   **Combat inflammation and aid healing through whole foods, omega-3s, and antioxidants.**
+*   **Fuel repair and ease inflammation by eating a diet of whole foods, omega-3s, and antioxidants.**
+*   **Promote healing and curb inflammation: focus on whole foods, omega-3s, and antioxidants.**
+*   **Heal your body and reduce inflammation: Consume whole foods, omega-3s, and antioxidants.**</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center">
+                    <span class="text-5xl mb-3">👟</span>
+                    <h4 class="font-bold text-lg mb-2">Choose Proper Footwear</h4>
+                    <p class="text-gray-600">Choose activity-appropriate, supportive shoes. Proper footwear helps avoid kinetic chain imbalances.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="mb-20" id="exercises">
+            <h2 class="text-3xl font-bold text-center mb-10 text-accent-dark">Building Your Foundation: Key Muscle Groups</h2>
+            <p class="text-center max-w-3xl mx-auto text-gray-600 mb-12">By strengthening key leg muscles, we build stability, enhance function, and reduce injury risk. This approach creates a strong base for powerful, efficient movement.</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="bg-accent-dark text-white p-4 rounded-lg shadow-lg text-center">
+                    <h4 class="font-bold text-xl">Quadriceps</h4>
+                    <p class="text-xs mt-1">Exercises: Squats, Lunges</p>
+                </div>
+                <div class="bg-accent-medium text-white p-4 rounded-lg shadow-lg text-center">
+                    <h4 class="font-bold text-xl">Hamstrings</h4>
+                    <p class="text-xs mt-1">Exercises: Deadlifts, Curls</p>
+                </div>
+                <div class="bg-accent-light text-white p-4 rounded-lg shadow-lg text-center">
+                    <h4 class="font-bold text-xl">Glutes</h4>
+                    <p class="text-xs mt-1">Exercises: Bridges, Hip Thrusts</p>
+                </div>
+                <div class="bg-gray-700 text-white p-4 rounded-lg shadow-lg text-center">
+                    <h4 class="font-bold text-xl">Calves</h4>
+                    <p class="text-xs mt-1">Exercises: Heel Raises</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="header-gradient text-white p-8 rounded-xl shadow-2xl" id="red-flags">
+            <h2 class="text-3xl font-black text-center mb-4 tracking-tight">URGENT WARNINGS</h2>
+            <p class="text-center font-semibold text-lg text-yellow-300 mb-8">Here are a few options, all similar in length and meaning:
+
+*   **If leg pain occurs alongside these, get medical help ASAP.**
+*   **For leg pain with these symptoms, seek immediate medical attention.**
+*   **Experiencing leg pain and these symptoms? Seek medical care now.**
+*   **Leg pain and these symptoms warrant IMMEDIATE medical evaluation.**</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-gray-800">
+                <div class="bg-white/90 p-5 rounded-lg shadow-md">
+                    <h4 class="font-bold flex items-center mb-1"> <span class="text-2xl mr-2">💥</span> Inability to Bear Weight</h4>
+                    <p class="text-sm">Could indicate a fracture or severe injury.</p>
+                </div>
+                <div class="bg-white/90 p-5 rounded-lg shadow-md">
+                    <h4 class="font-bold flex items-center mb-1"><span class="text-2xl mr-2">🧠</span> Severe Numbness/Weakness</h4>
+                    <p class="text-sm">Suggests serious nerve compression or damage.</p>
+                </div>
+                <div class="bg-white/90 p-5 rounded-lg shadow-md">
+                    <h4 class="font-bold flex items-center mb-1"><span class="text-2xl mr-2">🩸</span> Calf Pain with Swelling</h4>
+                    <p class="text-sm">Classic sign of a DVT (blood clot), a medical emergency.</p>
+                </div>
+                <div class="bg-white/90 p-5 rounded-lg shadow-md">
+                    <h4 class="font-bold flex items-center mb-1"><span class="text-2xl mr-2">🌡️</span> Signs of Infection</h4>
+                    <p class="text-sm">Pain accompanied by fever, redness, or warmth.</p>
+                </div>
+                <div class="bg-white/90 p-5 rounded-lg shadow-md">
+                    <h4 class="font-bold flex items-center mb-1"><span class="text-2xl mr-2">🚽</span> Loss of Bladder/Bowel Control</h4>
+                    <p class="text-sm">A critical sign of Cauda Equina Syndrome.</p>
+                </div>
+                 <div class="bg-white/90 p-5 rounded-lg shadow-md">
+                    <h4 class="font-bold flex items-center mb-1"><span class="text-2xl mr-2">⚖️</span> Unexplained Weight Loss</h4>
+                    <p class="text-sm">Can be a sign of a tumor or systemic illness.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+        
+        const commonOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        font: { size: 12, family: 'Roboto' },
+                        color: '#051923'
+                    }
+                },
+                tooltip: {
+                    callbacks: { title: tooltipTitleCallback },
+                    bodyFont: { family: 'Roboto' },
+                    titleFont: { family: 'Roboto' }
+                }
+            }
+        };
+
+        const causesChartCtx = document.getElementById('causesChart').getContext('2d');
+        new Chart(causesChartCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Injuries & Overuse', 'Nerve-Related', 'Joint Conditions', 'Circulatory & Other'],
+                datasets: [{
+                    label: 'Pain Categories',
+                    data: [45, 25, 20, 10],
+                    backgroundColor: ['#0582CA', '#00A6FB', '#006494', '#003554'],
+                    borderColor: '#ffffff',
+                    borderWidth: 4,
+                }]
+            },
+            options: { ...commonOptions, cutout: '60%' }
+        });
+
+        const riskFactorsCtx = document.getElementById('riskFactorsChart').getContext('2d');
+        new Chart(riskFactorsCtx, {
+            type: 'bar',
+            data: {
+                labels: [['Sedentary Lifestyle', '& Weak Muscles'], 'Poor Posture', 'Excess Weight', 'Improper Lifting'],
+                datasets: [{
+                    label: 'Relative Risk Impact',
+                    data: [90, 80, 75, 65],
+                    backgroundColor: ['#003554', '#006494', '#0582CA', '#00A6FB'],
+                    borderRadius: 5
+                }]
+            },
+            options: {
+                ...commonOptions,
+                indexAxis: 'y',
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { callbacks: { title: tooltipTitleCallback } }
+                },
+                scales: {
+                    x: { display: false, beginAtZero: true, max: 100 },
+                    y: { 
+                        grid: { display: false, drawBorder: false },
+                        ticks: { font: { size: 12, weight: 'bold', family: 'Roboto' }, color: '#051923' }
+                    }
+                }
+            }
+        });
+    </script>
+
+
+<html><head></head><body><footer class="bg-gray-800 text-gray-300">
+  <div class="container mx-auto px-6 py-12 lg:px-8">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+      
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Lowback</h5>
+        <ul class="space-y-2">
+          <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/"></a>Taking care of lowback</li>
+          <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">Different type of pains</a></li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">
+          </a><li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/"></a><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-of-frozen-shoulder.html"></a>Frozen Shoulder</li>
+		  <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-upper-back.html"></a>Frozen Shoulder</li>
+          <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">Different type of pains</a></li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">
+		  
+		  
+		  
+		  </a><li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">	</a><a href="https://www.lowback.org/yoga/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Yoga</a></li>	
+
+
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/food/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Food</a></li>	
+		<a href="https://www.lowback.org/food/diet-compass.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Food</a>	
+												
+
+
+
+
+
+		 
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Injuries and Cure</h5>
+        <ul class="space-y-2">
+	
+	<li>								
+		<a href="https://www.lowback.org/Back-Spine-Problems.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Back-Spine-Problems</a>
+            </li>	
+		<a href="https://www.lowback.org/related-body-parts/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Related Body Parts</a>	
+
+		<a href="https://www.lowback.org/health-leg-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Leg</a>	
+		<a href="https://www.lowback.org/health-neck-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Neck</a>	
+		<a href="https://www.lowback.org/health-shoulder-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Shoulder</a>	
+		<a href="https://www.lowback.org/health-knee-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Knee</a>	
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/BackInjuries.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">BackInjuries</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/BackPain.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl03_title">BackPain</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/benefits-of-yoga-for-mental-health.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl04_title">benefits-of-yoga-for-mental-health</a>
+            </li>	
+
+
+
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Taking Care</h5>
+        <ul class="space-y-2">
+		<li><a href="https://www.lowback.org/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Home</a></li>	
+		<li><a href="https://www.lowback.org/sitemap.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Sitemap</a></li>	
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Contact Us</h5>
+        <div class="space-y-2">
+          <p>Redmond<br/>WA, USA</p>
+          <p>
+            <a class="hover:text-white hover:underline transition-colors duration-200" href="mailto:contact@dataknobs.com">contact@kreatewebsites.com</a>
+			<br/>This is an unofficial blog provided solely for educational and informational purposes. The content is not intended to constitute medical or health advice. Always consult a qualified healthcare professional regarding any questions or concerns about your health.
+          </p>
+          <p>
+            <a class="hover:text-white hover:underline transition-colors duration-200" href="tel:+14253411222">+1 (425) 341-1222</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 border-t border-gray-700 pt-8 flex flex-col items-center justify-between sm:flex-row">
+      <p class="text-sm text-gray-400">© 2025 Lowback. All rights reserved.</p>
+      
+      <div class="flex space-x-4 mt-4 sm:mt-0">
+        <a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.facebook.com/kreatewebsites/">
+          <span class="sr-only">Facebook</span>
+          <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path clip-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.772-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" fill-rule="evenodd"></path>
+          </svg>
+        </a>
+        <a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.twitter.com/kreatewebsites/">
+          <span class="sr-only">Twitter</span>
+          <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+          </svg>
+        </a>
+        <a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.linkedin.com/company/kreatewebsites/">
+          <span class="sr-only">LinkedIn</span>
+          <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path clip-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.783-1.75-1.75s.784-1.75 1.75-1.75 1.75.783 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill-rule="evenodd"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer></body></html></body></html>
