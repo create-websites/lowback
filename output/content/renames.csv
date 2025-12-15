@@ -7,17 +7,43 @@ health-low-back.html,health-low-back.html,yes,merged
 health-neck.html,how-to-take-care-of-neck.html,yes,merged
 health-shoulder.html,how-to-take-care-of-shoulders.html,yes,merged
 health-upper-back.html,how-to-take-care-upper-back.html,yes,merged
-lower-back.html,index.html,yes,merged
-muscle-care-after-50.html,how-to-take-care-of-muscles-after-50.html,yes,merged
+how-to-take-care-of-frozen-shoulder.html,how-to-take-care-of-frozen-shoulder-2.html,no,"collision, renamed to how-to-take-care-of-frozen-shoulder-2.html"
+how-to-take-care-of-hands.html,how-to-take-care-of-hands-2.html,no,"collision, renamed to how-to-take-care-of-hands-2.html"
+how-to-take-care-of-knees.html,how-to-take-care-of-knees-2.html,no,"collision, renamed to how-to-take-care-of-knees-2.html"
+how-to-take-care-of-legs.html,how-to-take-care-of-legs-2.html,no,"collision, renamed to how-to-take-care-of-legs-2.html"
+how-to-take-care-of-muscles-after-50.html,how-to-take-care-of-muscles-after-50.html,no,merged
+how-to-take-care-of-neck.html,how-to-take-care-of-neck-2.html,no,"collision, renamed to how-to-take-care-of-neck-2.html"
+how-to-take-care-of-shoulders.html,how-to-take-care-of-shoulders-2.html,no,"collision, renamed to how-to-take-care-of-shoulders-2.html"
+how-to-take-care-upper-back.html,how-to-take-care-upper-back-2.html,no,"collision, renamed to how-to-take-care-upper-back-2.html"
+index.html,articles-list.html,yes,merged
+muscle-care-after-50.html,how-to-take-care-of-muscles-after-50-2.html,yes,"collision, renamed to how-to-take-care-of-muscles-after-50-2.html"
 food\diet-compass.html,food\diet-compass.html,yes,merged
-related-body-parts\health-hand-info.html,related-body-parts\health-hand-info.html,yes,merged
-related-body-parts\health-knee-info.html,related-body-parts\health-knee-info.html,yes,merged
-related-body-parts\health-leg-info.html,related-body-parts\health-leg-info.html,yes,merged
-related-body-parts\health-neck-info.html,related-body-parts\health-neck-info.html,yes,merged
-related-body-parts\health-shoulder-info.html,related-body-parts\health-shoulder-info.html,yes,merged
-related-body-parts\health-upper-back-info.html,related-body-parts\health-upper-back-info.html,yes,merged
-taking-care-of-whole-body\cardio-exercise-for-heart.html,taking-care-of-whole-body\cardio-exercise-for-heart.html,yes,merged
-taking-care-of-whole-body\gumcare.html,taking-care-of-whole-body\gumcare.html,yes,merged
-taking-care-of-whole-body\health-eye-info.html,taking-care-of-whole-body\health-eye-info.html,yes,merged
-taking-care-of-whole-body\health-kidney.html,taking-care-of-whole-body\health-kidney.html,yes,merged
-taking-care-of-whole-body\heart-health.html,taking-care-of-whole-body\heart-health.html,yes,merged
+related-body-parts\abdominal-muscles.html,related-body-parts\abdominal-muscles.html,no,merged
+related-body-parts\back-related.html,related-body-parts\index.html,yes,merged
+related-body-parts\groin.html,related-body-parts\groin.html,no,merged
+related-body-parts\health-hand-info.html,related-body-parts\health-hand-info.html,no,merged
+related-body-parts\health-knee-info.html,related-body-parts\health-knee-info.html,no,merged
+related-body-parts\health-leg-info.html,related-body-parts\health-leg-info.html,no,merged
+related-body-parts\health-neck-info.html,related-body-parts\health-neck-info.html,no,merged
+related-body-parts\health-shoulder-info.html,related-body-parts\health-shoulder-info.html,no,merged
+related-body-parts\health-upper-back-info.html,related-body-parts\health-upper-back-info.html,no,merged
+related-body-parts\hip-care.html,related-body-parts\hip-care.html,no,merged
+related-body-parts\knee-care.html,related-body-parts\knee-care.html,no,merged
+related-body-parts\lower-back-care.html,related-body-parts\lower-back-care.html,no,merged
+related-body-parts\neck.html,related-body-parts\neck.html,no,merged
+related-body-parts\pelvios-and-sacroiliac-joint.html,related-body-parts\pelvios-and-sacroiliac-joint.html,no,merged
+related-body-parts\shoulder.html,related-body-parts\shoulder.html,no,merged
+related-body-parts\thigh.html,related-body-parts\thigh.html,no,merged
+related-body-parts\upper-back.html,related-body-parts\upper-back.html,no,merged
+related-body-parts\wrist-forearm.html,related-body-parts\wrist-forearm.html,no,merged
+shoulders\frozen-shoulder-stretches-exercise.html,shoulders\frozen-shoulder-stretches-exercise.html,yes,merged
+shoulders\frozen-shoulder-symptoms.html,shoulders\frozen-shoulder-symptoms.html,yes,merged
+shoulders\frozen-shoulder-test.html,shoulders\frozen-shoulder-test.html,yes,merged
+shoulders\frozen-shoulder.html,shoulders\frozen-shoulder.html,yes,merged
+shoulders\shoulder-exercise-home-men-women.html,shoulders\shoulder-exercise-home-men-women.html,yes,merged
+shoulders\shoulder-exercise.html,shoulders\shoulder-exercise.html,yes,merged
+taking-care-of-whole-body\cardio-exercise-for-heart.html,taking-care-of-whole-body\cardio-exercise-for-heart.html,no,merged
+taking-care-of-whole-body\gumcare.html,taking-care-of-whole-body\gumcare.html,no,merged
+taking-care-of-whole-body\health-eye-info.html,taking-care-of-whole-body\health-eye-info.html,no,merged
+taking-care-of-whole-body\health-kidney.html,taking-care-of-whole-body\health-kidney.html,no,merged
+taking-care-of-whole-body\heart-health.html,taking-care-of-whole-body\heart-health.html,no,merged

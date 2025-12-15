@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Interactive Guide to Hand Health &amp; Muscle Building</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <!-- Chosen Palette: Warm Neutrals with Subtle Blue Accent -->
+    <!-- Application Structure Plan: The SPA is structured into logical, task-oriented sections to guide the user from foundational knowledge to actionable strategies. It begins with 'Anatomy & Conditions' for understanding, moves to 'Ergonomics & Prevention' for proactive care, and offers practical solutions in 'Guided Exercises'. The 'Holistic Health' section broadens the perspective to lifestyle factors, and the final 'When to Seek Help' section provides critical safety information. This flow is designed for maximum usability, allowing users to easily access the information most relevant to their needs, whether it's identifying a condition, learning preventive ergonomics, or finding appropriate exercises. -->
+    <!-- Visualization & Content Choices: 
+        1.  Major Causes of Hand & Wrist Pain -> Goal: Compare/Inform -> Viz: Doughnut Chart (Chart.js) -> Interaction: Hover tooltips for details -> Justification: Provides a quick, proportional overview of pain sources (Repetitive Strain vs. Arthritis vs. Acute Injury), making complex data easily digestible.
+        2.  Common Hand/Wrist Conditions -> Goal: Organize/Inform -> Viz: Filterable Card Grid (HTML/CSS/JS) -> Interaction: Buttons to filter conditions by type (e.g., 'Nerve', 'Tendon', 'Joint') -> Justification: Creates an interactive glossary for users to explore different conditions without being overwhelmed by text.
+        3.  Targeted Hand & Wrist Exercises -> Goal: Organize/Instruct -> Viz: Filterable Card Gallery (HTML/CSS/JS) -> Interaction: Filter by type ('Strengthening' vs. 'Flexibility') -> Justification: Provides a practical, easy-to-use tool for rehabilitation and prevention, turning a static list into an engaging feature.
+        4.  Red Flag Symptoms -> Goal: Warn/Instruct -> Viz: High-contrast alert-style cards (HTML/CSS with Unicode icons) -> Justification: Presents critical safety information with maximum clarity and impact, ensuring the urgent message is immediately understood.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .bg-cream { background-color: #FDFBF5; }
+        .bg-warm-gray-100 { background-color: #F5F2EF; }
+        .text-dark-brown { color: #433A31; }
+        .accent-blue { color: #3B82F6; }
+        .bg-accent-blue { background-color: #3B82F6; }
+        .border-accent-blue { border-color: #3B82F6; }
+        nav a {
+            transition: color 0.3s ease;
+        }
+        nav a.active, nav a:hover {
+            color: #2563EB;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        .card-item {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+        }
+        .filter-btn.active {
+            background-color: #3B82F6;
+            color: white;
+            border-color: #3B82F6;
+        }
+    </style>
+</head>
+<body class="bg-cream text-dark-brown">
+
+    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="flex items-center justify-between h-16" id="main-nav">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold accent-blue">Hand Health &amp; Muscle Building</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium" href="#conditions">Conditions</a>
+                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium" href="#ergonomics">Ergonomics</a>
+                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium" href="#exercises">Exercises</a>
+                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium" href="#holistic-health">Holistic Health</a>
+                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium text-red-600 font-bold" href="#red-flags">Red Flags</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:bg-gray-200 focus:outline-none" id="mobile-menu-button">
+                        <span class="sr-only">Open main menu</span>
+                        <span aria-hidden="true" class="block h-6 w-6">☰</span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium" href="#conditions">Conditions</a>
+                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium" href="#ergonomics">Ergonomics</a>
+                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium" href="#exercises">Exercises</a>
+                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium" href="#holistic-health">Holistic Health</a>
+                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium text-red-600 font-bold" href="#red-flags">Red Flags</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+        <section class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">An Interactive Guide to Hand Health</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-600">Here are a few options, maintaining a similar length and meaning:
+
+*   Hands are vital; this resource offers insights and methods to learn about, care for, and fortify your hands and wrists for lasting wellness and peak performance.
+
+*   Daily tasks rely on our hands. This guide delivers information and techniques to understand, safeguard, and enhance your hands and wrists for enduring health and peak functionality.
+*   The hands are fundamental. This resource arms you with information and strategies to comprehend, defend, and fortify your hands and wrists for sustained well-being and peak ability.</p>
+        </section>
+
+        <section class="mb-16 scroll-mt-20" id="conditions">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Anatomy &amp; Common Conditions</h3>
+            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">Various factors contribute to hand and wrist pain, such as compressed nerves, inflamed tendons, and joint wear. Identifying these frequent causes is crucial for proper treatment and avoiding future issues.</p>
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-xl mb-12">
+                 <h4 class="text-xl font-semibold mb-4 text-center">Primary Categories of Hand &amp; Wrist Pain</h4>
+                <div class="chart-container">
+                    <canvas id="causesChart"></canvas>
+                </div>
+            </div>
+            <div class="bg-warm-gray-100 p-6 md:p-8 rounded-xl shadow-lg">
+                <h4 class="text-xl font-semibold mb-6 text-center">Explore Common Hand &amp; Wrist Conditions</h4>
+                <div class="flex flex-wrap justify-center gap-2 mb-6" id="condition-filters">
+                    <button class="filter-btn active px-4 py-2 rounded-full text-sm font-medium" data-filter="all">All</button>
+                    <button class="filter-btn bg-white text-dark-brown px-4 py-2 rounded-full text-sm font-medium border" data-filter="Nerve">Nerve-Related</button>
+                    <button class="filter-btn bg-white text-dark-brown px-4 py-2 rounded-full text-sm font-medium border" data-filter="Tendon">Tendon-Related</button>
+                    <button class="filter-btn bg-white text-dark-brown px-4 py-2 rounded-full text-sm font-medium border" data-filter="Joint">Joint-Related</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="conditions-gallery">
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16 scroll-mt-20" id="ergonomics">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Ergonomics &amp; Prevention</h3>
+            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">To avoid hand/wrist pain, reduce repetitive strain. Good ergonomics at your computer and with tools are key to preventing long-term injury.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-accent-blue card-item">
+                    <h4 class="text-xl font-semibold mb-3 flex items-center"><span class="mr-2 text-2xl">💻</span> Computer Workstation</h4>
+                     <ul class="list-disc list-inside text-gray-600 mt-2 space-y-1 text-sm">
+                        <li><strong>Neutral Wrists:</strong> Maintain straight wrists; avoid bending them upward, downward, or sideways.</li>
+                        <li><strong>Elbows at 90°:</strong> Here are a few options, all similar in length:
+
+*   **Set chair height: aim for 90-degree elbow bends.**
+*   **Angle elbows: adjust chair for a right angle.**
+*   **Chair height: find a 90-degree elbow bend.**
+*   **Adjust chair until elbows form right angles.**</li>
+                        <li><strong>Monitor at Eye Level:</strong> Here are a few options, all similar in length:
+
+*   Place the screen's top near or just under your eyes.
+*   Set the monitor's top at or a bit below eye height.
+*   Ensure screen's top is level with or lower than your eyes.
+*   The screen's top: eye level or slightly beneath.</li>
+                        <li><strong>Take Micro-Breaks:</strong> Every 10-15 minutes, let your hands relax and stretch.</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-accent-blue card-item">
+                    <h4 class="text-xl font-semibold mb-3 flex items-center"><span class="mr-2 text-2xl">🛠️</span> Hand Tool Use</h4>
+                    <ul class="list-disc list-inside text-gray-600 mt-2 space-y-1 text-sm">
+                        <li><strong>Power Grip:</strong> Employ your entire hand to grasp tools, rather than just your digits.</li>
+                        <li><strong>Proper Fit:</strong> Use tools with handles that fit your hand comfortably.</li>
+                        <li><strong>Avoid Vibration:</strong> Use anti-vibration gloves or materials for vibrating tools.</li>
+                        <li><strong>Vary Tasks:</strong> Alternate between different tasks to avoid repetitive motions.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16 scroll-mt-20" id="exercises">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Guided Exercise Library</h3>
+            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">Targeted exercises enhance hand, wrist, and forearm flexibility, strength, and ease muscle tension. Use filters to locate strengthening or flexibility routines.</p>
+            <div class="flex justify-center flex-wrap gap-2 mb-8" id="exercise-filters">
+                <button class="ex-filter-btn active px-4 py-2 rounded-full text-sm font-medium" data-filter="all">All</button>
+                <button class="ex-filter-btn bg-white text-dark-brown px-4 py-2 rounded-full text-sm font-medium border" data-filter="Flexibility">Flexibility &amp; Mobility</button>
+                <button class="ex-filter-btn bg-white text-dark-brown px-4 py-2 rounded-full text-sm font-medium border" data-filter="Strengthening">Strengthening</button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="exercise-gallery">
+            </div>
+        </section>
+
+        <section class="mb-16 scroll-mt-20" id="holistic-health">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Holistic Health Factors</h3>
+            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">Our overall well-being strongly influences the musculoskeletal system, particularly the hands. Maintaining a healthy weight, diet, and sleep schedule is crucial for reducing inflammation and promoting tissue repair.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md text-center card-item">
+                    <span class="text-4xl">⚖️</span>
+                    <h4 class="font-semibold text-lg my-2">Weight Management</h4>
+                    <p class="text-sm text-gray-600">Obesity elevates systemic inflammation, potentially exacerbating arthritis, including in non-weight-bearing joints such as the hands.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center card-item">
+                    <span class="text-4xl">🥗</span>
+                    <h4 class="font-semibold text-lg my-2">Anti-Inflammatory Diet</h4>
+                    <p class="text-sm text-gray-600">Here are a few options, all similar in length and conveying the same information:
+
+*   **Foods such as salmon (Omega-3s), berries (antioxidants), and nuts/olive oil (healthy fats) can combat inflammation and promote joint well-being.**
+*   **For joint health, consume foods high in Omega-3s (salmon), antioxidants (berries), and healthy fats (nuts, olive oil), which help fight inflammation.**
+*   **Reduce inflammation and support joints with foods like salmon (Omega-3s), berries (antioxidants), and olive oil/nuts (healthy fats).**
+*   **Incorporating foods like salmon (Omega-3s), berries (antioxidants), and nuts/olive oil (healthy fats) can aid joint health by reducing inflammation.**</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center card-item">
+                    <span class="text-4xl">😴</span>
+                    <h4 class="font-semibold text-lg my-2">Optimal Sleep</h4>
+                    <p class="text-sm text-gray-600">Prioritize quality sleep to aid muscle recovery and inflammation reduction. Employ pillows for neutral wrist positioning, minimizing discomfort.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="scroll-mt-20" id="red-flags">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8 text-red-700">Red Flags: When to Seek Professional Help</h3>
+            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">Though many hand ailments resolve at home, specific symptoms may signal a severe issue needing professional diagnosis. Don't hesitate to consult a doctor if you experience these.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="red-flags-container">
+            </div>
+        </section>
+    </main>
+
+<!--
+    <footer class="bg-warm-gray-100 mt-16">
+        <div class="container mx-auto py-6 px-4 text-center text-gray-500">
+            <p class="text-sm">This guide provides informational content and should not be considered a substitute for professional medical advice, diagnosis, or treatment. Always consult with a qualified health provider for any health concerns.</p>
+        </div>
+    </footer>
+-->
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const causesChartCtx = document.getElementById('causesChart').getContext('2d');
+        new Chart(causesChartCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Repetitive Strain Injury (RSI)', 'Arthritis (OA & RA)', 'Acute Injury (Fractures/Sprains)', 'Nerve Compression (e.g., CTS)'],
+                datasets: [{
+                    label: 'Categories of Hand & Wrist Pain',
+                    data: [45, 25, 15, 15],
+                    backgroundColor: ['#3B82F6', '#60A5FA', '#93C5FD', '#BFDBFE'],
+                    borderColor: '#FDFBF5',
+                    borderWidth: 4,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#433A31' }
+                    },
+                    tooltip: {
+                         callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                  return label.join(' ');
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const conditionsData = [
+            { name: 'Carpal Tunnel Syndrome', type: 'Nerve', desc: 'Pressure on the median nerve causing numbness, tingling, and weakness in the hand and arm.' },
+            { name: 'Wrist Tendinitis', type: 'Tendon', desc: 'Inflammation of a wrist tendon, leading to pain, tenderness, and mild swelling.' },
+            { name: 'De Quervain\'s Tenosynovitis', type: 'Tendon', desc: 'Painful condition affecting tendons on the thumb side of the wrist.' },
+            { name: 'Osteoarthritis (OA)', type: 'Joint', desc: '"Wear-and-tear" arthritis causing cartilage breakdown, pain, and stiffness.' },
+            { name: 'Rheumatoid Arthritis (RA)', type: 'Joint', desc: 'Autoimmune disease causing chronic inflammation, pain, and swelling in joints.' },
+            { name: 'Hand/Wrist Fracture', type: 'Joint', desc: 'A break in one or more bones of the hand or wrist, usually from trauma.' },
+            { name: 'Repetitive Strain Injury (RSI)', type: 'Tendon', desc: 'Pain from repeated movements affecting muscles and tendons in the forearm, wrist, and hand.' },
+            { name: 'Trigger Finger', type: 'Tendon', desc: 'A condition where a finger gets stuck in a bent position, caused by tendon inflammation.' },
+            { name: 'Ganglion Cyst', type: 'Joint', desc: 'Noncancerous lumps that most commonly develop along the tendons or joints of wrists or hands.' },
+        ];
+        
+        const conditionsGallery = document.getElementById('conditions-gallery');
+        const conditionFilters = document.getElementById('condition-filters');
+
+        function renderConditions(filter) {
+            conditionsGallery.innerHTML = '';
+            const filteredData = filter === 'all' ? conditionsData : conditionsData.filter(c => c.type === filter);
+            filteredData.forEach(c => {
+                const card = document.createElement('div');
+                card.className = 'card-item bg-white p-4 rounded-lg shadow-md';
+                card.innerHTML = `
+                    <h5 class="font-semibold text-md mb-2">${c.name}</h5>
+                    <p class="text-sm text-gray-600 mb-2">${c.desc}</p>
+                    <span class="text-xs font-semibold px-2 py-1 rounded-full bg-blue-100 text-blue-800">${c.type}</span>
+                `;
+                conditionsGallery.appendChild(card);
+            });
+        }
+        
+        conditionFilters.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                document.querySelectorAll('#condition-filters .filter-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+                renderConditions(e.target.dataset.filter);
+            }
+        });
+
+        const exercisesData = [
+            { name: 'Wrist Flexor Stretch', type: 'Flexibility', desc: 'Gently bend wrist down.' },
+            { name: 'Wrist Extensor Stretch', type: 'Flexibility', desc: 'Gently extend wrist up.' },
+            { name: 'Tendon Glides', type: 'Flexibility', desc: 'Cycle through finger positions.' },
+            { name: 'Prayer Stretch', type: 'Flexibility', desc: 'Press palms together, lower hands.' },
+            { name: 'Grip Strengthening', type: 'Strengthening', desc: 'Squeeze a soft ball.' },
+            { name: 'Finger Lifts', type: 'Strengthening', desc: 'Lift each finger off a flat surface.' },
+            { name: 'Wrist Curls', type: 'Strengthening', desc: 'Use light weights to curl wrist up.' },
+            { name: 'Thumb Opposition', type: 'Strengthening', desc: 'Touch thumb to each fingertip.' },
+        ];
+        
+        const exerciseGallery = document.getElementById('exercise-gallery');
+        const exerciseFilters = document.getElementById('exercise-filters');
+
+        function renderExercises(filter) {
+            exerciseGallery.innerHTML = '';
+            const filteredData = filter === 'all' ? exercisesData : exercisesData.filter(ex => ex.type === filter);
+            filteredData.forEach(ex => {
+                const card = document.createElement('div');
+                card.className = 'card-item bg-white p-4 rounded-lg shadow-md flex flex-col items-center text-center';
+                const icon = ex.type === 'Flexibility' ? '🧘' : '💪';
+                card.innerHTML = `
+                    <div class="h-16 w-16 bg-warm-gray-100 rounded-full mb-3 flex items-center justify-center text-3xl">${icon}</div>
+                    <h5 class="font-semibold">${ex.name}</h5>
+                    <p class="text-xs text-gray-500 mb-2">${ex.desc}</p>
+                    <span class="text-xs font-semibold px-2 py-1 rounded-full ${ex.type === 'Flexibility' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">${ex.type}</span>
+                `;
+                exerciseGallery.appendChild(card);
+            });
+        }
+
+        exerciseFilters.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                document.querySelectorAll('#exercise-filters .ex-filter-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+                renderExercises(e.target.dataset.filter);
+            }
+        });
+
+        const redFlagsData = [
+            { icon: '💥', title: 'Severe Pain After Injury', desc: 'Intense pain, swelling, or deformity after a fall or blow could signal a fracture.' },
+            { icon: '🌡️', title: 'Signs of Infection', desc: 'Redness, significant swelling, warmth, or fever accompanying pain requires urgent evaluation.' },
+            { icon: '📉', title: 'Loss of Sensation', desc: 'Sudden or progressive numbness or severe tingling in the hand or fingers indicates nerve issues.' },
+            { icon: '💪', title: 'Sudden, Severe Weakness', desc: 'An abrupt inability to grip objects or move the wrist/fingers needs immediate attention.' },
+            { icon: '⚪', title: 'Pale or Bluish Fingers', desc: 'Discoloration, especially with coldness, can indicate a serious circulatory problem.' },
+            { icon: ' lumps', title: 'Rapidly Growing Lumps', desc: 'Any new or rapidly changing lumps or masses should be checked by a doctor.' },
+        ];
+
+        const redFlagsContainer = document.getElementById('red-flags-container');
+        redFlagsData.forEach(flag => {
+            const item = document.createElement('div');
+            item.className = 'bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg flex items-start card-item';
+            item.innerHTML = `
+                <span class="text-3xl mr-4">${flag.icon}</span>
+                <div>
+                    <h5 class="font-bold text-red-700">${flag.title}</h5>
+                    <p class="text-sm text-red-600">${flag.desc}</p>
+                </div>
+            `;
+            redFlagsContainer.appendChild(item);
+        });
+
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        document.querySelectorAll('#main-nav a, #mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+        
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('main section');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active', 'accent-blue', 'font-bold');
+                        if (`#${entry.target.id}` === link.getAttribute('href')) {
+                            link.classList.add('active', 'accent-blue', 'font-bold');
+                        }
+                    });
+                }
+            });
+        }, { rootMargin: '-30% 0px -70% 0px' });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+        
+        renderConditions('all');
+        renderExercises('all');
+    });
+    </script>
+
+
+<html><head></head><body><footer class="bg-gray-800 text-gray-300">
+  <div class="container mx-auto px-6 py-12 lg:px-8">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+      
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Lowback</h5>
+        <ul class="space-y-2">
+          <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/"></a>Taking care of lowback</li>
+          <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">Different type of pains</a></li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">
+      
+		  
+		  
+		  
+		  </a><li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">	</a><a href="https://www.lowback.org/yoga/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Yoga</a></li>	
+
+
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/food/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Food</a>
+            </li>	
+
+
+
+
+
+												
+		
+
+
+
+
+
+												
+		<li><a href="https://www.lowback.org/main-cities-of-india.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl07_title">Main-cities-of-india</a></li>	
+
+		<li><a href="https://www.lowback.org/Mandir.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl08_title">Mandir</a> </li>	
+
+		<li><a href="https://www.lowback.org/Market-decoration-during-Diwali.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl09_title">Market-decoration-during-Diwali</a></li>	
+												
+		<li><a href="https://www.lowback.org/markets.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl10_title">Markets</a></li>	
+												
+		<li><a href="https://www.lowback.org/old-page.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl11_title">Old-page</a></li>	
+												
+		<li><a href="https://www.lowback.org/Ravan-effigy-burn-in-delhi.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl12_title">Ravan-effigy-burn-in-delhi</a> </li>	
+
+
+
+
+		 
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Injuries and Cure</h5>
+        <ul class="space-y-2">
+	
+	<li>								
+		<a href="https://www.lowback.org/Back-Spine-Problems.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Back-Spine-Problems</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/BackInjuries.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">BackInjuries</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/BackPain.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl03_title">BackPain</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/benefits-of-yoga-for-mental-health.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl04_title">benefits-of-yoga-for-mental-health</a>
+            </li>	
+
+
+
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Taking Care</h5>
+        <ul class="space-y-2">
+		<li><a href="https://www.lowback.org/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Home</a></li>	
+		<li><a href="#" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">When to see Doctor</a></li>	
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Contact Us</h5>
+        <div class="space-y-2">
+          <p>Redmond<br/>WA, USA</p>
+          <p>
+            <a class="hover:text-white hover:underline transition-colors duration-200" href="mailto:contact@dataknobs.com">contact@kreatewebsites.com</a>
+          </p>
+          <p>
+            <a class="hover:text-white hover:underline transition-colors duration-200" href="tel:+14253411222">+1 (425) 341-1222</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 border-t border-gray-700 pt-8 flex flex-col items-center justify-between sm:flex-row">
+      <p class="text-sm text-gray-400">© 2025 Lowback. All rights reserved.</p>
+      
+      <div class="flex space-x-4 mt-4 sm:mt-0">
+        <a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.facebook.com/kreatewebsites/">
+          <span class="sr-only">Facebook</span>
+          <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path clip-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.772-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" fill-rule="evenodd"></path>
+          </svg>
+        </a>
+        <a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.twitter.com/kreatewebsites/">
+          <span class="sr-only">Twitter</span>
+          <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+          </svg>
+        </a>
+        <a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.linkedin.com/company/kreatewebsites/">
+          <span class="sr-only">LinkedIn</span>
+          <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path clip-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.783-1.75-1.75s.784-1.75 1.75-1.75 1.75.783 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill-rule="evenodd"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer></body></html></body></html>

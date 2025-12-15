@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Interactive Guide to Shoulder Care</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <!-- Chosen Palette: Soothing Neutrals with Teal Accent -->
+    <!-- Application Structure Plan: The SPA is structured as a user-guided journey with five clear, navigable sections to demystify shoulder pain. It begins with 'Anatomy & Causes' to build foundational knowledge. It then moves to proactive 'Prevention & Daily Habits' and actionable 'Guided Exercises'. 'Home Remedies' offers immediate self-care tactics. Finally, the critical 'When to See a Doctor' section provides clear, urgent guidance. This thematic flow allows users to directly access the information most relevant to their needs—whether it's understanding a condition, finding exercises, or knowing when to seek professional help—making the content more digestible and useful than a linear report. -->
+    <!-- Visualization & Content Choices: 
+        1.  Common Causes of Shoulder Pain -> Goal: Compare -> Viz: Interactive Bar Chart (Chart.js) -> Interaction: Hover tooltips for details -> Justification: To visually rank the prevalence of various causes, allowing users to quickly grasp that overuse and degenerative conditions are primary drivers of shoulder pain.
+        2.  Common Shoulder Conditions -> Goal: Organize/Inform -> Viz: Sortable/Filterable Card Grid (HTML/CSS/JS) -> Interaction: Buttons to sort by type (Injury, Inflammatory, etc.) -> Justification: To create an interactive glossary that lets users easily explore and compare different conditions without being overwhelmed, promoting self-paced learning.
+        3.  Guided Exercises -> Goal: Organize/Demonstrate -> Viz: Filterable Card Gallery with illustrated steps (HTML/CSS/JS) -> Interaction: Filter by strengthening/flexibility; click for detailed instructions -> Justification: To provide a practical, easy-to-use tool for rehabilitation and prevention, enhancing user engagement and ensuring proper technique.
+        4.  Red Flag Symptoms -> Goal: Warn/Instruct -> Viz: High-contrast alert-style cards (HTML/CSS) -> Justification: To present life-critical safety information with maximum clarity and impact, ensuring the urgent message is immediately understood and acted upon.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .bg-cream { background-color: #FDFBF5; }
+        .bg-light-tan { background-color: #F5F1E9; }
+        .text-deep-charcoal { color: #3E3E3E; }
+        .accent-teal { color: #008080; }
+        .bg-teal { background-color: #008080; }
+        .border-teal { border-color: #008080; }
+        nav a {
+            transition: color 0.3s ease;
+        }
+        nav a.active, nav a:hover {
+            color: #005959; /* Darker Teal */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 450px;
+        }
+        .condition-card, .exercise-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .condition-card:hover, .exercise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-cream text-deep-charcoal">
+
+    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="flex items-center justify-between h-16" id="main-nav">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold accent-teal">Shoulder Care Guide</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium" href="#causes">Causes</a>
+                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium" href="#prevention">Prevention</a>
+                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium" href="#exercises">Exercises</a>
+                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium" href="#remedies">Remedies</a>
+                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium text-red-600 font-bold" href="#seek-help">Seek Help</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:bg-gray-200 focus:outline-none" id="mobile-menu-button">
+                        <span class="sr-only">Open main menu</span>
+                        <span aria-hidden="true" class="block h-6 w-6">☰</span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium" href="#causes">Causes</a>
+                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium" href="#prevention">Prevention</a>
+                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium" href="#exercises">Exercises</a>
+                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium" href="#remedies">Remedies</a>
+                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium text-red-600 font-bold" href="#seek-help">Seek Help</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        
+        <section class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">The Shoulder: A Guide to Mobility &amp; Stability</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-600">Here are a few options, keeping the size roughly similar:
+
+*   The shoulder's flexibility also brings fragility. This guide covers common problems, prevention, and effective solutions.
+
+*   A shoulder's vast movement potential creates risks. This resource explores frequent problems, preventive care, and pain relief.
+
+*   Shoulder mobility, while amazing, comes with downsides. Discover common injuries, proactive measures, and treatments.</p>
+        </section>
+
+        <section class="mb-16 scroll-mt-20" id="causes">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Anatomy of Shoulder Pain</h3>
+            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">Shoulder pain stems from various causes. Rotator cuff overuse is typical, with arthritis following. Though less often, trauma and referred pain also play a role.</p>
+            <div class="bg-white p-6 md:p-8 rounded-lg shadow-xl mb-12">
+                <h4 class="text-xl font-semibold mb-4 text-center">Prevalence of Common Shoulder Pain Causes</h4>
+                <div class="chart-container">
+                    <canvas id="causesChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="bg-light-tan p-6 md:p-8 rounded-lg shadow-lg">
+                <h4 class="text-xl font-semibold mb-4 text-center">Explore Common Shoulder Conditions</h4>
+                <div class="flex flex-wrap justify-center gap-2 mb-6" id="condition-filters">
+                    <button class="filter-btn bg-teal text-white px-4 py-2 rounded-full text-sm" data-filter="all">All Conditions</button>
+                    <button class="filter-btn bg-white text-deep-charcoal px-4 py-2 rounded-full text-sm border" data-filter="Overuse/Injury">Overuse/Injury</button>
+                    <button class="filter-btn bg-white text-deep-charcoal px-4 py-2 rounded-full text-sm border" data-filter="Inflammatory">Inflammatory</button>
+                    <button class="filter-btn bg-white text-deep-charcoal px-4 py-2 rounded-full text-sm border" data-filter="Degenerative">Degenerative</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="conditions-gallery">
+                    <!-- Condition cards will be injected by JS -->
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16 scroll-mt-20" id="prevention">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Prevention &amp; Daily Habits</h3>
+             <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">Prioritizing shoulder well-being requires mindful daily habits. Prevention hinges on posture, workspace design, and proper lifting techniques, thus safeguarding against strain.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="font-semibold text-lg mb-2 flex items-center"><span class="text-2xl mr-2">🧍</span> Conscious Posture</h4>
+                    <p class="text-sm text-gray-600">Maintain good posture: sit and stand straight, drawing shoulders back and down, avoiding slouching to prevent muscle issues and rotator cuff strain.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="font-semibold text-lg mb-2 flex items-center"><span class="text-2xl mr-2">💼</span> Ergonomic Workspace</h4>
+                    <p class="text-sm text-gray-600">Ergonomics matter: angle elbows at 90°, relax shoulders, and position your screen at eye level.  Also, remember to stretch every half hour.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="font-semibold text-lg mb-2 flex items-center"><span class="text-2xl mr-2">🏋️</span> Safe Lifting</h4>
+                    <p class="text-sm text-gray-600">To protect your back and shoulders: Bend your knees to lift, keep objects near you, and avoid twisting your torso.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16 scroll-mt-20" id="exercises">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Guided Shoulder Exercises</h3>
+             <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">Shoulder health relies on a balanced workout: strengthening rotator cuff and related muscles for support, plus stretching to improve flexibility and combat stiffness.</p>
+            <div class="flex justify-center mb-8 space-x-2">
+                <button class="ex-filter-btn bg-teal text-white px-4 py-2 rounded-full" data-filter="all">All</button>
+                <button class="ex-filter-btn bg-white text-deep-charcoal px-4 py-2 rounded-full border" data-filter="Strengthening">Strengthening</button>
+                <button class="ex-filter-btn bg-white text-deep-charcoal px-4 py-2 rounded-full border" data-filter="Flexibility">Flexibility</button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="exercise-gallery">
+                <!-- Exercise cards injected by JS -->
+            </div>
+        </section>
+
+        <section class="mb-16 scroll-mt-20" id="remedies">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Home Remedies for Pain Relief</h3>
+            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">To ease mild shoulder pain from strain or overuse, home remedies often work well. First, focus on reducing inflammation, then on relaxing and healing the muscles.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-400">
+                    <h4 class="text-xl font-semibold mb-3 flex items-center"><span class="mr-2">❄️</span> Cold Therapy (First 48 Hours)</h4>
+                    <p class="font-semibold">Best for acute injuries or inflammation.</p>
+                    <p class="text-gray-600 mt-2">Use a towel-wrapped ice pack for 15-20 minutes. This aids in reducing swelling and easing discomfort.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-red-400">
+                    <h4 class="text-xl font-semibold mb-3 flex items-center"><span class="mr-2">🔥</span> Heat Therapy (After 48 Hours)</h4>
+                    <p class="font-semibold">Best for chronic stiffness or muscle soreness.</p>
+                    <p class="text-gray-600 mt-2">Consider a warm bath or heating pad (15-20 min) to ease muscles and boost circulation.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="scroll-mt-20" id="seek-help">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8 text-red-700">Red Flags: When to Seek Immediate Medical Help</h3>
+            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">Though shoulder pain often resolves, specific symptoms signal a serious issue.  If these occur, get immediate medical attention to avoid potential complications.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="red-flags-container">
+                <!-- Red flag cards injected by JS -->
+            </div>
+        </section>
+    </main>
+    
+<!--
+    <footer class="bg-light-tan mt-16">
+        <div class="container mx-auto py-6 px-4 text-center text-gray-500">
+            <p class="text-sm">This guide is for informational purposes only and is not a substitute for professional medical advice. Always consult a physician or qualified health provider with any questions you may have regarding a medical condition.</p>
+        </div>
+    </footer>
+-->
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const causesChartCtx = document.getElementById('causesChart').getContext('2d');
+        new Chart(causesChartCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Rotator Cuff Issues', 'Arthritis', 'Frozen Shoulder', 'Instability/Dislocation', 'Fractures', 'Referred Pain'],
+                datasets: [{
+                    label: 'Relative Frequency',
+                    data: [45, 20, 15, 10, 5, 5],
+                    backgroundColor: ['#008080', '#5F9EA0', '#B2DFDB', '#FFC107', '#FFA000', '#F57C00'],
+                    borderColor: '#ffffff',
+                    borderWidth: 2,
+                    borderRadius: 5
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: { display: false },
+                        ticks: { callback: value => value + '%' }
+                    },
+                    y: { grid: { display: false } }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: context => `${context.dataset.label}: ${context.raw}%`
+                        }
+                    }
+                }
+            }
+        });
+
+        const conditionsData = [
+            { name: 'Rotator Cuff Tear', type: 'Overuse/Injury', desc: 'A tear in the group of tendons and muscles that surround the shoulder joint. Common in athletes and with age.' },
+            { name: 'Shoulder Impingement', type: 'Overuse/Injury', desc: 'Occurs when a shoulder tendon rubs on nearby tissue and bone as you lift your arm, causing pain.' },
+            { name: 'Frozen Shoulder', type: 'Inflammatory', desc: 'A condition characterized by stiffness and pain in your shoulder joint, with three stages: freezing, frozen, and thawing.' },
+            { name: 'Shoulder Arthritis (OA)', type: 'Degenerative', desc: 'The "wear-and-tear" type, where cartilage breaks down, leading to bone-on-bone friction and pain.' },
+            { name: 'Dislocated Shoulder', type: 'Injury', desc: 'An injury in which your upper arm bone pops out of the cup-shaped socket that\'s part of your shoulder blade.' },
+            { name: 'Bursitis', type: 'Inflammatory', desc: 'Inflammation of the bursae, small fluid-filled sacs that cushion the bones, tendons and muscles near your joints.' },
+            { name: 'Labral Tear', type: 'Injury', desc: 'A tear in the rim of cartilage (labrum) that surrounds the shoulder socket, often causing instability.' },
+            { name: 'Referred Pain', type: 'Other', desc: 'Pain felt in the shoulder that originates from another part of the body, such as the heart, lungs, or gallbladder.' },
+            { name: 'Thoracic Outlet Syndrome', type: 'Other', desc: 'Disorders that occur when blood vessels or nerves in the space between your collarbone and your first rib are compressed.' },
+        ];
+        const conditionsGallery = document.getElementById('conditions-gallery');
+        const conditionFilters = document.getElementById('condition-filters');
+
+        function renderConditions(filter) {
+            conditionsGallery.innerHTML = '';
+            const filtered = filter === 'all' ? conditionsData : conditionsData.filter(c => c.type.includes(filter));
+            filtered.forEach(c => {
+                const card = document.createElement('div');
+                card.className = 'condition-card bg-white p-4 rounded-lg shadow-md';
+                card.innerHTML = `
+                    <h5 class="font-semibold text-md mb-2">${c.name}</h5>
+                    <p class="text-sm text-gray-600 mb-2">${c.desc}</p>
+                    <span class="text-xs font-semibold px-2 py-1 rounded-full bg-gray-200 text-gray-800">${c.type}</span>
+                `;
+                conditionsGallery.appendChild(card);
+            });
+        }
+        renderConditions('all');
+
+        conditionFilters.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                document.querySelector('#condition-filters .bg-teal').classList.replace('bg-teal', 'bg-white');
+                document.querySelector('#condition-filters .text-white').classList.replace('text-white', 'text-deep-charcoal');
+                e.target.classList.replace('bg-white', 'bg-teal');
+                e.target.classList.replace('text-deep-charcoal', 'text-white');
+                renderConditions(e.target.dataset.filter);
+            }
+        });
+
+        const exercisesData = [
+            { name: 'Pendulum Stretch', type: 'Flexibility', desc: 'Gently mobilizes the shoulder joint.' },
+            { name: 'Cross-Body Arm Stretch', type: 'Flexibility', desc: 'Stretches the back of the shoulder.' },
+            { name: 'Doorway Stretch', type: 'Flexibility', desc: 'Opens up tight chest and shoulder muscles.' },
+            { name: 'External Rotation', type: 'Strengthening', desc: 'Strengthens rotator cuff muscles.' },
+            { name: 'Scapular Squeeze', type: 'Strengthening', desc: 'Improves posture and upper back strength.' },
+            { name: 'Wall Push-up', type: 'Strengthening', desc: 'A gentle way to strengthen shoulder and chest muscles.' },
+            { name: 'Child\'s Pose', type: 'Flexibility', desc: 'Provides a gentle stretch for the shoulders and back.' },
+            { name: 'Shoulder Press', type: 'Strengthening', desc: 'Builds overall shoulder strength. Use light weight.' },
+        ];
+        const exerciseGallery = document.getElementById('exercise-gallery');
+        const exerciseFilters = document.querySelector('#exercises .flex.justify-center');
+
+        function renderExercises(filter) {
+            exerciseGallery.innerHTML = '';
+            const filtered = filter === 'all' ? exercisesData : exercisesData.filter(ex => ex.type === filter);
+            filtered.forEach(ex => {
+                const card = document.createElement('div');
+                card.className = 'exercise-card bg-white p-4 rounded-lg shadow-md flex flex-col items-center text-center';
+                card.innerHTML = `
+                    <div class="h-16 w-16 bg-light-tan rounded-full mb-3 flex items-center justify-center text-3xl">${ex.type === 'Strengthening' ? '💪' : '🤸'}</div>
+                    <h5 class="font-semibold">${ex.name}</h5>
+                    <p class="text-xs text-gray-500 mb-2">${ex.desc}</p>
+                    <span class="text-xs font-semibold px-2 py-1 rounded-full ${ex.type === 'Strengthening' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'}">${ex.type}</span>
+                `;
+                exerciseGallery.appendChild(card);
+            });
+        }
+        renderExercises('all');
+
+        exerciseFilters.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                document.querySelector('.ex-filter-btn.bg-teal').classList.replace('bg-teal', 'bg-white');
+                document.querySelector('.ex-filter-btn.text-white').classList.replace('text-white', 'text-deep-charcoal');
+                e.target.classList.replace('bg-white', 'bg-teal');
+                e.target.classList.replace('text-deep-charcoal', 'text-white');
+                renderExercises(e.target.dataset.filter);
+            }
+        });
+
+        const redFlagsData = [
+            { icon: '💥', title: 'Sudden, Severe Pain or Trauma', desc: 'Especially after a fall or accident; could indicate a fracture or dislocation.' },
+            { icon: '🚫', title: 'Inability to Move Arm', desc: 'Complete loss of function can signal a severe tear or significant nerve damage.' },
+            { icon: '🧠', title: 'Numbness or Weakness', desc: 'Rapidly worsening numbness or weakness in the arm or hand suggests nerve compression.' },
+            { icon: '🌡️', title: 'Fever, Chills, Redness', desc: 'These systemic symptoms can indicate a serious infection in the joint (septic arthritis).' },
+            { icon: '❤️', title: 'Chest Pain or Shortness of Breath', desc: 'Shoulder pain with these symptoms can be a sign of a heart attack and requires immediate ER visit.' },
+            { icon: '⚖️', title: 'Unexplained Weight Loss', desc: 'When paired with shoulder pain, this can be a sign of a more serious underlying condition like a tumor.' }
+        ];
+
+        const redFlagsContainer = document.getElementById('red-flags-container');
+        redFlagsData.forEach(flag => {
+            const item = document.createElement('div');
+            item.className = 'bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg flex items-start';
+            item.innerHTML = `
+                <span class="text-3xl mr-4">${flag.icon}</span>
+                <div>
+                    <h5 class="font-bold text-red-700">${flag.title}</h5>
+                    <p class="text-sm text-red-600">${flag.desc}</p>
+                </div>
+            `;
+            redFlagsContainer.appendChild(item);
+        });
+
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        document.querySelectorAll('#main-nav a, #mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('main section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active', 'accent-teal', 'font-bold');
+                        if (`#${entry.target.id}` === link.getAttribute('href')) {
+                            link.classList.add('active', 'accent-teal', 'font-bold');
+                        }
+                    });
+                }
+            });
+        }, { rootMargin: '-30% 0px -70% 0px' });
+
+        sections.forEach(section => observer.observe(section));
+
+    });
+    </script>
+
+
+<html><head></head><body><footer class="bg-gray-800 text-gray-300">
+  <div class="container mx-auto px-6 py-12 lg:px-8">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+      
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Lowback</h5>
+        <ul class="space-y-2">
+          <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/"></a>Taking care of lowback</li>
+          <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">Different type of pains</a></li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">
+      
+		  
+		  
+		  
+		  </a><li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">	</a><a href="https://www.lowback.org/yoga/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Yoga</a></li>	
+
+
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/food/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Food</a>
+            </li>	
+
+
+
+
+
+												
+		
+
+
+
+
+
+												
+		<li><a href="https://www.lowback.org/main-cities-of-india.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl07_title">Main-cities-of-india</a></li>	
+
+		<li><a href="https://www.lowback.org/Mandir.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl08_title">Mandir</a> </li>	
+
+		<li><a href="https://www.lowback.org/Market-decoration-during-Diwali.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl09_title">Market-decoration-during-Diwali</a></li>	
+												
+		<li><a href="https://www.lowback.org/markets.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl10_title">Markets</a></li>	
+												
+		<li><a href="https://www.lowback.org/old-page.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl11_title">Old-page</a></li>	
+												
+		<li><a href="https://www.lowback.org/Ravan-effigy-burn-in-delhi.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl12_title">Ravan-effigy-burn-in-delhi</a> </li>	
+
+
+
+
+		 
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Injuries and Cure</h5>
+        <ul class="space-y-2">
+	
+	<li>								
+		<a href="https://www.lowback.org/Back-Spine-Problems.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Back-Spine-Problems</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/BackInjuries.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">BackInjuries</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/BackPain.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl03_title">BackPain</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/benefits-of-yoga-for-mental-health.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl04_title">benefits-of-yoga-for-mental-health</a>
+            </li>	
+
+
+
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Taking Care</h5>
+        <ul class="space-y-2">
+		<li><a href="https://www.lowback.org/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Home</a></li>	
+		<li><a href="#" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">When to see Doctor</a></li>	
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Contact Us</h5>
+        <div class="space-y-2">
+          <p>Redmond<br/>WA, USA</p>
+          <p>
+            <a class="hover:text-white hover:underline transition-colors duration-200" href="mailto:contact@dataknobs.com">contact@kreatewebsites.com</a>
+          </p>
+          <p>
+            <a class="hover:text-white hover:underline transition-colors duration-200" href="tel:+14253411222">+1 (425) 341-1222</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 border-t border-gray-700 pt-8 flex flex-col items-center justify-between sm:flex-row">
+      <p class="text-sm text-gray-400">© 2025 Lowback. All rights reserved.</p>
+      
+      <div class="flex space-x-4 mt-4 sm:mt-0">
+        <a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.facebook.com/kreatewebsites/">
+          <span class="sr-only">Facebook</span>
+          <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path clip-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.772-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" fill-rule="evenodd"></path>
+          </svg>
+        </a>
+        <a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.twitter.com/kreatewebsites/">
+          <span class="sr-only">Twitter</span>
+          <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+          </svg>
+        </a>
+        <a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.linkedin.com/company/kreatewebsites/">
+          <span class="sr-only">LinkedIn</span>
+          <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path clip-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.783-1.75-1.75s.784-1.75 1.75-1.75 1.75.783 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill-rule="evenodd"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer></body></html></body></html>

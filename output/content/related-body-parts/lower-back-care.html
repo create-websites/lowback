@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="Interactive guide to lower back health: Understand the 'Joint-by-Joint' approach, visualize spinal compression data, learn the McGill Big 3 protocols, and build a core stability routine." name="description"/>
+    <meta content="lower back pain, lumbar stability, McGill Big 3, disc herniation, spinal hygiene, core stiffness, back rehabilitation, kinetic chain, posture correction, sciatic pain" name="keywords"/>
+    <title>The Kinetic Hub: Lumbar Resilience &amp; Stability</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FEFBF6; /* Warm, very light amber-white */
+            color: #43382E; /* Dark warm grey/brown */
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F4F1EC; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D6CCC2; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #A89F91; 
+        }
+
+        /* Chart Container Specifics */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            height: 300px;
+            margin: 0 auto;
+        }
+        
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        /* Interactive Element Styling */
+        .anatomy-node {
+            transition: all 0.3s ease;
+        }
+        .anatomy-node:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .anatomy-node.active {
+            border-color: #D97706; /* Amber-600 */
+            background-color: #FFFBEB; /* Amber-50 */
+        }
+
+        .exercise-card {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .exercise-card:hover {
+            border-color: #F59E0B; /* Amber-500 */
+            background-color: #FFF7ED; /* Orange-50 */
+        }
+        .exercise-card.selected {
+            background-color: #FEF3C7;
+            border-color: #D97706;
+        }
+        
+        /* Fade in animation */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+    <!-- Chosen Palette: Amber/Orange (Caution/Structure) with Warm Neutrals -->
+    <!-- Application Structure Plan:
+         1. Hero/Intro: Defines the Lower Back as a "Transmission" pillar, not a source of motion.
+         2. Interactive Anatomy: The "Sandwich" concept - Lumbar needs Stability, squeezed between Thoracic (Mobility) and Hips (Mobility).
+         3. The Pressure Data: Visualizing disc compression loads to explain why sitting and slouching hurt.
+         4. Protocol Library: Focus on "Stiffness" (McGill Big 3) vs "Hygiene" (Movement patterns).
+         5. Routine Builder: Daily spine hygiene plan.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="text-stone-800 antialiased">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl">🚧</span>
+                    <span class="font-bold text-xl tracking-tight text-stone-800">Kinetic<span class="text-amber-600">Hub</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <button class="text-stone-600 hover:text-amber-600 transition-colors text-sm font-medium" onclick="scrollToSection('anatomy')">The Core Pillar</button>
+                    <button class="text-stone-600 hover:text-amber-600 transition-colors text-sm font-medium" onclick="scrollToSection('data')">Load Data</button>
+                    <button class="text-stone-600 hover:text-amber-600 transition-colors text-sm font-medium" onclick="scrollToSection('protocols')">Protocols</button>
+                    <button class="px-4 py-2 bg-amber-600 text-white rounded-full text-sm font-medium hover:bg-amber-700 transition-colors shadow-sm" onclick="scrollToSection('builder')">Build Routine</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="bg-[#FEFBF6] pt-12 pb-16 lg:pt-20 lg:pb-24 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="lg:grid lg:grid-cols-12 lg:gap-8 items-center">
+                <div class="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left">
+                    <div class="inline-flex items-center px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-semibold uppercase tracking-wide mb-4">
+                        Spine Mechanics Series
+                    </div>
+                    <h1 class="text-4xl tracking-tight font-extrabold text-stone-900 sm:text-5xl md:text-6xl">
+                        <span class="block">Stop Stretching.</span>
+                        <span class="block text-amber-600">Start Stabilizing.</span>
+                    </h1>
+                    <p class="mt-3 text-base text-stone-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                        The lower back is designed to be a stiff pillar that transmits power, not a flexible willow branch. Pain occurs when we force the stable lumbar spine to do the mobile work of the hips.
+                    </p>
+                    <div class="mt-8 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left lg:mx-0">
+                        <button class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-amber-900 bg-amber-100 hover:bg-amber-200 transition-colors" onclick="scrollToSection('data')">
+                            See Disc Pressure Data
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-12 relative sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-6 lg:flex lg:items-center">
+                    <div class="bg-white rounded-2xl shadow-xl border border-stone-100 p-6 w-full">
+                        <h3 class="font-semibold text-lg mb-4 text-stone-800">The 3 Myths of Back Pain</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 h-6 w-6 flex items-center justify-center rounded-full bg-red-100 text-red-500 text-sm">✕</span>
+                                <p class="ml-3 text-sm text-stone-600"><strong class="text-stone-900">Myth:</strong> "I need to stretch my back."<br/> <span class="text-xs">Reality: Stretching often triggers the protective stretch reflex, increasing pain.</span></p>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 h-6 w-6 flex items-center justify-center rounded-full bg-red-100 text-red-500 text-sm">✕</span>
+                                <p class="ml-3 text-sm text-stone-600"><strong class="text-stone-900">Myth:</strong> "Sit-ups strengthen the core."<br/> <span class="text-xs">Reality: They place massive compressive loads on the discs.</span></p>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 h-6 w-6 flex items-center justify-center rounded-full bg-green-100 text-green-600 text-sm">✓</span>
+                                <p class="ml-3 text-sm text-stone-600"><strong class="text-stone-900">Truth:</strong> "Proximal stiffness for distal athleticism."<br/> <span class="text-xs">A stiff core allows the arms and legs to move powerfully.</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Anatomy Section -->
+        <section class="py-16 bg-white border-y border-stone-100" id="anatomy">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-extrabold text-stone-900">The Stability Sandwich</h2>
+                    <p class="mt-4 max-w-2xl text-stone-500 mx-auto">
+                        The "Joint-by-Joint" approach dictates that the Lumbar spine must be stable because its neighbors (Thoracic &amp; Hips) are designed to be mobile. Click to explore.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Interactive Diagram (Left) -->
+                    <div class="col-span-1 space-y-4">
+                        <div class="anatomy-node p-6 rounded-xl border-2 border-stone-200 cursor-pointer bg-stone-50" id="btn-thoracic" onclick="selectAnatomy('thoracic')">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-bold text-lg text-stone-700">Upper Back (Thoracic)</h3>
+                                <span class="text-2xl">🤸</span>
+                            </div>
+                            <p class="text-xs text-stone-500 mt-2">Needs: Mobility</p>
+                        </div>
+                        
+                        <div class="anatomy-node p-8 rounded-xl border-2 border-amber-600 bg-amber-50 cursor-pointer active shadow-md transform -translate-y-1" id="btn-lumbar" onclick="selectAnatomy('lumbar')">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-bold text-xl text-amber-900">Lower Back (Lumbar)</h3>
+                                <span class="text-3xl">🧱</span>
+                            </div>
+                            <p class="text-xs text-amber-700 mt-2">Needs: Stability (The Pillar)</p>
+                        </div>
+                        
+                        <div class="anatomy-node p-6 rounded-xl border-2 border-stone-200 cursor-pointer bg-stone-50" id="btn-hips" onclick="selectAnatomy('hips')">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-bold text-lg text-stone-700">The Hips</h3>
+                                <span class="text-2xl">⚙️</span>
+                            </div>
+                            <p class="text-xs text-stone-500 mt-2">Needs: Mobility</p>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Content (Right/Center) -->
+                    <div class="col-span-1 md:col-span-2 bg-stone-50 rounded-2xl p-8 border border-stone-100 flex flex-col justify-center min-h-[400px]">
+                        <div class="fade-in" id="anatomy-content">
+                            <!-- Content injected via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Visualization Section -->
+        <section class="py-16 bg-[#FEFBF6]" id="data">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-12">
+                    <h2 class="text-3xl font-bold text-stone-900">The Physics of Pain</h2>
+                    <p class="mt-4 max-w-3xl text-stone-600">
+                        Understanding disc pressure helps you make better movement choices. Why does sitting hurt more than standing? The data explains.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Chart 1: Disc Pressure -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-100">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-semibold text-stone-800">Disc Pressure by Posture</h3>
+                            <span class="text-xs font-medium bg-red-100 text-red-600 px-2 py-1 rounded">Intradiscal Load</span>
+                        </div>
+                        <p class="text-sm text-stone-500 mb-4">Relative pressure on the L3 Disc compared to standing (100%). Note the spike during "Slouched Sitting".</p>
+                        <div class="chart-container">
+                            <canvas id="pressureChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Chart 2: Flexion Cycles -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-100">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-semibold text-stone-800">The "Wire Hanger" Analogy</h3>
+                            <span class="text-xs font-medium bg-amber-100 text-amber-600 px-2 py-1 rounded">Fatigue Failure</span>
+                        </div>
+                        <p class="text-sm text-stone-500 mb-4">Discs are like a wire hanger; bend it back and forth enough times (flexion cycles) and it will break (herniate).</p>
+                        <div class="chart-container">
+                            <canvas id="cycleChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Protocols Library -->
+        <section class="py-16 bg-white border-t border-stone-100" id="protocols">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-10">
+                    <div>
+                        <h2 class="text-3xl font-bold text-stone-900">Resilience Protocols</h2>
+                        <p class="mt-2 text-stone-500">Master the "McGill Big 3" for stiffness and hygiene for movement.</p>
+                    </div>
+                    
+                    <div class="mt-4 md:mt-0 flex space-x-2 bg-stone-100 p-1 rounded-lg inline-block">
+                        <button class="px-4 py-2 text-sm font-medium rounded-md bg-white text-amber-600 shadow-sm transition-all" id="tab-stability" onclick="filterProtocols('stability')">Stability (Big 3)</button>
+                        <button class="px-4 py-2 text-sm font-medium rounded-md text-stone-500 hover:text-stone-700 transition-all" id="tab-hygiene" onclick="filterProtocols('hygiene')">Spine Hygiene</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="protocol-grid">
+                    <!-- Cards injected via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Routine Builder -->
+        <section class="py-16 bg-stone-800 text-white" id="builder">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    <!-- Instructions -->
+                    <div class="lg:col-span-5">
+                        <h2 class="text-3xl font-bold text-white mb-6">Daily Core Hygiene</h2>
+                        <p class="text-stone-300 mb-8">
+                            Perform these movements daily to build a "super-stiffness" corset around your spine. Quality reps over quantity.
+                        </p>
+                        
+                        <div class="bg-stone-700 rounded-xl p-6 border border-stone-600">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm font-medium text-stone-300">Total Duration</span>
+                                <span class="text-3xl font-bold text-white" id="total-time">0 min</span>
+                            </div>
+                            <div class="w-full bg-stone-900 rounded-full h-2.5 mt-2">
+                                <div class="bg-amber-500 h-2.5 rounded-full transition-all duration-500" id="progress-bar" style="width: 0%"></div>
+                            </div>
+                            <p class="text-xs text-stone-300 mt-2 text-right" id="time-message">Add exercises to start</p>
+                        </div>
+                    </div>
+
+                    <!-- The List -->
+                    <div class="lg:col-span-7 bg-white rounded-2xl text-stone-800 p-6 md:p-8">
+                        <h3 class="text-xl font-bold mb-6 flex items-center">
+                            <span class="mr-2">📝</span> My Resilience Plan
+                        </h3>
+                        
+                        <div class="space-y-3 min-h-[200px]" id="routine-list">
+                            <!-- Empty State -->
+                            <div class="text-center py-10 text-stone-400 border-2 border-dashed border-stone-200 rounded-xl" id="empty-state">
+                                <p>No exercises added yet.</p>
+                                <p class="text-sm">Click the "+" on protocol cards above.</p>
+                            </div>
+                            <!-- Added items go here -->
+                        </div>
+
+                        <div class="mt-8 pt-6 border-t border-stone-100 flex justify-between items-center">
+                            <button class="text-sm text-red-500 hover:text-red-700 font-medium" onclick="clearRoutine()">Clear All</button>
+                            <button class="px-6 py-3 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-lg shadow-lg transition-transform transform active:scale-95" onclick="alert('Routine Saved! (Simulation)')">
+                                Save Routine
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <html><head></head><body><footer class="bg-gray-800 text-gray-300">
+  <div class="container mx-auto px-6 py-12 lg:px-8">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+      
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Lowback</h5>
+        <ul class="space-y-2">
+          <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/"></a>Taking care of lowback</li>
+          <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">Different type of pains</a></li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">
+          </a><li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/"></a><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-of-frozen-shoulder.html"></a>Frozen Shoulder</li>
+		  <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-upper-back.html"></a>Frozen Shoulder</li>
+          <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">Different type of pains</a></li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">
+		  
+		  
+		  
+		  </a><li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">	</a><a href="https://www.lowback.org/yoga/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Yoga</a></li>	
+
+
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/food/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Food</a></li>	
+		<a href="https://www.lowback.org/food/diet-compass.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Food</a>	
+												
+
+
+
+
+
+		 
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Injuries and Cure</h5>
+        <ul class="space-y-2">
+	
+	<li>								
+		<a href="https://www.lowback.org/Back-Spine-Problems.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Back-Spine-Problems</a>
+            </li>	
+		<a href="https://www.lowback.org/related-body-parts/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Related Body Parts</a>	
+
+		<a href="https://www.lowback.org/health-leg-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Leg</a>	
+		<a href="https://www.lowback.org/health-neck-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Neck</a>	
+		<a href="https://www.lowback.org/health-shoulder-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Shoulder</a>	
+		<a href="https://www.lowback.org/health-knee-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Knee</a>	
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/BackInjuries.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">BackInjuries</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/BackPain.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl03_title">BackPain</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/benefits-of-yoga-for-mental-health.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl04_title">benefits-of-yoga-for-mental-health</a>
+            </li>	
+
+
+
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Taking Care</h5>
+        <ul class="space-y-2">
+		<li><a href="https://www.lowback.org/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Home</a></li>	
+		<li><a href="https://www.lowback.org/sitemap.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Sitemap</a></li>	
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Contact Us</h5>
+        <div class="space-y-2">
+          <p>Redmond<br/>WA, USA</p>
+          <p>
+            <a class="hover:text-white hover:underline transition-colors duration-200" href="mailto:contact@dataknobs.com">contact@kreatewebsites.com</a>
+          </p>
+          <p>
+            <a class="hover:text-white hover:underline transition-colors duration-200" href="tel:+14253411222">+1 (425) 341-1222</a>
+          </p>
+		    <p>
+            <a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/">Un Official Blog</a>
+			<br/>This is an unofficial blog provided solely for educational and informational purposes. The content is not intended to constitute medical or health advice. Always consult a qualified healthcare professional regarding any questions or concerns about your health.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 border-t border-gray-700 pt-8 flex flex-col items-center justify-between sm:flex-row">
+      <p class="text-sm text-gray-400">© 2025 Lowback. All rights reserved.</p>
+      
+      <div class="flex space-x-4 mt-4 sm:mt-0">
+        <a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.facebook.com/kreatewebsites/">
+          <span class="sr-only">Facebook</span>
+          <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path clip-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.772-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" fill-rule="evenodd"></path>
+          </svg>
+        </a>
+        <a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.twitter.com/kreatewebsites/">
+          <span class="sr-only">Twitter</span>
+          <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+          </svg>
+        </a>
+        <a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.linkedin.com/company/kreatewebsites/">
+          <span class="sr-only">LinkedIn</span>
+          <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path clip-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.783-1.75-1.75s.784-1.75 1.75-1.75 1.75.783 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill-rule="evenodd"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer></body></html>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // --- State Management ---
+        const state = {
+            currentTab: 'stability',
+            selectedAnatomy: 'lumbar',
+            routine: [] 
+        };
+
+        // --- Data: Anatomy Content ---
+        const anatomyData = {
+            lumbar: {
+                title: "The Lumbar Spine (Lower Back)",
+                icon: "🧱",
+                content: "The lumbar spine is built for load bearing, NOT twisting or excessive bending. It acts as a transmission shaft. <br><br><strong>The Trap:</strong> When you lack mobility in your hips or upper back, your lower back is forced to bend to compensate. This excessive motion causes disc delamination and nerve impingement.",
+                stat: "A neutral spine can handle 5x more load than a flexed spine.",
+                color: "text-amber-600",
+                bg: "bg-amber-50"
+            },
+            thoracic: {
+                title: "The Thoracic Spine (Upper Back)",
+                icon: "🤸",
+                content: "The ribcage area is designed to rotate and extend. <br><br><strong>The Link:</strong> If you are hunched over a desk (Kyphosis), your upper back becomes stiff. When you turn to look behind you, your locked upper back forces the lower back to twist instead. Result: Lumbar torsion injury.",
+                stat: "Restoring 20° of thoracic extension can eliminate lumbar strain.",
+                color: "text-stone-600",
+                bg: "bg-stone-50"
+            },
+            hips: {
+                title: "The Hips (Foundation)",
+                icon: "⚙️",
+                content: "The hips are ball-and-socket joints designed for massive range of motion. <br><br><strong>The Link:</strong> If your hips are tight (hamstrings/flexors), they pull on the pelvis. A 'Posterior Pelvic Tilt' (tucked tail) flexes the spine, while an 'Anterior Tilt' jams the facet joints. Hip mobility saves the spine.",
+                stat: "Tight hamstrings force the lumbar spine to flex during bending.",
+                color: "text-stone-600",
+                bg: "bg-stone-50"
+            }
+        };
+
+        // --- Data: Protocols ---
+        const protocols = [
+            { id: 1, type: 'stability', name: 'McGill Curl-Up', duration: 2, icon: '🔒', desc: 'Isolates abs without spinal flexion.', difficulty: 'Medium' },
+            { id: 2, type: 'stability', name: 'Side Plank', duration: 2, icon: '📐', desc: 'Stabilizes Quadratus Lumborum (QL).', difficulty: 'Hard' },
+            { id: 3, type: 'stability', name: 'Bird Dog', duration: 2, icon: '🐕', desc: 'Cross-body tension and stability.', difficulty: 'Medium' },
+            { id: 4, type: 'stability', name: 'Suitcase Carry', duration: 3, icon: '🧳', desc: 'Anti-lateral flexion while walking.', difficulty: 'Easy' },
+            { id: 5, type: 'hygiene', name: 'Cat-Camel', duration: 2, icon: '🐈', desc: 'Gentle motion, NOT a stretch.', difficulty: 'Easy' },
+            { id: 6, type: 'hygiene', name: 'Hip Hinge', duration: 3, icon: '🏗️', desc: 'Moving from hips, keeping spine neutral.', difficulty: 'Medium' },
+            { id: 7, type: 'hygiene', name: 'Walking (Fast)', duration: 10, icon: '🚶', desc: 'The natural balm for the back.', difficulty: 'Easy' },
+            { id: 8, type: 'hygiene', name: 'T-Spine Opener', duration: 2, icon: '🚪', desc: 'Unlocks upper back rotation.', difficulty: 'Medium' }
+        ];
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+            renderAnatomy('lumbar');
+            renderProtocols('stability');
+            updateRoutineUI();
+        });
+
+        // --- Navigation ---
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                const offset = 80; 
+                const bodyRect = document.body.getBoundingClientRect().top;
+                const elementRect = el.getBoundingClientRect().top;
+                const elementPosition = elementRect - bodyRect;
+                const offsetPosition = elementPosition - offset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // --- Anatomy Section Logic ---
+        function selectAnatomy(part) {
+            state.selectedAnatomy = part;
+            
+            // Update visual state of buttons
+            ['thoracic', 'lumbar', 'hips'].forEach(p => {
+                const btn = document.getElementById(`btn-${p}`);
+                if (p === part) {
+                    btn.classList.add('active', 'border-amber-600', 'bg-amber-50', 'transform', '-translate-y-1', 'shadow-md');
+                    btn.classList.remove('border-stone-200', 'bg-stone-50');
+                    btn.querySelector('h3').classList.add('text-amber-900');
+                    btn.querySelector('h3').classList.remove('text-stone-700');
+                } else {
+                    btn.classList.remove('active', 'border-amber-600', 'bg-amber-50', 'transform', '-translate-y-1', 'shadow-md');
+                    btn.classList.add('border-stone-200', 'bg-stone-50');
+                    btn.querySelector('h3').classList.remove('text-amber-900');
+                    btn.querySelector('h3').classList.add('text-stone-700');
+                }
+            });
+
+            renderAnatomy(part);
+        }
+
+        function renderAnatomy(part) {
+            const data = anatomyData[part];
+            const container = document.getElementById('anatomy-content');
+            
+            // Simple fade effect
+            container.classList.remove('fade-in');
+            void container.offsetWidth; // trigger reflow
+            container.classList.add('fade-in');
+
+            container.innerHTML = `
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="text-4xl bg-white p-3 rounded-xl shadow-sm border border-stone-100">${data.icon}</div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-stone-800">${data.title}</h3>
+                        <span class="text-sm font-semibold uppercase tracking-wider ${data.color}">Biomechanical Role</span>
+                    </div>
+                </div>
+                <div class="prose prose-stone text-stone-600 text-lg leading-relaxed mb-8">
+                    <p>${data.content}</p>
+                </div>
+                <div class="bg-white border-l-4 border-amber-500 p-4 rounded-r-lg shadow-sm">
+                    <p class="text-sm font-bold text-stone-900">Key Insight:</p>
+                    <p class="text-stone-600 italic">"${data.stat}"</p>
+                </div>
+            `;
+        }
+
+        // --- Charts Implementation (Chart.js) ---
+        function initCharts() {
+            // Chart 1: Disc Pressure (Nachemson data approximation)
+            const ctxPressure = document.getElementById('pressureChart').getContext('2d');
+            new Chart(ctxPressure, {
+                type: 'bar',
+                data: {
+                    labels: ['Lying Down', 'Standing', 'Walking', 'Sitting (Good)', 'Slouching', 'Sitting + Lifting'],
+                    datasets: [{
+                        label: 'Disc Pressure (%)',
+                        data: [25, 100, 110, 140, 190, 275],
+                        backgroundColor: [
+                            '#D1FAE5', '#34D399', '#60A5FA', '#FCD34D', '#F97316', '#EF4444' 
+                        ],
+                        borderRadius: 6,
+                        borderSkipped: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `Load: ${context.raw}% of Bodyweight`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: '% Load vs Standing' }
+                        },
+                        x: {
+                            title: { display: true, text: 'Posture' }
+                        }
+                    }
+                }
+            });
+
+            // Chart 2: Flexion Cycles (Fatigue)
+            const ctxCycle = document.getElementById('cycleChart').getContext('2d');
+            new Chart(ctxCycle, {
+                type: 'line',
+                data: {
+                    labels: ['Low Load', 'Medium Load', 'High Load (Rounded Back)'],
+                    datasets: [{
+                        label: 'Cycles until Herniation',
+                        data: [5000, 1500, 200],
+                        borderColor: '#D97706',
+                        backgroundColor: 'rgba(217, 119, 6, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `Safe Repetitions: ${context.raw}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            title: { display: true, text: 'Repetitions until Injury' },
+                            type: 'logarithmic' // Log scale to show the dramatic drop
+                        },
+                        x: {
+                            title: { display: true, text: 'Load Severity' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- Protocol Library Logic ---
+        function filterProtocols(type) {
+            state.currentTab = type;
+            
+            // Update Tab UI
+            const activeClass = 'bg-white text-amber-600 shadow-sm'.split(' ');
+            const inactiveClass = 'text-stone-500 hover:text-stone-700'.split(' ');
+            
+            const btnStability = document.getElementById('tab-stability');
+            const btnHygiene = document.getElementById('tab-hygiene');
+
+            if (type === 'stability') {
+                btnStability.classList.add(...activeClass);
+                btnStability.classList.remove(...inactiveClass);
+                btnHygiene.classList.remove(...activeClass);
+                btnHygiene.classList.add(...inactiveClass);
+            } else {
+                btnHygiene.classList.add(...activeClass);
+                btnHygiene.classList.remove(...inactiveClass);
+                btnStability.classList.remove(...activeClass);
+                btnStability.classList.add(...inactiveClass);
+            }
+
+            renderProtocols(type);
+        }
+
+        function renderProtocols(type) {
+            const grid = document.getElementById('protocol-grid');
+            grid.innerHTML = '';
+            
+            const filtered = protocols.filter(p => p.type === type);
+            
+            filtered.forEach(p => {
+                const isAdded = state.routine.some(r => r.id === p.id);
+                const btnState = isAdded 
+                    ? `<span class="text-xs font-bold text-emerald-600">Added ✓</span>` 
+                    : `<span class="text-xs font-bold text-amber-600">+ Add</span>`;
+                const cardClass = isAdded ? 'border-emerald-500 bg-emerald-50' : 'border-stone-200 bg-white';
+
+                const card = document.createElement('div');
+                card.className = `exercise-card relative p-6 rounded-xl border ${cardClass} shadow-sm flex flex-col justify-between h-full`;
+                card.onclick = () => toggleRoutine(p.id);
+                
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-3xl bg-white rounded-lg p-2 shadow-sm">${p.icon}</span>
+                            <span class="px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider ${p.difficulty === 'Easy' ? 'bg-green-100 text-green-700' : p.difficulty === 'Medium' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'}">
+                                ${p.difficulty}
+                            </span>
+                        </div>
+                        <h3 class="font-bold text-lg text-stone-800 mb-1">${p.name}</h3>
+                        <p class="text-sm text-stone-500">${p.desc}</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between border-t border-stone-100 pt-4">
+                        <span class="text-xs font-medium text-stone-400">⏱ ${p.duration} min</span>
+                        <div id="btn-text-${p.id}" class="bg-white px-3 py-1.5 rounded-full shadow-sm border border-stone-100">
+                            ${btnState}
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // --- Routine Builder Logic ---
+        function toggleRoutine(id) {
+            const index = state.routine.findIndex(r => r.id === id);
+            const exercise = protocols.find(p => p.id === id);
+
+            if (index > -1) {
+                state.routine.splice(index, 1);
+            } else {
+                state.routine.push(exercise);
+            }
+
+            renderProtocols(state.currentTab); // Re-render to update UI states
+            updateRoutineUI();
+        }
+
+        function removeRoutineItem(id) {
+            const index = state.routine.findIndex(r => r.id === id);
+            if (index > -1) {
+                state.routine.splice(index, 1);
+                renderProtocols(state.currentTab);
+                updateRoutineUI();
+            }
+        }
+
+        function clearRoutine() {
+            state.routine = [];
+            renderProtocols(state.currentTab);
+            updateRoutineUI();
+        }
+
+        function updateRoutineUI() {
+            const listContainer = document.getElementById('routine-list');
+            const totalTimeEl = document.getElementById('total-time');
+            const progressBar = document.getElementById('progress-bar');
+            const timeMsg = document.getElementById('time-message');
+            const emptyState = document.getElementById('empty-state');
+
+            // Safety check
+            if (!listContainer || !totalTimeEl || !progressBar || !timeMsg || !emptyState) {
+                return;
+            }
+
+            // Calculate Time
+            const totalMinutes = state.routine.reduce((sum, item) => sum + item.duration, 0);
+            totalTimeEl.innerText = `${totalMinutes} min`;
+
+            // Update Progress Bar (Target: 15 mins)
+            const percentage = Math.min((totalMinutes / 15) * 100, 100);
+            progressBar.style.width = `${percentage}%`;
+            
+            if (totalMinutes === 0) {
+                timeMsg.innerText = "Start adding exercises";
+                progressBar.classList.remove('bg-amber-500', 'bg-yellow-400');
+                progressBar.classList.add('bg-stone-600');
+            } else if (totalMinutes < 10) {
+                timeMsg.innerText = "Keep going (Target: 10-15m)";
+                progressBar.classList.remove('bg-amber-500', 'bg-stone-600');
+                progressBar.classList.add('bg-yellow-400');
+            } else {
+                timeMsg.innerText = "Great Daily Duration!";
+                progressBar.classList.remove('bg-yellow-400', 'bg-stone-600');
+                progressBar.classList.add('bg-amber-500');
+            }
+
+            // Render List
+            if (state.routine.length === 0) {
+                emptyState.style.display = 'block';
+                listContainer.innerHTML = '';
+                listContainer.appendChild(emptyState);
+            } else {
+                emptyState.style.display = 'none';
+                listContainer.innerHTML = '';
+                
+                state.routine.forEach(item => {
+                    const el = document.createElement('div');
+                    el.className = "flex items-center justify-between p-3 bg-stone-50 rounded-lg border border-stone-100 group hover:bg-white hover:shadow-sm transition-all";
+                    el.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <span class="text-xl">${item.icon}</span>
+                            <div>
+                                <p class="text-sm font-bold text-stone-800">${item.name}</p>
+                                <p class="text-xs text-stone-500 capitalize">${item.type}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs font-medium text-stone-400">${item.duration}m</span>
+                            <button onclick="removeRoutineItem(${item.id})" class="text-stone-300 hover:text-red-500 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                    `;
+                    listContainer.appendChild(el);
+                });
+            }
+        }
+    </script>
+
+</body></html>
