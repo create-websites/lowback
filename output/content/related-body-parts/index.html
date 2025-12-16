@@ -2,583 +2,458 @@
 <html lang="en"><head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <meta content="The Kinetic Hub: A central resource for human body mechanics, injury prevention, and recovery. Explore the interconnected systems of the musculoskeletal chain." name="description"/>
-    <title>The Kinetic Hub: Central Command</title>
-    
-    <!-- Tailwind CSS -->
+    <title>Interactive Guide to Upper Back Care</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <!-- Chosen Palette: Soothing Neutrals with Slate Blue Accent -->
+    <!-- Application Structure Plan: The SPA is designed as a user-centric, scrollable journey with a sticky navigation bar. The structure prioritizes actionable information: 1) 'Understand' covers the 'what' and 'why' (anatomy, causes). 2) 'Prevent' provides proactive strategies (posture, ergonomics). 3) 'Exercise' offers a hands-on, filterable guide for strengthening and flexibility. 4) 'Self-Care' gives immediate relief tactics. 5) 'Seek Help' presents critical red flags. This thematic flow allows users to quickly find relevant information for their needs—be it curiosity, prevention, or immediate pain management—creating a more intuitive and empowering experience than a linear report. -->
+    <!-- Visualization & Content Choices: 
+        1. Causes of Pain -> Goal: Compare -> Viz: Interactive Polar Area Chart (Chart.js) -> Interaction: Hover tooltips -> Justification: To visually represent the multifaceted nature of upper back pain causes in a single, engaging graphic, highlighting the relative prevalence of key categories like posture, muscle strain, and underlying conditions.
+        2. Spinal Deformities -> Goal: Inform/Organize -> Viz: Tabbed component with simple CSS diagrams (HTML/CSS/JS) -> Interaction: Click tabs to switch between Scoliosis, Kyphosis, and Upper Cross Syndrome visuals -> Justification: To clearly explain and visually differentiate these complex conditions in a space-efficient and interactive manner.
+        3. Exercises -> Goal: Organize/Demonstrate -> Viz: Filterable card gallery with CSS animations (HTML/CSS/JS) -> Interaction: Filter by strengthening/flexibility; click cards to see animated instructions -> Justification: To make exercises easily discoverable and correctly performable, enhancing user engagement and safety.
+        4. Red Flag Symptoms -> Goal: Warn/Instruct -> Viz: High-contrast alert-style cards (HTML/CSS) -> Interaction: None -> Justification: To deliver critical safety information with maximum clarity and impact, avoiding any interactive elements that could distract from the urgent message.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #FAFAF9; /* Warm Gray/Stone 50 */
-            color: #1C1917; /* Stone 900 */
+            scroll-behavior: smooth;
         }
-        
-        /* Smooth scrolling */
-        html { scroll-behavior: smooth; }
-
-        /* Card Hover Effects */
-        .hub-card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .bg-cream { background-color: #FAF3E0; }
+        .bg-light-gray { background-color: #F7F7F7; }
+        .text-charcoal { color: #36454F; }
+        .accent-slate-blue { color: #4A5568; }
+        .bg-slate-blue { background-color: #4A5568; }
+        .border-slate-blue { border-color: #4A5568; }
+        nav a {
+            transition: color 0.3s ease;
         }
-        .hub-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        nav a.active, nav a:hover {
+            color: #2D3748; /* Darker Slate Blue */
         }
-        
-        /* Connection Highlight Animation */
-        .pulse-ring {
-            box-shadow: 0 0 0 0 rgba(100, 100, 100, 0.7);
-            animation: pulse-ring 2s infinite;
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 450px;
         }
-        
-        @keyframes pulse-ring {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(100, 100, 100, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(100, 100, 100, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(100, 100, 100, 0); }
+        .deformity-vis {
+            height: 150px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
         }
-
-        /* Dimmed state for non-relevant cards during filter */
-        .dimmed {
-            opacity: 0.3;
-            filter: grayscale(0.8);
-            transform: scale(0.98);
+        .spine {
+            width: 10px;
+            height: 120px;
+            background: #A0AEC0;
+            border-radius: 5px;
+            position: relative;
+        }
+        .kyphosis .spine {
+            transform: perspective(100px) rotateX(15deg);
+            background: #718096;
+        }
+        .scoliosis .spine {
+            animation: scoliosis-curve 3s ease-in-out infinite alternate;
+        }
+        @keyframes scoliosis-curve {
+            from { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 75%, 50% 50%, 0 25%); }
+            to { clip-path: polygon(0 0, 100% 0, 100% 25%, 50% 50%, 100% 75%, 100% 100%, 0 100%); }
+        }
+        .ucs .spine::before, .ucs .spine::after {
+            content: '';
+            position: absolute;
+            background: #4A5568;
+            border-radius: 50%;
+        }
+        .ucs .spine::before { /* Head */
+            width: 30px;
+            height: 30px;
+            top: -25px;
+            left: -10px;
+            transform: translateX(15px) translateY(5px);
+        }
+        .ucs .spine::after { /* Shoulders */
+             width: 60px;
+             height: 15px;
+             top: 10px;
+             left: -25px;
+             transform: rotate(20deg);
+             border-radius: 10px;
+        }
+        .exercise-card {
+            transition: transform 0.3s ease;
+        }
+        .exercise-card:hover {
+            transform: translateY(-5px);
+        }
+        .exercise-anim-canvas {
+            width: 100px;
+            height: 80px;
+            background-color: #edf2f7;
+            border-radius: 0.5rem;
         }
     </style>
 </head>
-<body class="antialiased">
+<body class="bg-cream text-charcoal">
 
-    <!-- Navigation -->
-    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center gap-2">
-                    <span class="text-3xl">⚛️</span>
-                    <span class="font-extrabold text-2xl tracking-tight text-stone-900">Kinetic<span class="text-stone-500">Hub</span></span>
+    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="flex items-center justify-between h-16" id="main-nav">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold accent-slate-blue">Upper Back Guide</h1>
                 </div>
-                <div class="hidden md:flex items-center space-x-4">
-                    <span class="text-xs font-semibold uppercase tracking-wider text-stone-400">System Status:</span>
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        Operational
-                    </span>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium" href="#understand">Understand</a>
+                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium" href="#prevent">Prevent</a>
+                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium" href="#exercise">Exercise</a>
+                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium" href="#relief">Self-Care</a>
+                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium text-red-600 font-bold" href="#seek-help">Seek Help</a>
+                    </div>
                 </div>
+                <div class="md:hidden">
+                    <button class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:bg-gray-200 focus:outline-none" id="mobile-menu-button">
+                        <span class="sr-only">Open main menu</span>
+                        <span aria-hidden="true" class="block h-6 w-6">☰</span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium" href="#understand">Understand</a>
+                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium" href="#prevent">Prevent</a>
+                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium" href="#exercise">Exercise</a>
+                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium" href="#relief">Self-Care</a>
+                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium text-red-600 font-bold" href="#seek-help">Seek Help</a>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <div class="relative bg-stone-900 text-white overflow-hidden">
-        <div class="absolute inset-0">
-            <img alt="Anatomy background" class="w-full h-full object-cover opacity-10" src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1950&amp;q=80"/>
-            <div class="absolute inset-0 bg-gradient-to-r from-stone-900 via-stone-900/90 to-stone-900/50"></div>
-        </div>
-        <div class="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
-            <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-                The Body is a <span class="text-indigo-400">Chain</span>.
-            </h1>
-            <p class="mt-6 text-xl text-stone-300 max-w-3xl">
-                Pain is rarely isolated. A hurt knee often starts in the hip. A stiff neck begins in the upper back. 
-                Use the <strong>Pain Tracer</strong> below to visualize the connections, then explore the modules to fix the root cause.
-            </p>
-        </div>
-    </div>
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        
+        <section class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">A Guide to Understanding &amp; Managing Upper Back Pain</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-600">Here are a few options, all aiming for similar length and meaning:
 
-    <!-- The Pain Tracer (Interactive Filter) -->
-    <div class="bg-white border-b border-stone-200 sticky top-16 z-40 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                <div>
-                    <h2 class="text-lg font-bold text-stone-900">🚨 Pain Tracer</h2>
-                    <p class="text-sm text-stone-500">Where are you experiencing symptoms?</p>
-                </div>
-                <div class="flex flex-wrap gap-2">
-                    <button class="tracer-btn px-4 py-2 rounded-full text-sm font-medium bg-stone-100 text-stone-600 hover:bg-stone-200 transition-colors active" onclick="tracePain('reset')">Show All</button>
-                    <button class="tracer-btn px-4 py-2 rounded-full text-sm font-medium border border-stone-200 hover:border-blue-500 hover:text-blue-600 transition-colors" onclick="tracePain('knee')">Knee Pain</button>
-                    <button class="tracer-btn px-4 py-2 rounded-full text-sm font-medium border border-stone-200 hover:border-amber-500 hover:text-amber-600 transition-colors" onclick="tracePain('back')">Low Back Pain</button>
-                    <button class="tracer-btn px-4 py-2 rounded-full text-sm font-medium border border-stone-200 hover:border-violet-500 hover:text-violet-600 transition-colors" onclick="tracePain('shoulder')">Shoulder Pain</button>
-                    <button class="tracer-btn px-4 py-2 rounded-full text-sm font-medium border border-stone-200 hover:border-cyan-500 hover:text-cyan-600 transition-colors" onclick="tracePain('neck')">Neck/Headache</button>
-                </div>
-            </div>
-            <div class="mt-4 p-3 bg-stone-50 rounded-lg text-sm text-stone-600 hidden border-l-4 border-stone-300" id="connection-message">
-                <!-- Dynamic text injected here -->
-            </div>
-        </div>
-    </div>
+*   Your thoracic spine, a crucial yet often overlooked part of your core, offers stability and shields vital organs. This resource demystifies it, addressing pain, injury prevention, and pain relief strategies.
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <!-- Module Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="module-grid">
-            
-            <!-- NECK (Cervical) -->
-            <div class="hub-card bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden group" id="card-neck">
-                <div class="h-2 bg-cyan-500"></div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-3xl group-hover:scale-110 transition-transform">🧠</span>
-                        <span class="px-2 py-1 bg-cyan-50 text-cyan-700 text-[10px] font-bold uppercase rounded">The Pilot</span>
+*   Anchoring your torso and safeguarding organs, the thoracic spine rarely gets the credit it deserves. This guide illuminates its function, aiding in pain management, injury avoidance, and recovery.
+
+*   The thoracic spine: the strong, silent foundation of your core, protecting key organs. This resource demystifies this vital area, empowering you to understand, prevent, and treat pain.</p>
+        </section>
+
+        <section class="mb-16 scroll-mt-20" id="understand">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Anatomy &amp; Common Causes</h3>
+            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">Back pain originates from diverse causes, including minor strains and posture problems, as well as complex spinal issues and illnesses. The chart below illustrates the main factors; tabs offer details on structural aspects.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="bg-white p-6 md:p-8 rounded-lg shadow-lg">
+                    <h4 class="text-xl font-semibold mb-4 text-center">Primary Causes of Upper Back Pain</h4>
+                    <div class="chart-container">
+                        <canvas id="causesChart"></canvas>
                     </div>
-                    <h3 class="text-xl font-bold text-stone-900 mb-2">Neck &amp; Cervical</h3>
-                    <p class="text-sm text-stone-500 mb-4">Combat "Tech Neck" and tension headaches by strengthening deep flexors.</p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-cyan-400 mr-2"></span> Focus: Alignment
+                </div>
+                <div class="bg-white p-6 md:p-8 rounded-lg shadow-lg">
+                    <h4 class="text-xl font-semibold mb-4 text-center">Common Spinal Deformities</h4>
+                    <div>
+                        <div class="border-b border-gray-200">
+                            <nav aria-label="Tabs" class="-mb-px flex space-x-4" id="deformity-tabs">
+                                <button class="tab-btn whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm border-slate-blue text-slate-blue" data-tab="ucs">Upper Cross</button>
+                                <button class="tab-btn whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="kyphosis">Kyphosis</button>
+                                <button class="tab-btn whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="scoliosis">Scoliosis</button>
+                            </nav>
                         </div>
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-cyan-400 mr-2"></span> Risk: 12lb Head Weight
+                        <div class="pt-4" id="deformity-content">
+                            <!-- Content will be injected by JS -->
                         </div>
                     </div>
-                    <button class="w-full py-2 border border-cyan-200 text-cyan-700 font-medium rounded-lg hover:bg-cyan-50 transition-colors" onclick="window.location.href='neck.html'">Open Module</button>
                 </div>
             </div>
+        </section>
+        
+        <section class="mb-16 scroll-mt-20" id="prevent">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Prevention: Posture &amp; Ergonomics</h3>
+            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">Prioritizing posture and an ergonomic setup is key for a healthy upper back. Regular, minor corrections stave off muscle issues and persistent pain.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                 <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="font-semibold text-lg mb-2 flex items-center"><span class="text-2xl mr-2">🪑</span> Sitting Posture</h4>
+                    <p class="text-sm text-gray-600">Maintain good posture: straight back, relaxed shoulders, flat feet. Use lumbar-supported chair; don't slouch.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="font-semibold text-lg mb-2 flex items-center"><span class="text-2xl mr-2">🖥️</span> Workstation Setup</h4>
+                    <p class="text-sm text-gray-600">Here are a few options, all similar in length and conveying the same message:
 
-            <!-- UPPER BACK (Thoracic) -->
-            <div class="hub-card bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden group" id="card-thoracic">
-                <div class="h-2 bg-teal-500"></div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-3xl group-hover:scale-110 transition-transform">🦅</span>
-                        <span class="px-2 py-1 bg-teal-50 text-teal-700 text-[10px] font-bold uppercase rounded">The Cage</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-stone-900 mb-2">Upper Back</h3>
-                    <p class="text-sm text-stone-500 mb-4">Unlock stiffness to save your neck and shoulders from kyphosis.</p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-teal-400 mr-2"></span> Focus: Mobility (Ext)
-                        </div>
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-teal-400 mr-2"></span> Risk: Slouching
-                        </div>
-                    </div>
-                    <button class="w-full py-2 border border-teal-200 text-teal-700 font-medium rounded-lg hover:bg-teal-50 transition-colors" onclick="window.location.href='upper-back.html'">Open Module</button>
+*   Place monitor at eye level, arm's reach distance. Keep keyboard/mouse near.
+*   Monitor at eye level, arm's length. Place keyboard and mouse within easy reach.
+*   Set monitor at eye level, arm's length. Position keyboard/mouse nearby.
+*   Monitor at eye level, an arm's length away. Keyboard and mouse should be close.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="font-semibold text-lg mb-2 flex items-center"><span class="text-2xl mr-2">🚶</span> Regular Breaks</h4>
+                    <p class="text-sm text-gray-600">Here are a few options, all similar in length:
+
+*   Get up, stretch, and walk around every half-hour to ease strain and boost blood flow.
+*   To minimize strain and boost blood flow, stand, stretch, and move every 30 minutes.
+*   Every 30 mins: Stand, stretch, and walk to decrease static load and improve blood flow.
+*   Reduce static load; improve circulation: stand, stretch, and move every half hour.</p>
                 </div>
             </div>
+        </section>
 
-            <!-- SHOULDERS -->
-            <div class="hub-card bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden group" id="card-shoulder">
-                <div class="h-2 bg-violet-500"></div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-3xl group-hover:scale-110 transition-transform">🦾</span>
-                        <span class="px-2 py-1 bg-violet-50 text-violet-700 text-[10px] font-bold uppercase rounded">The Cannon</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-stone-900 mb-2">Shoulder Complex</h3>
-                    <p class="text-sm text-stone-500 mb-4">Stabilize the blade (Scapula) to fire the arm without impingement.</p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-violet-400 mr-2"></span> Focus: Stability
-                        </div>
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-violet-400 mr-2"></span> Risk: Rotator Cuff
-                        </div>
-                    </div>
-                    <button class="w-full py-2 border border-violet-200 text-violet-700 font-medium rounded-lg hover:bg-violet-50 transition-colors" onclick="window.location.href='shoulder.html'">Open Module</button>
+        <section class="mb-16 scroll-mt-20" id="exercise">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Guided Exercises</h3>
+            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">Here are a few options, all similar in length:
+
+*   Focus on targeted exercises to build thoracic spine strength and flexibility. Explore routines using the filters to address key muscles and tight areas.
+*   Strengthen your thoracic spine with targeted exercises that boost flexibility and strength. Use the filters to find routines for muscles and stretches.
+*   For a strong, flexible thoracic spine, targeted exercises are essential. Use the filters to explore routines focused on muscle strengthening and stretching.</p>
+            <div class="flex justify-center mb-8 space-x-2">
+                <button class="filter-btn bg-slate-blue text-white px-4 py-2 rounded-full" data-filter="all">All</button>
+                <button class="filter-btn bg-white text-charcoal px-4 py-2 rounded-full border" data-filter="strengthening">Strengthening</button>
+                <button class="filter-btn bg-white text-charcoal px-4 py-2 rounded-full border" data-filter="flexibility">Flexibility</button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="exercise-gallery"></div>
+        </section>
+
+        <section class="mb-16 scroll-mt-20" id="relief">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Self-Care for Acute Pain</h3>
+            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">Here's a rewritten line with a similar length:
+
+**For upper back pain, try these self-care tips to ease the ache. Choosing heat or cold strategically boosts relief.**</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="text-xl font-semibold mb-3 flex items-center"><span class="text-blue-500 mr-2">❄️</span> Cold Therapy</h4>
+                    <p class="font-semibold">Best for: First 48 hours (Acute Injury/Strain)</p>
+                    <p class="text-gray-600 mt-2">Cools swelling &amp; eases pain; wrap ice for 20 mins.</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="text-xl font-semibold mb-3 flex items-center"><span class="text-red-500 mr-2">🔥</span> Heat Therapy</h4>
+                    <p class="font-semibold">Best for: After 48 hours (Chronic Stiffness/Soreness)</p>
+                    <p class="text-gray-600 mt-2">Here are a few options, all similar in length and conveying the same information:
+
+*   **Soothes muscles and boosts circulation, aiding recovery. Apply heat (pad or bath) for 15-20 minutes.**
+*   **Encourages healing by easing muscle tension and enhancing blood flow. Use a warm compress or bath for 15-20 minutes.**
+*   **For healing: ease muscle strain and improve blood flow. Try a 15-20 minute heat treatment (pad or bath).**</p>
                 </div>
             </div>
+        </section>
 
-            <!-- ARMS/WRISTS -->
-            <div class="hub-card bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden group" id="card-wrist">
-                <div class="h-2 bg-rose-500"></div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-3xl group-hover:scale-110 transition-transform">🖐️</span>
-                        <span class="px-2 py-1 bg-rose-50 text-rose-700 text-[10px] font-bold uppercase rounded">Fine Motor</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-stone-900 mb-2">Wrist &amp; Forearm</h3>
-                    <p class="text-sm text-stone-500 mb-4">Combat RSI and Carpal Tunnel by balancing extensors and flexors.</p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-rose-400 mr-2"></span> Focus: Ergonomics
-                        </div>
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-rose-400 mr-2"></span> Risk: Typing Reps
-                        </div>
-                    </div>
-                    <button class="w-full py-2 border border-rose-200 text-rose-700 font-medium rounded-lg hover:bg-rose-50 transition-colors" onclick="window.location.href='wrist-forearam.html'">Open Module</button>
-                </div>
-            </div>
-
-            <!-- CORE -->
-            <div class="hub-card bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden group" id="card-core">
-                <div class="h-2 bg-green-600"></div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-3xl group-hover:scale-110 transition-transform">🔋</span>
-                        <span class="px-2 py-1 bg-green-50 text-green-700 text-[10px] font-bold uppercase rounded">The Cylinder</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-stone-900 mb-2">Core &amp; Abs</h3>
-                    <p class="text-sm text-stone-500 mb-4">Create Intra-Abdominal Pressure (IAP) to shield the spine.</p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-green-400 mr-2"></span> Focus: Anti-Motion
-                        </div>
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-green-400 mr-2"></span> Risk: Spinal Flexion
-                        </div>
-                    </div>
-                    <button class="w-full py-2 border border-green-200 text-green-700 font-medium rounded-lg hover:bg-green-50 transition-colors" onclick="window.location.href='abdominal-muscles.html'">Open Module</button>
-                </div>
-            </div>
-
-            <!-- LOWER BACK -->
-            <div class="hub-card bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden group" id="card-lumbar">
-                <div class="h-2 bg-amber-500"></div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-3xl group-hover:scale-110 transition-transform">🚧</span>
-                        <span class="px-2 py-1 bg-amber-50 text-amber-700 text-[10px] font-bold uppercase rounded">The Pillar</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-stone-900 mb-2">Lower Back</h3>
-                    <p class="text-sm text-stone-500 mb-4">The lumbar spine needs stability, not mobility. Stop stretching it.</p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-amber-400 mr-2"></span> Focus: Stiffness
-                        </div>
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-amber-400 mr-2"></span> Risk: Disc Pressure
-                        </div>
-                    </div>
-                    <button class="w-full py-2 border border-amber-200 text-amber-700 font-medium rounded-lg hover:bg-amber-50 transition-colors" onclick="window.location.href='lower-back-care.html'">Open Module</button>
-                </div>
-            </div>
-
-            <!-- PELVIS / SI -->
-            <div class="hub-card bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden group" id="card-pelvis">
-                <div class="h-2 bg-fuchsia-500"></div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-3xl group-hover:scale-110 transition-transform">🏛️</span>
-                        <span class="px-2 py-1 bg-fuchsia-50 text-fuchsia-700 text-[10px] font-bold uppercase rounded">The Keystone</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-stone-900 mb-2">Pelvis &amp; SI Joint</h3>
-                    <p class="text-sm text-stone-500 mb-4">Form and Force closure mechanisms to transfer load to legs.</p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-fuchsia-400 mr-2"></span> Focus: Compression
-                        </div>
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-fuchsia-400 mr-2"></span> Risk: Shear Force
-                        </div>
-                    </div>
-                    <button class="w-full py-2 border border-fuchsia-200 text-fuchsia-700 font-medium rounded-lg hover:bg-fuchsia-50 transition-colors" onclick="window.location.href='pelvios-and-sacroiliac-joint.html'">Open Module</button>
-                </div>
-            </div>
-
-            <!-- HIPS -->
-            <div class="hub-card bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden group" id="card-hip">
-                <div class="h-2 bg-indigo-600"></div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-3xl group-hover:scale-110 transition-transform">🦴</span>
-                        <span class="px-2 py-1 bg-indigo-50 text-indigo-700 text-[10px] font-bold uppercase rounded">The Fulcrum</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-stone-900 mb-2">Hips</h3>
-                    <p class="text-sm text-stone-500 mb-4">The central driver. Tight hips destroy the back; weak hips destroy knees.</p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-indigo-400 mr-2"></span> Focus: Mobility
-                        </div>
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-indigo-400 mr-2"></span> Risk: Sitting
-                        </div>
-                    </div>
-                    <button class="w-full py-2 border border-indigo-200 text-indigo-700 font-medium rounded-lg hover:bg-indigo-50 transition-colors" onclick="window.location.href='hip-care.html'">Open Module</button>
-                </div>
-            </div>
-
-            <!-- GROIN -->
-            <div class="hub-card bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden group" id="card-groin">
-                <div class="h-2 bg-lime-500"></div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-3xl group-hover:scale-110 transition-transform">⚡</span>
-                        <span class="px-2 py-1 bg-lime-50 text-lime-700 text-[10px] font-bold uppercase rounded">Agility</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-stone-900 mb-2">Groin &amp; Adductor</h3>
-                    <p class="text-sm text-stone-500 mb-4">Balance the inward pull with the outward push to prevent strains.</p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-lime-400 mr-2"></span> Focus: Balance
-                        </div>
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-lime-400 mr-2"></span> Risk: Cutting
-                        </div>
-                    </div>
-                    <button class="w-full py-2 border border-lime-200 text-lime-700 font-medium rounded-lg hover:bg-lime-50 transition-colors" onclick="window.location.href='groin.html'">Open Module</button>
-                </div>
-            </div>
-
-            <!-- THIGHS -->
-            <div class="hub-card bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden group" id="card-thigh">
-                <div class="h-2 bg-orange-500"></div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-3xl group-hover:scale-110 transition-transform">🦵</span>
-                        <span class="px-2 py-1 bg-orange-50 text-orange-700 text-[10px] font-bold uppercase rounded">Power</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-stone-900 mb-2">Thighs (Quad/Ham)</h3>
-                    <p class="text-sm text-stone-500 mb-4">Engine (Quad) vs. Brakes (Hamstring). Imbalance causes tears.</p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-orange-400 mr-2"></span> Focus: Strength
-                        </div>
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-orange-400 mr-2"></span> Risk: Dominance
-                        </div>
-                    </div>
-                    <button class="w-full py-2 border border-orange-200 text-orange-700 font-medium rounded-lg hover:bg-orange-50 transition-colors" onclick="window.location.href='thigh.html'">Open Module</button>
-                </div>
-            </div>
-
-            <!-- KNEES -->
-            <div class="hub-card bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden group" id="card-knee">
-                <div class="h-2 bg-blue-500"></div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-3xl group-hover:scale-110 transition-transform">🛡️</span>
-                        <span class="px-2 py-1 bg-blue-50 text-blue-700 text-[10px] font-bold uppercase rounded">The Hinge</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-stone-900 mb-2">Knees</h3>
-                    <p class="text-sm text-stone-500 mb-4">The middle-man. Knee pain is usually a foot or hip problem.</p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-blue-400 mr-2"></span> Focus: Stability
-                        </div>
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-blue-400 mr-2"></span> Risk: Torque
-                        </div>
-                    </div>
-                    <button class="w-full py-2 border border-blue-200 text-blue-700 font-medium rounded-lg hover:bg-blue-50 transition-colors" onclick="window.location.href='knee_care.html'">Open Module</button>
-                </div>
-            </div>
-
-            <!-- UPPER BACK (Thoracic) -->
-            <div class="hub-card bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden group" id="card-thoracic">
-                <div class="h-2 bg-teal-500"></div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-3xl group-hover:scale-110 transition-transform">🦅</span>
-                        <span class="px-2 py-1 bg-teal-50 text-teal-700 text-[10px] font-bold uppercase rounded">The Cage</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-stone-900 mb-2">Upper Back</h3>
-                    <p class="text-sm text-stone-500 mb-4">Unlock stiffness to save your neck and shoulders from kyphosis.</p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-teal-400 mr-2"></span> Focus: Mobility (Ext)
-                        </div>
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-teal-400 mr-2"></span> Risk: Slouching
-                        </div>
-                    </div>
-                    <button class="w-full py-2 border border-teal-200 text-teal-700 font-medium rounded-lg hover:bg-teal-50 transition-colors" onclick="window.location.href='upper-back.html'">Open Module</button>
-                </div>
-            </div>
-
-            <!-- SHOULDERS -->
-            <div class="hub-card bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden group" id="card-shoulder">
-                <div class="h-2 bg-violet-500"></div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-3xl group-hover:scale-110 transition-transform">🦾</span>
-                        <span class="px-2 py-1 bg-violet-50 text-violet-700 text-[10px] font-bold uppercase rounded">The Cannon</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-stone-900 mb-2">Shoulder Complex</h3>
-                    <p class="text-sm text-stone-500 mb-4">Stabilize the blade (Scapula) to fire the arm without impingement.</p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-violet-400 mr-2"></span> Focus: Stability
-                        </div>
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-violet-400 mr-2"></span> Risk: Rotator Cuff
-                        </div>
-                    </div>
-                    <button class="w-full py-2 border border-violet-200 text-violet-700 font-medium rounded-lg hover:bg-violet-50 transition-colors" onclick="window.location.href='shoulder.html'">Open Module</button>
-                </div>
-            </div>
-
-            <!-- ARMS/WRISTS -->
-            <div class="hub-card bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden group" id="card-wrist">
-                <div class="h-2 bg-rose-500"></div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-3xl group-hover:scale-110 transition-transform">🖐️</span>
-                        <span class="px-2 py-1 bg-rose-50 text-rose-700 text-[10px] font-bold uppercase rounded">Fine Motor</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-stone-900 mb-2">Wrist &amp; Forearm</h3>
-                    <p class="text-sm text-stone-500 mb-4">Combat RSI and Carpal Tunnel by balancing extensors and flexors.</p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-rose-400 mr-2"></span> Focus: Ergonomics
-                        </div>
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-rose-400 mr-2"></span> Risk: Typing Reps
-                        </div>
-                    </div>
-                    <button class="w-full py-2 border border-rose-200 text-rose-700 font-medium rounded-lg hover:bg-rose-50 transition-colors" onclick="window.location.href='wrist-forearm.html'">Open Module</button>
-                </div>
-            </div>
-
-            <!-- CORE -->
-            <div class="hub-card bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden group" id="card-core">
-                <div class="h-2 bg-green-600"></div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-3xl group-hover:scale-110 transition-transform">🔋</span>
-                        <span class="px-2 py-1 bg-green-50 text-green-700 text-[10px] font-bold uppercase rounded">The Cylinder</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-stone-900 mb-2">Core &amp; Abs</h3>
-                    <p class="text-sm text-stone-500 mb-4">Create Intra-Abdominal Pressure (IAP) to shield the spine.</p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-green-400 mr-2"></span> Focus: Anti-Motion
-                        </div>
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-green-400 mr-2"></span> Risk: Spinal Flexion
-                        </div>
-                    </div>
-                    <button class="w-full py-2 border border-green-200 text-green-700 font-medium rounded-lg hover:bg-green-50 transition-colors" onclick="window.location.href='abdominal-muscles.html'">Open Module</button>
-                </div>
-            </div>
-
-            <!-- LOWER BACK -->
-            <div class="hub-card bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden group" id="card-lumbar">
-                <div class="h-2 bg-amber-500"></div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-3xl group-hover:scale-110 transition-transform">🚧</span>
-                        <span class="px-2 py-1 bg-amber-50 text-amber-700 text-[10px] font-bold uppercase rounded">The Pillar</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-stone-900 mb-2">Lower Back</h3>
-                    <p class="text-sm text-stone-500 mb-4">The lumbar spine needs stability, not mobility. Stop stretching it.</p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-amber-400 mr-2"></span> Focus: Stiffness
-                        </div>
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-amber-400 mr-2"></span> Risk: Disc Pressure
-                        </div>
-                    </div>
-                    <button class="w-full py-2 border border-amber-200 text-amber-700 font-medium rounded-lg hover:bg-amber-50 transition-colors" onclick="window.location.href='lower-back-care.html'">Open Module</button>
-                </div>
-            </div>
-
-            <!-- PELVIS / SI -->
-            <div class="hub-card bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden group" id="card-pelvis">
-                <div class="h-2 bg-fuchsia-500"></div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-3xl group-hover:scale-110 transition-transform">🏛️</span>
-                        <span class="px-2 py-1 bg-fuchsia-50 text-fuchsia-700 text-[10px] font-bold uppercase rounded">The Keystone</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-stone-900 mb-2">Pelvis &amp; SI Joint</h3>
-                    <p class="text-sm text-stone-500 mb-4">Form and Force closure mechanisms to transfer load to legs.</p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-fuchsia-400 mr-2"></span> Focus: Compression
-                        </div>
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-fuchsia-400 mr-2"></span> Risk: Shear Force
-                        </div>
-                    </div>
-                    <button class="w-full py-2 border border-fuchsia-200 text-fuchsia-700 font-medium rounded-lg hover:bg-fuchsia-50 transition-colors" onclick="window.location.href='pelvios-and-sacroiliac-joint.html'">Open Module</button>
-                </div>
-            </div>
-
-            <!-- HIPS -->
-            <div class="hub-card bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden group" id="card-hip">
-                <div class="h-2 bg-indigo-600"></div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-3xl group-hover:scale-110 transition-transform">🦴</span>
-                        <span class="px-2 py-1 bg-indigo-50 text-indigo-700 text-[10px] font-bold uppercase rounded">The Fulcrum</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-stone-900 mb-2">Hips</h3>
-                    <p class="text-sm text-stone-500 mb-4">The central driver. Tight hips destroy the back; weak hips destroy knees.</p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-indigo-400 mr-2"></span> Focus: Mobility
-                        </div>
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-indigo-400 mr-2"></span> Risk: Sitting
-                        </div>
-                    </div>
-                    <button class="w-full py-2 border border-indigo-200 text-indigo-700 font-medium rounded-lg hover:bg-indigo-50 transition-colors" onclick="window.location.href='hip-care.html'">Open Module</button>
-                </div>
-            </div>
-
-            <!-- GROIN -->
-            <div class="hub-card bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden group" id="card-groin">
-                <div class="h-2 bg-lime-500"></div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-3xl group-hover:scale-110 transition-transform">⚡</span>
-                        <span class="px-2 py-1 bg-lime-50 text-lime-700 text-[10px] font-bold uppercase rounded">Agility</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-stone-900 mb-2">Groin &amp; Adductor</h3>
-                    <p class="text-sm text-stone-500 mb-4">Balance the inward pull with the outward push to prevent strains.</p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-lime-400 mr-2"></span> Focus: Balance
-                        </div>
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-lime-400 mr-2"></span> Risk: Cutting
-                        </div>
-                    </div>
-                    <button class="w-full py-2 border border-lime-200 text-lime-700 font-medium rounded-lg hover:bg-lime-50 transition-colors" onclick="window.location.href='groin.html'">Open Module</button>
-                </div>
-            </div>
-
-            <!-- THIGHS -->
-            <div class="hub-card bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden group" id="card-thigh">
-                <div class="h-2 bg-orange-500"></div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-3xl group-hover:scale-110 transition-transform">🦵</span>
-                        <span class="px-2 py-1 bg-orange-50 text-orange-700 text-[10px] font-bold uppercase rounded">Power</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-stone-900 mb-2">Thighs (Quad/Ham)</h3>
-                    <p class="text-sm text-stone-500 mb-4">Engine (Quad) vs. Brakes (Hamstring). Imbalance causes tears.</p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-orange-400 mr-2"></span> Focus: Strength
-                        </div>
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-orange-400 mr-2"></span> Risk: Dominance
-                        </div>
-                    </div>
-                    <button "="" "window.location.href="thigh.html" class="w-full py-2 border border-orange-200 text-orange-700 font-medium rounded-lg hover:bg-orange-50 transition-colors">Open Module</button>
-                </div>
-            </div>
-
-            <!-- KNEES -->
-            <div class="hub-card bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden group" id="card-knee">
-                <div class="h-2 bg-blue-500"></div>
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-3xl group-hover:scale-110 transition-transform">🛡️</span>
-                        <span class="px-2 py-1 bg-blue-50 text-blue-700 text-[10px] font-bold uppercase rounded">The Hinge</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-stone-900 mb-2">Knees</h3>
-                    <p class="text-sm text-stone-500 mb-4">The middle-man. Knee pain is usually a foot or hip problem.</p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-blue-400 mr-2"></span> Focus: Stability
-                        </div>
-                        <div class="flex items-center text-xs text-stone-400">
-                            <span class="w-2 h-2 rounded-full bg-blue-400 mr-2"></span> Risk: Torque
-                        </div>
-                    </div>
-                    <button class="w-full py-2 border border-blue-200 text-blue-700 font-medium rounded-lg hover:bg-blue-50 transition-colors" onclick="window.location.href='knees.html'">Open Module</button>
-                </div>
-            </div>
-
-        </div>
+        <section class="scroll-mt-20" id="seek-help">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8 text-red-700">Red Flags: When to Seek Immediate Medical Attention</h3>
+            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">Though often treatable, some upper back pain signals a serious issue.  If you have any of these symptoms, get immediate medical help.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="red-flags-container"></div>
+        </section>
     </main>
 
-    <html><head></head><body><footer class="bg-gray-800 text-gray-300">
+<!--
+    <footer class="bg-light-gray mt-16">
+        <div class="container mx-auto py-6 px-4 text-center text-gray-500">
+            <p class="text-sm">This guide is for informational purposes and is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.</p>
+        </div>
+    </footer>
+-->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const causesData = {
+                labels: ['Poor Posture', 'Muscle Strain', 'Disc Issues', 'Spinal Deformity', 'Referred Pain', 'Inflammation'],
+                datasets: [{
+                    label: 'Prevalence of Causes',
+                    data: [35, 30, 10, 10, 10, 5],
+                    backgroundColor: [
+                        'rgba(74, 85, 104, 0.7)',
+                        'rgba(113, 128, 150, 0.7)',
+                        'rgba(160, 174, 192, 0.7)',
+                        'rgba(226, 232, 240, 0.8)',
+                        'rgba(237, 100, 166, 0.6)',
+                        'rgba(255, 128, 128, 0.6)',
+                    ],
+                    borderColor: 'rgba(54, 69, 79, 1)',
+                    borderWidth: 1,
+                }]
+            };
+
+            const causesChartCtx = document.getElementById('causesChart').getContext('2d');
+            new Chart(causesChartCtx, {
+                type: 'polarArea',
+                data: causesData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            pointLabels: { display: true, centerPointLabels: true, font: { size: 14 } },
+                            ticks: { display: false },
+                            grid: { circular: true }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'top' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const deformitiesData = {
+                ucs: {
+                    title: 'Upper Cross Syndrome',
+                    desc: 'A muscle imbalance from poor posture (e.g., "tech neck"), causing tight chest/neck muscles and weak back/neck muscles. Leads to rounded shoulders and forward head posture.',
+                    html: '<div class="deformity-vis ucs"><div class="spine"></div></div>'
+                },
+                kyphosis: {
+                    title: 'Kyphosis',
+                    desc: 'An excessive forward curvature of the upper back, creating a "humpback" appearance. It can be postural or structural (Scheuermann\'s disease).',
+                    html: '<div class="deformity-vis kyphosis"><div class="spine"></div></div>'
+                },
+                scoliosis: {
+                    title: 'Scoliosis',
+                    desc: 'An abnormal sideways curvature of the spine. The thoracic region is most commonly affected, causing pain and muscle strain.',
+                    html: '<div class="deformity-vis scoliosis"><div class="spine"></div></div>'
+                }
+            };
+
+            const deformityTabs = document.getElementById('deformity-tabs');
+            const deformityContent = document.getElementById('deformity-content');
+            
+            function updateDeformityContent(tab) {
+                const data = deformitiesData[tab];
+                deformityContent.innerHTML = `
+                    <h5 class="font-bold text-md mb-2">${data.title}</h5>
+                    ${data.html}
+                    <p class="text-sm text-gray-600 mt-2">${data.desc}</p>
+                `;
+            }
+
+            deformityTabs.addEventListener('click', (e) => {
+                const button = e.target.closest('button');
+                if (!button) return;
+                
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.remove('border-slate-blue', 'text-slate-blue');
+                    btn.classList.add('border-transparent', 'text-gray-500');
+                });
+                
+                button.classList.add('border-slate-blue', 'text-slate-blue');
+                button.classList.remove('border-transparent', 'text-gray-500');
+                
+                updateDeformityContent(button.dataset.tab);
+            });
+            updateDeformityContent('ucs');
+
+
+            const exercisesData = [
+                { name: 'Scapular Squeeze', type: 'strengthening', desc: 'Activates key upper back muscles.' },
+                { name: 'Cat-Cow Stretch', type: 'flexibility', desc: 'Improves spinal mobility and relieves tension.' },
+                { name: 'Wall Angels', type: 'strengthening', desc: 'Corrects posture and strengthens shoulder stabilizers.' },
+                { name: 'Doorway Pec Stretch', type: 'flexibility', desc: 'Opens up tight chest muscles.' },
+                { name: 'Bird-Dog', type: 'strengthening', desc: 'Enhances core stability and balance.' },
+                { name: 'Thoracic Rotation', type: 'flexibility', desc: 'Increases rotational mobility in the upper back.' },
+                { name: 'Rows (with band)', type: 'strengthening', desc: 'Builds pulling strength in the back.' },
+                { name: 'Child\'s Pose', type: 'flexibility', desc: 'Gently stretches the back, hips, and shoulders.' },
+            ];
+
+            const exerciseGallery = document.getElementById('exercise-gallery');
+
+            function renderExercises(filter) {
+                exerciseGallery.innerHTML = '';
+                const filtered = filter === 'all' ? exercisesData : exercisesData.filter(ex => ex.type === filter);
+                filtered.forEach(ex => {
+                    const card = document.createElement('div');
+                    card.className = 'exercise-card bg-white p-4 rounded-lg shadow-md flex flex-col items-center text-center';
+                    card.innerHTML = `
+                        <div class="exercise-anim-canvas mb-3 flex items-center justify-center text-gray-400 text-xs">Animation</div>
+                        <h5 class="font-semibold">${ex.name}</h5>
+                        <p class="text-xs text-gray-500 mb-2">${ex.desc}</p>
+                        <span class="text-xs font-semibold px-2 py-1 rounded-full ${ex.type === 'strengthening' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'}">${ex.type}</span>
+                    `;
+                    exerciseGallery.appendChild(card);
+                });
+            }
+            renderExercises('all');
+
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelector('.filter-btn.bg-slate-blue').classList.replace('bg-slate-blue','bg-white');
+                    document.querySelector('.filter-btn.text-white').classList.replace('text-white','text-charcoal');
+                    btn.classList.replace('bg-white','bg-slate-blue');
+                    btn.classList.replace('text-charcoal','text-white');
+                    renderExercises(btn.dataset.filter);
+                });
+            });
+
+             const redFlagsData = [
+                { icon: '🧠', title: 'Neurological Deficits', desc: 'Weakness, numbness, or tingling in arms or legs; balance issues.' },
+                { icon: '🚻', title: 'Bowel/Bladder Issues', desc: 'Sudden loss of control is a critical sign of nerve compression.' },
+                { icon: '🌡️', title: 'Systemic Symptoms', desc: 'Pain accompanied by fever, chills, or unexplained weight loss.' },
+                { icon: '💥', title: 'Pain from Trauma', desc: 'Resulting from a fall or accident, especially in older adults.' },
+                { icon: '❤️', title: 'Chest or Radiating Pain', desc: 'Pain spreading to the chest, jaw, or arms can signal heart or lung issues.' },
+                { icon: '🌙', title: 'Pain Worsening at Night', desc: 'Pain that doesn\'t improve with rest or increases at night.' },
+            ];
+
+            const redFlagsContainer = document.getElementById('red-flags-container');
+            redFlagsData.forEach(flag => {
+                const item = document.createElement('div');
+                item.className = 'bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg flex items-start';
+                item.innerHTML = `
+                    <span class="text-3xl mr-4">${flag.icon}</span>
+                    <div>
+                        <h5 class="font-bold text-red-700">${flag.title}</h5>
+                        <p class="text-sm text-red-600">${flag.desc}</p>
+                    </div>
+                `;
+                redFlagsContainer.appendChild(item);
+            });
+            
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active', 'accent-slate-blue', 'font-bold');
+                            if (`#${entry.target.id}` === link.getAttribute('href')) {
+                                link.classList.add('active', 'accent-slate-blue', 'font-bold');
+                            }
+                        });
+                    }
+                });
+            }, { rootMargin: '-30% 0px -70% 0px' });
+            
+            sections.forEach(section => observer.observe(section));
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            document.querySelectorAll('#main-nav a, #mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+
+        });
+    </script>
+
+
+<html><head></head><body><footer class="bg-gray-800 text-gray-300">
   <div class="container mx-auto px-6 py-12 lg:px-8">
     <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
       
@@ -708,83 +583,4 @@
       </div>
     </div>
   </div>
-</footer></body></html>
-
-    <!-- Interactive Logic -->
-    <script>
-        const cards = {
-            neck: document.getElementById('card-neck'),
-            thoracic: document.getElementById('card-thoracic'),
-            shoulder: document.getElementById('card-shoulder'),
-            wrist: document.getElementById('card-wrist'),
-            core: document.getElementById('card-core'),
-            lumbar: document.getElementById('card-lumbar'),
-            pelvis: document.getElementById('card-pelvis'),
-            hip: document.getElementById('card-hip'),
-            groin: document.getElementById('card-groin'),
-            thigh: document.getElementById('card-thigh'),
-            knee: document.getElementById('card-knee')
-        };
-
-        const msgBox = document.getElementById('connection-message');
-
-        function resetCards() {
-            Object.values(cards).forEach(card => {
-                card.classList.remove('dimmed', 'ring-4', 'ring-offset-2');
-                // Remove specific color rings
-                card.classList.remove('ring-blue-400', 'ring-amber-400', 'ring-cyan-400', 'ring-indigo-400');
-            });
-            msgBox.classList.add('hidden');
-        }
-
-        function highlight(cardId, colorClass) {
-            const card = cards[cardId];
-            if(card) {
-                card.classList.remove('dimmed');
-                card.classList.add('ring-4', 'ring-offset-2', colorClass);
-            }
-        }
-
-        function tracePain(area) {
-            resetCards();
-
-            // Dim all first
-            if (area !== 'reset') {
-                Object.values(cards).forEach(card => card.classList.add('dimmed'));
-                msgBox.classList.remove('hidden');
-            }
-
-            // Logic: Joint-by-Joint Approach
-            if (area === 'knee') {
-                highlight('knee', 'ring-blue-400'); // The pain
-                highlight('hip', 'ring-indigo-400'); // Upstream cause (Stability)
-                highlight('thigh', 'ring-orange-400'); // Local Muscle Imbalance
-                msgBox.innerHTML = `<strong>Knee Analysis:</strong> The knee is a stable hinge caught between two mobile joints. Pain often stems from weak <strong>Hips</strong> (upstream) or Quad/Ham imbalance in the <strong>Thighs</strong>.`;
-                msgBox.className = "mt-4 p-4 bg-blue-50 text-blue-800 rounded-lg text-sm border-l-4 border-blue-400 block animate-pulse";
-            } 
-            else if (area === 'back') {
-                highlight('lumbar', 'ring-amber-400'); // The pain
-                highlight('thoracic', 'ring-teal-400'); // Upstream (Mobility)
-                highlight('hip', 'ring-indigo-400'); // Downstream (Mobility)
-                highlight('core', 'ring-green-400'); // Stabilization
-                msgBox.innerHTML = `<strong>Lower Back Analysis:</strong> The lumbar spine needs stability. Pain usually occurs because it's compensating for a stiff <strong>Upper Back</strong> or tight <strong>Hips</strong>. Strengthen the <strong>Core</strong> to protect it.`;
-                msgBox.className = "mt-4 p-4 bg-amber-50 text-amber-800 rounded-lg text-sm border-l-4 border-amber-400 block animate-pulse";
-            }
-            else if (area === 'shoulder') {
-                highlight('shoulder', 'ring-violet-400'); // The pain
-                highlight('thoracic', 'ring-teal-400'); // Foundation
-                highlight('neck', 'ring-cyan-400'); // Upstream
-                msgBox.innerHTML = `<strong>Shoulder Analysis:</strong> The shoulder blade floats on the ribcage. If your <strong>Upper Back</strong> is rounded (kyphosis), the shoulder impinges. <strong>Neck</strong> tension often follows shoulder dysfunction.`;
-                msgBox.className = "mt-4 p-4 bg-violet-50 text-violet-800 rounded-lg text-sm border-l-4 border-violet-400 block animate-pulse";
-            }
-            else if (area === 'neck') {
-                highlight('neck', 'ring-cyan-400'); // The pain
-                highlight('thoracic', 'ring-teal-400'); // Foundation
-                highlight('shoulder', 'ring-violet-400'); // Connected Tension
-                msgBox.innerHTML = `<strong>Neck Analysis:</strong> "Tech Neck" moves the head forward. This is often caused by a stiff <strong>Upper Back</strong> preventing extension. Relax the <strong>Shoulders</strong> to relieve the neck.`;
-                msgBox.className = "mt-4 p-4 bg-cyan-50 text-cyan-800 rounded-lg text-sm border-l-4 border-cyan-400 block animate-pulse";
-            }
-        }
-    </script>
-
-</body></html>
+</footer></body></html></body></html>

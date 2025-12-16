@@ -1,12 +1,15 @@
 original_path,output_path,articleurl,status
+abdominal-muscles.html,abdominal-muscles.html,no,merged
+back-related.html,index.html,yes,merged
 frozen-shoulder.html,how-to-take-care-of-frozen-shoulder.html,yes,merged
+groin.html,groin.html,no,merged
 health-hand.html,how-to-take-care-of-hands.html,yes,merged
 health-knee.html,how-to-take-care-of-knees.html,yes,merged
 health-leg.html,how-to-take-care-of-legs.html,yes,merged
 health-low-back.html,health-low-back.html,yes,merged
 health-neck.html,how-to-take-care-of-neck.html,yes,merged
 health-shoulder.html,how-to-take-care-of-shoulders.html,yes,merged
-health-upper-back.html,how-to-take-care-upper-back.html,yes,merged
+hip-care.html,hip-care.html,no,merged
 how-to-take-care-of-frozen-shoulder.html,how-to-take-care-of-frozen-shoulder-2.html,no,"collision, renamed to how-to-take-care-of-frozen-shoulder-2.html"
 how-to-take-care-of-hands.html,how-to-take-care-of-hands-2.html,no,"collision, renamed to how-to-take-care-of-hands-2.html"
 how-to-take-care-of-knees.html,how-to-take-care-of-knees-2.html,no,"collision, renamed to how-to-take-care-of-knees-2.html"
@@ -14,28 +17,25 @@ how-to-take-care-of-legs.html,how-to-take-care-of-legs-2.html,no,"collision, ren
 how-to-take-care-of-muscles-after-50.html,how-to-take-care-of-muscles-after-50.html,no,merged
 how-to-take-care-of-neck.html,how-to-take-care-of-neck-2.html,no,"collision, renamed to how-to-take-care-of-neck-2.html"
 how-to-take-care-of-shoulders.html,how-to-take-care-of-shoulders-2.html,no,"collision, renamed to how-to-take-care-of-shoulders-2.html"
-how-to-take-care-upper-back.html,how-to-take-care-upper-back-2.html,no,"collision, renamed to how-to-take-care-upper-back-2.html"
+how-to-take-care-upper-back.html,how-to-take-care-upper-back.html,no,merged
 index.html,articles-list.html,yes,merged
+knee-care.html,knee-care.html,no,merged
+lower-back-care.html,lower-back-care.html,no,merged
 muscle-care-after-50.html,how-to-take-care-of-muscles-after-50-2.html,yes,"collision, renamed to how-to-take-care-of-muscles-after-50-2.html"
+neck.html,neck.html,no,merged
+pelvios-and-sacroiliac-joint.html,pelvios-and-sacroiliac-joint.html,no,merged
+shoulder.html,shoulder.html,no,merged
+thigh.html,thigh.html,no,merged
+upper-back.html,upper-back.html,no,merged
+wrist-forearm.html,wrist-forearm.html,no,merged
 food\diet-compass.html,food\diet-compass.html,yes,merged
-related-body-parts\abdominal-muscles.html,related-body-parts\abdominal-muscles.html,no,merged
-related-body-parts\back-related.html,related-body-parts\index.html,yes,merged
-related-body-parts\groin.html,related-body-parts\groin.html,no,merged
 related-body-parts\health-hand-info.html,related-body-parts\health-hand-info.html,no,merged
 related-body-parts\health-knee-info.html,related-body-parts\health-knee-info.html,no,merged
 related-body-parts\health-leg-info.html,related-body-parts\health-leg-info.html,no,merged
 related-body-parts\health-neck-info.html,related-body-parts\health-neck-info.html,no,merged
 related-body-parts\health-shoulder-info.html,related-body-parts\health-shoulder-info.html,no,merged
 related-body-parts\health-upper-back-info.html,related-body-parts\health-upper-back-info.html,no,merged
-related-body-parts\hip-care.html,related-body-parts\hip-care.html,no,merged
-related-body-parts\knee-care.html,related-body-parts\knee-care.html,no,merged
-related-body-parts\lower-back-care.html,related-body-parts\lower-back-care.html,no,merged
-related-body-parts\neck.html,related-body-parts\neck.html,no,merged
-related-body-parts\pelvios-and-sacroiliac-joint.html,related-body-parts\pelvios-and-sacroiliac-joint.html,no,merged
-related-body-parts\shoulder.html,related-body-parts\shoulder.html,no,merged
-related-body-parts\thigh.html,related-body-parts\thigh.html,no,merged
-related-body-parts\upper-back.html,related-body-parts\upper-back.html,no,merged
-related-body-parts\wrist-forearm.html,related-body-parts\wrist-forearm.html,no,merged
+related-body-parts\health-upper-back.html,related-body-parts\index.html,yes,merged
 shoulders\frozen-shoulder-stretches-exercise.html,shoulders\frozen-shoulder-stretches-exercise.html,yes,merged
 shoulders\frozen-shoulder-symptoms.html,shoulders\frozen-shoulder-symptoms.html,yes,merged
 shoulders\frozen-shoulder-test.html,shoulders\frozen-shoulder-test.html,yes,merged

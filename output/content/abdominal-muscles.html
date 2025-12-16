@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="Interactive guide to Core Health: Move beyond crunches. Understand Intra-Abdominal Pressure (IAP), the 'Cylinder' concept, and build a functional stability routine." name="description"/>
+    <meta content="core stability, abdominal cylinder, transverse abdominis, anti-rotation exercises, pallof press, dead bug, lower back protection, functional strength, six pack myths, intra-abdominal pressure" name="keywords"/>
+    <title>LowBack: Core Stability &amp; Mechanics</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F0FDF4; /* Very light Emerald tint */
+            color: #14532D; /* Emerald 900 */
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #DCFCE7; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4ADE80; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #16A34A; 
+        }
+
+        /* Chart Container Specifics */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            height: 300px;
+            margin: 0 auto;
+        }
+        
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        /* Interactive Element Styling */
+        .anatomy-node {
+            transition: all 0.3s ease;
+        }
+        .anatomy-node:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .anatomy-node.active {
+            border-color: #16A34A; /* Green-600 */
+            background-color: #F0FDF4; /* Green-50 */
+        }
+
+        .exercise-card {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .exercise-card:hover {
+            border-color: #22C55E; /* Green-500 */
+            background-color: #DCFCE7; /* Green-100 */
+        }
+        .exercise-card.selected {
+            background-color: #BBF7D0;
+            border-color: #15803D;
+        }
+        
+        /* Fade in animation */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+    <!-- Chosen Palette: Emerald/Green (Vitality/Center) with Slate (Structure) -->
+    <!-- Application Structure Plan:
+         1. Hero/Intro: "The Cylinder vs. The Shield." Moving away from 2D "six-pack" thinking to 3D pressure systems.
+         2. Interactive Anatomy: Layers of the core - TVA (Corset), Obliques (Rotation), Rectus (Flexion), Diaphragm (Lid).
+         3. The Mechanics Data: Visualizing "Anti-Movement" efficiency and Spinal Compression risks of traditional crunches.
+         4. Protocol Library: Filter by "Anti-Move" (Stability) and "Dynamic" (Integrated movement).
+         5. Routine Builder: Daily core hygiene plan.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="text-slate-800 antialiased">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-green-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl">🔋</span>
+                    <span class="font-bold text-xl tracking-tight text-slate-800">Low<span class="text-green-600">Back</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <button class="text-slate-600 hover:text-green-600 transition-colors text-sm font-medium" onclick="scrollToSection('anatomy')">The Cylinder</button>
+                    <button class="text-slate-600 hover:text-green-600 transition-colors text-sm font-medium" onclick="scrollToSection('data')">Safety Data</button>
+                    <button class="text-slate-600 hover:text-green-600 transition-colors text-sm font-medium" onclick="scrollToSection('protocols')">Protocols</button>
+                    <button class="px-4 py-2 bg-green-600 text-white rounded-full text-sm font-medium hover:bg-green-700 transition-colors shadow-sm" onclick="scrollToSection('builder')">Build Routine</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="bg-[#F0FDF4] pt-12 pb-16 lg:pt-20 lg:pb-24 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="lg:grid lg:grid-cols-12 lg:gap-8 items-center">
+                <div class="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left">
+                    <div class="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-800 text-xs font-semibold uppercase tracking-wide mb-4">
+                        Functional Performance Report
+                    </div>
+                    <h1 class="text-4xl tracking-tight font-extrabold text-slate-900 sm:text-5xl md:text-6xl">
+                        <span class="block">More Than Just a</span>
+                        <span class="block text-green-600">Six-Pack.</span>
+                    </h1>
+                    <p class="mt-3 text-base text-slate-600 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                        The core is not a shield; it is a pressurized cylinder. Its true purpose is not to create motion (crunches), but to <em>resist</em> motion (stability) and transfer energy from hips to hands.
+                    </p>
+                    <div class="mt-8 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left lg:mx-0">
+                        <button class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-green-900 bg-green-100 hover:bg-green-200 transition-colors" onclick="scrollToSection('data')">
+                            The "Crunch" Danger Data
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-12 relative sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-6 lg:flex lg:items-center">
+                    <div class="bg-white rounded-2xl shadow-xl border border-green-100 p-6 w-full">
+                        <h3 class="font-semibold text-lg mb-4 text-slate-800">The 3 Myths of Core Training</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 h-6 w-6 flex items-center justify-center rounded-full bg-red-100 text-red-500 text-sm">!</span>
+                                <p class="ml-3 text-sm text-slate-600"><strong class="text-slate-900">Myth:</strong> "Crunches burn belly fat."<br/> <span class="text-xs">Reality: Spot reduction is impossible. Crunches flex the spine under load.</span></p>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 h-6 w-6 flex items-center justify-center rounded-full bg-orange-100 text-orange-500 text-sm">!</span>
+                                <p class="ml-3 text-sm text-slate-600"><strong class="text-slate-900">Myth:</strong> "Suck it in."<br/> <span class="text-xs">Reality: Stability comes from pushing <em>out</em> (bracing) to create pressure, not hollowing.</span></p>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 h-6 w-6 flex items-center justify-center rounded-full bg-green-100 text-green-600 text-sm">✓</span>
+                                <p class="ml-3 text-sm text-slate-600"><strong class="text-slate-900">Truth:</strong> "Anti-Movement."<br/> <span class="text-xs">A strong core prevents the spine from buckling under heavy loads.</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Anatomy Section -->
+        <section class="py-16 bg-white border-y border-slate-100" id="anatomy">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-extrabold text-slate-900">The 3D Cylinder</h2>
+                    <p class="mt-4 max-w-2xl text-slate-500 mx-auto">
+                        Forget surface-level aesthetics. Real strength lies in the deep layers that create the "corset" effect.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Interactive Diagram (Left) -->
+                    <div class="col-span-1 space-y-4">
+                        <div class="anatomy-node p-6 rounded-xl border-2 border-green-600 bg-green-50 cursor-pointer active shadow-md transform -translate-y-1" id="btn-tva" onclick="selectAnatomy('tva')">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-bold text-lg text-green-900">Transverse (TVA)</h3>
+                                <span class="text-2xl">🗜️</span>
+                            </div>
+                            <p class="text-xs text-green-700 mt-2">The Deep Corset</p>
+                        </div>
+                        
+                        <div class="anatomy-node p-8 rounded-xl border-2 border-slate-200 cursor-pointer bg-slate-50" id="btn-oblique" onclick="selectAnatomy('oblique')">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-bold text-xl text-slate-700">Obliques (Side)</h3>
+                                <span class="text-3xl">🌪️</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">Rotation Controllers</p>
+                        </div>
+                        
+                        <div class="anatomy-node p-6 rounded-xl border-2 border-slate-200 cursor-pointer bg-slate-50" id="btn-rectus" onclick="selectAnatomy('rectus')">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-bold text-lg text-slate-700">Rectus (Front)</h3>
+                                <span class="text-2xl">🛡️</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">The "Six-Pack" Shield</p>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Content (Right/Center) -->
+                    <div class="col-span-1 md:col-span-2 bg-slate-50 rounded-2xl p-8 border border-slate-100 flex flex-col justify-center min-h-[400px]">
+                        <div class="fade-in" id="anatomy-content">
+                            <!-- Content injected via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Visualization Section -->
+        <section class="py-16 bg-[#F0FDF4]" id="data">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-12">
+                    <h2 class="text-3xl font-bold text-slate-900">Physics of the Core</h2>
+                    <p class="mt-4 max-w-3xl text-slate-600">
+                        Why do we plank instead of crunch? The data on spinal compression tells the story. Stability protects; flexion degrades.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Chart 1: Compression Forces -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-semibold text-slate-800">Spinal Compression Loads</h3>
+                            <span class="text-xs font-medium bg-red-100 text-red-600 px-2 py-1 rounded">Newtons of Force</span>
+                        </div>
+                        <p class="text-sm text-slate-500 mb-4">Force exerted on the L4-L5 disc during common exercises. 3300N is the NIOSH danger limit.</p>
+                        <div class="chart-container">
+                            <canvas id="compressionChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Chart 2: Energy Transfer -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-semibold text-slate-800">The "Energy Leak"</h3>
+                            <span class="text-xs font-medium bg-green-100 text-green-600 px-2 py-1 rounded">Power Transmission</span>
+                        </div>
+                        <p class="text-sm text-slate-500 mb-4">Percentage of power transferred from legs to arms. A weak core leaks energy like a flat tire.</p>
+                        <div class="chart-container">
+                            <canvas id="leakChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Protocols Library -->
+        <section class="py-16 bg-white border-t border-slate-100" id="protocols">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-10">
+                    <div>
+                        <h2 class="text-3xl font-bold text-slate-900">Stability Protocols</h2>
+                        <p class="mt-2 text-slate-500">Select a focus: Resist motion (Anti-Move) or Integrated power (Dynamic).</p>
+                    </div>
+                    
+                    <div class="mt-4 md:mt-0 flex space-x-2 bg-slate-100 p-1 rounded-lg inline-block">
+                        <button class="px-4 py-2 text-sm font-medium rounded-md bg-white text-green-600 shadow-sm transition-all" id="tab-antimove" onclick="filterProtocols('antimove')">Anti-Move (Shield)</button>
+                        <button class="px-4 py-2 text-sm font-medium rounded-md text-slate-500 hover:text-slate-700 transition-all" id="tab-dynamic" onclick="filterProtocols('dynamic')">Dynamic (Power)</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="protocol-grid">
+                    <!-- Cards injected via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Routine Builder -->
+        <section class="py-16 bg-slate-800 text-white" id="builder">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    <!-- Instructions -->
+                    <div class="lg:col-span-5">
+                        <h2 class="text-3xl font-bold text-white mb-6">Daily Core Hygiene</h2>
+                        <p class="text-slate-300 mb-8">
+                            A strong core isn't built in one session. It's built by activating the "Cylinder" daily before you lift or run.
+                        </p>
+                        
+                        <div class="bg-slate-700 rounded-xl p-6 border border-slate-600">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm font-medium text-slate-300">Total Duration</span>
+                                <span class="text-3xl font-bold text-white" id="total-time">0 min</span>
+                            </div>
+                            <div class="w-full bg-slate-900 rounded-full h-2.5 mt-2">
+                                <div class="bg-green-400 h-2.5 rounded-full transition-all duration-500" id="progress-bar" style="width: 0%"></div>
+                            </div>
+                            <p class="text-xs text-slate-300 mt-2 text-right" id="time-message">Add exercises to start</p>
+                        </div>
+                    </div>
+
+                    <!-- The List -->
+                    <div class="lg:col-span-7 bg-white rounded-2xl text-slate-800 p-6 md:p-8">
+                        <h3 class="text-xl font-bold mb-6 flex items-center">
+                            <span class="mr-2">📝</span> My Stability Plan
+                        </h3>
+                        
+                        <div class="space-y-3 min-h-[200px]" id="routine-list">
+                            <!-- Empty State -->
+                            <div class="text-center py-10 text-slate-400 border-2 border-dashed border-slate-200 rounded-xl" id="empty-state">
+                                <p>No exercises added yet.</p>
+                                <p class="text-sm">Click the "+" on protocol cards above.</p>
+                            </div>
+                            <!-- Added items go here -->
+                        </div>
+
+                        <div class="mt-8 pt-6 border-t border-slate-100 flex justify-between items-center">
+                            <button class="text-sm text-red-500 hover:text-red-700 font-medium" onclick="clearRoutine()">Clear All</button>
+                            <button class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg shadow-lg transition-transform transform active:scale-95" onclick="alert('Routine Saved! (Simulation)')">
+                                Save Routine
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <html><head></head><body><footer class="bg-gray-800 text-gray-300">
+  <div class="container mx-auto px-6 py-12 lg:px-8">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+      
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Lowback</h5>
+        <ul class="space-y-2">
+          <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/"></a>Taking care of lowback</li>
+          <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">Different type of pains</a></li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">
+          </a><li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/"></a><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-of-frozen-shoulder.html"></a>Frozen Shoulder</li>
+		  <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-upper-back.html"></a>Frozen Shoulder</li>
+          <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">Different type of pains</a></li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">
+		  
+		  
+		  
+		  </a><li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">	</a><a href="https://www.lowback.org/yoga/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Yoga</a></li>	
+
+
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/food/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Food</a></li>	
+		<a href="https://www.lowback.org/food/diet-compass.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Food</a>	
+												
+
+
+
+
+
+		 
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Injuries and Cure</h5>
+        <ul class="space-y-2">
+	
+	<li>								
+		<a href="https://www.lowback.org/Back-Spine-Problems.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Back-Spine-Problems</a>
+            </li>	
+		<a href="https://www.lowback.org/related-body-parts/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Related Body Parts</a>	
+
+		<a href="https://www.lowback.org/health-leg-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Leg</a>	
+		<a href="https://www.lowback.org/health-neck-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Neck</a>	
+		<a href="https://www.lowback.org/health-shoulder-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Shoulder</a>	
+		<a href="https://www.lowback.org/health-knee-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Knee</a>	
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/BackInjuries.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">BackInjuries</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/BackPain.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl03_title">BackPain</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a href="https://www.lowback.org/benefits-of-yoga-for-mental-health.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl04_title">benefits-of-yoga-for-mental-health</a>
+            </li>	
+
+
+
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Taking Care</h5>
+        <ul class="space-y-2">
+		<li><a href="https://www.lowback.org/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Home</a></li>	
+		<li><a href="https://www.lowback.org/sitemap.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Sitemap</a></li>	
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Contact Us</h5>
+        <div class="space-y-2">
+          <p>Redmond<br/>WA, USA</p>
+          <p>
+            <a class="hover:text-white hover:underline transition-colors duration-200" href="mailto:contact@dataknobs.com">contact@kreatewebsites.com</a>
+          </p>
+          <p>
+            <a class="hover:text-white hover:underline transition-colors duration-200" href="tel:+14253411222">+1 (425) 341-1222</a>
+          </p>
+		    <p>
+            <a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/">Un Official Blog</a>
+			<br/>This is an unofficial blog provided solely for educational and informational purposes. The content is not intended to constitute medical or health advice. Always consult a qualified healthcare professional regarding any questions or concerns about your health.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 border-t border-gray-700 pt-8 flex flex-col items-center justify-between sm:flex-row">
+      <p class="text-sm text-gray-400">© 2025 Lowback. All rights reserved.</p>
+      
+      <div class="flex space-x-4 mt-4 sm:mt-0">
+        <a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.facebook.com/kreatewebsites/">
+          <span class="sr-only">Facebook</span>
+          <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path clip-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.772-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" fill-rule="evenodd"></path>
+          </svg>
+        </a>
+        <a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.twitter.com/kreatewebsites/">
+          <span class="sr-only">Twitter</span>
+          <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+          </svg>
+        </a>
+        <a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.linkedin.com/company/kreatewebsites/">
+          <span class="sr-only">LinkedIn</span>
+          <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path clip-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.783-1.75-1.75s.784-1.75 1.75-1.75 1.75.783 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill-rule="evenodd"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer></body></html>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // --- State Management ---
+        const state = {
+            currentTab: 'antimove',
+            selectedAnatomy: 'tva',
+            routine: [] 
+        };
+
+        // --- Data: Anatomy Content ---
+        const anatomyData = {
+            tva: {
+                title: "Transverse Abdominis (TVA)",
+                icon: "🗜️",
+                content: "The deepest layer. It wraps around your spine like a corset. <br><br><strong>Role:</strong> When it contracts, it increases Intra-Abdominal Pressure (IAP), creating a rigid air-bag that supports the spine. It doesn't move bone; it stabilizes it. If you can't activate this, you have no true core stability.",
+                stat: "TVA activation is delayed in 90% of people with chronic lower back pain.",
+                color: "text-green-600",
+                bg: "bg-green-50"
+            },
+            oblique: {
+                title: "Internal & External Obliques",
+                icon: "🌪️",
+                content: "These run diagonally down your sides. <br><br><strong>Role:</strong> They control rotation and lateral flexion (side bending). They prevent the torso from twisting when carrying heavy loads (Anti-Rotation). They connect the ribcage to the pelvis, transferring force across the body.",
+                stat: "Strong obliques reduce shear force on the lumbar spine by up to 40%.",
+                color: "text-slate-600",
+                bg: "bg-slate-50"
+            },
+            rectus: {
+                title: "Rectus Abdominis",
+                icon: "🛡️",
+                content: "The 'Six-Pack' muscle running vertically down the front. <br><br><strong>Role:</strong> Primarily spinal flexion (crunching). While aesthetically pleasing, it provides the LEAST amount of spinal stability compared to the other layers. Over-training it can actually pull the posture forward (Kyphosis).",
+                stat: "The Rectus Abdominis provides only ~5% of spinal stability during upright tasks.",
+                color: "text-slate-600",
+                bg: "bg-slate-50"
+            }
+        };
+
+        // --- Data: Protocols ---
+        const protocols = [
+            { id: 1, type: 'antimove', name: 'Dead Bug', duration: 2, icon: '🪲', desc: 'Resist extension while moving limbs.', difficulty: 'Easy' },
+            { id: 2, type: 'antimove', name: 'Pallof Press', duration: 2, icon: '🧱', desc: 'The gold standard for anti-rotation.', difficulty: 'Medium' },
+            { id: 3, type: 'antimove', name: 'RKC Plank', duration: 1, icon: '🪵', desc: 'Max tension plank (10s bursts).', difficulty: 'Hard' },
+            { id: 4, type: 'antimove', name: 'Suitcase Carry', duration: 3, icon: '🧳', desc: 'Anti-lateral flexion while walking.', difficulty: 'Medium' },
+            { id: 5, type: 'dynamic', name: 'Woodchopper', duration: 3, icon: '🪓', desc: 'Controlled rotation power.', difficulty: 'Medium' },
+            { id: 6, type: 'dynamic', name: 'Bear Crawl', duration: 2, icon: '🐻', desc: 'Moving stability and coordination.', difficulty: 'Hard' },
+            { id: 7, type: 'dynamic', name: 'Bird Dog', duration: 2, icon: '🐕', desc: 'Cross-body stabilization.', difficulty: 'Easy' },
+            { id: 8, type: 'dynamic', name: 'Med Ball Slam', duration: 3, icon: '💥', desc: 'Explosive anterior flexion.', difficulty: 'Medium' }
+        ];
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+            renderAnatomy('tva');
+            renderProtocols('antimove');
+            updateRoutineUI();
+        });
+
+        // --- Navigation ---
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                const offset = 80; 
+                const bodyRect = document.body.getBoundingClientRect().top;
+                const elementRect = el.getBoundingClientRect().top;
+                const elementPosition = elementRect - bodyRect;
+                const offsetPosition = elementPosition - offset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // --- Anatomy Section Logic ---
+        function selectAnatomy(part) {
+            state.selectedAnatomy = part;
+            
+            // Update visual state of buttons
+            ['tva', 'oblique', 'rectus'].forEach(p => {
+                const btn = document.getElementById(`btn-${p}`);
+                if (p === part) {
+                    btn.classList.add('active', 'border-green-600', 'bg-green-50', 'transform', '-translate-y-1', 'shadow-md');
+                    btn.classList.remove('border-slate-200', 'bg-slate-50');
+                    btn.querySelector('h3').classList.add('text-green-900');
+                    btn.querySelector('h3').classList.remove('text-slate-700');
+                } else {
+                    btn.classList.remove('active', 'border-green-600', 'bg-green-50', 'transform', '-translate-y-1', 'shadow-md');
+                    btn.classList.add('border-slate-200', 'bg-slate-50');
+                    btn.querySelector('h3').classList.remove('text-green-900');
+                    btn.querySelector('h3').classList.add('text-slate-700');
+                }
+            });
+
+            renderAnatomy(part);
+        }
+
+        function renderAnatomy(part) {
+            const data = anatomyData[part];
+            const container = document.getElementById('anatomy-content');
+            
+            // Simple fade effect
+            container.classList.remove('fade-in');
+            void container.offsetWidth; // trigger reflow
+            container.classList.add('fade-in');
+
+            container.innerHTML = `
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="text-4xl bg-white p-3 rounded-xl shadow-sm border border-slate-100">${data.icon}</div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-slate-800">${data.title}</h3>
+                        <span class="text-sm font-semibold uppercase tracking-wider ${data.color}">Biomechanical Role</span>
+                    </div>
+                </div>
+                <div class="prose prose-slate text-slate-600 text-lg leading-relaxed mb-8">
+                    <p>${data.content}</p>
+                </div>
+                <div class="bg-white border-l-4 border-green-500 p-4 rounded-r-lg shadow-sm">
+                    <p class="text-sm font-bold text-slate-900">Key Insight:</p>
+                    <p class="text-slate-600 italic">"${data.stat}"</p>
+                </div>
+            `;
+        }
+
+        // --- Charts Implementation (Chart.js) ---
+        function initCharts() {
+            // Chart 1: Compression Forces (McGill Data)
+            const ctxComp = document.getElementById('compressionChart').getContext('2d');
+            new Chart(ctxComp, {
+                type: 'bar',
+                data: {
+                    labels: ['Walking', 'Side Plank', 'Standard Plank', 'Sit-Up / Crunch', 'Superman Ext.'],
+                    datasets: [{
+                        label: 'Spinal Compression (Newtons)',
+                        data: [750, 2500, 3000, 3500, 4500],
+                        backgroundColor: [
+                            '#4ADE80', // Green
+                            '#4ADE80', // Green
+                            '#FACC15', // Yellow
+                            '#F87171', // Red
+                            '#EF4444'  // Dark Red
+                        ],
+                        borderRadius: 6,
+                        borderSkipped: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `Load: ${context.raw} N`;
+                                }
+                            }
+                        },
+                        annotation: {
+                             annotations: {
+                                line1: {
+                                    type: 'line',
+                                    yMin: 3300,
+                                    yMax: 3300,
+                                    borderColor: 'rgb(100, 100, 100)',
+                                    borderWidth: 1,
+                                    label: { content: 'NIOSH Safety Limit', enabled: true }
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Compressive Force (N)' }
+                        }
+                    }
+                }
+            });
+
+            // Chart 2: Energy Transfer
+            const ctxLeak = document.getElementById('leakChart').getContext('2d');
+            new Chart(ctxLeak, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Transferred (Strong Core)', 'Leaked (Weak Core)'],
+                    datasets: [{
+                        data: [60, 40], // Weak core example
+                        backgroundColor: [
+                            '#16A34A', // Green
+                            '#94A3B8'  // Gray
+                        ],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.raw}% Energy`;
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Power Loss with Weak Core'
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+        }
+
+        // --- Protocol Library Logic ---
+        function filterProtocols(type) {
+            state.currentTab = type;
+            
+            // Update Tab UI
+            const activeClass = 'bg-white text-green-600 shadow-sm'.split(' ');
+            const inactiveClass = 'text-slate-500 hover:text-slate-700'.split(' ');
+            
+            const btnAnti = document.getElementById('tab-antimove');
+            const btnDyn = document.getElementById('tab-dynamic');
+
+            if (type === 'antimove') {
+                btnAnti.classList.add(...activeClass);
+                btnAnti.classList.remove(...inactiveClass);
+                btnDyn.classList.remove(...activeClass);
+                btnDyn.classList.add(...inactiveClass);
+            } else {
+                btnDyn.classList.add(...activeClass);
+                btnDyn.classList.remove(...inactiveClass);
+                btnAnti.classList.remove(...activeClass);
+                btnAnti.classList.add(...inactiveClass);
+            }
+
+            renderProtocols(type);
+        }
+
+        function renderProtocols(type) {
+            const grid = document.getElementById('protocol-grid');
+            grid.innerHTML = '';
+            
+            const filtered = protocols.filter(p => p.type === type);
+            
+            filtered.forEach(p => {
+                const isAdded = state.routine.some(r => r.id === p.id);
+                const btnState = isAdded 
+                    ? `<span class="text-xs font-bold text-emerald-600">Added ✓</span>` 
+                    : `<span class="text-xs font-bold text-green-600">+ Add</span>`;
+                const cardClass = isAdded ? 'border-emerald-500 bg-emerald-50' : 'border-slate-200 bg-white';
+
+                const card = document.createElement('div');
+                card.className = `exercise-card relative p-6 rounded-xl border ${cardClass} shadow-sm flex flex-col justify-between h-full`;
+                card.onclick = () => toggleRoutine(p.id);
+                
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-3xl bg-white rounded-lg p-2 shadow-sm">${p.icon}</span>
+                            <span class="px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider ${p.difficulty === 'Easy' ? 'bg-green-100 text-green-700' : p.difficulty === 'Medium' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'}">
+                                ${p.difficulty}
+                            </span>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-800 mb-1">${p.name}</h3>
+                        <p class="text-sm text-slate-500">${p.desc}</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between border-t border-slate-100 pt-4">
+                        <span class="text-xs font-medium text-slate-400">⏱ ${p.duration} min</span>
+                        <div id="btn-text-${p.id}" class="bg-white px-3 py-1.5 rounded-full shadow-sm border border-slate-100">
+                            ${btnState}
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // --- Routine Builder Logic ---
+        function toggleRoutine(id) {
+            const index = state.routine.findIndex(r => r.id === id);
+            const exercise = protocols.find(p => p.id === id);
+
+            if (index > -1) {
+                state.routine.splice(index, 1);
+            } else {
+                state.routine.push(exercise);
+            }
+
+            renderProtocols(state.currentTab); // Re-render to update UI states
+            updateRoutineUI();
+        }
+
+        function removeRoutineItem(id) {
+            const index = state.routine.findIndex(r => r.id === id);
+            if (index > -1) {
+                state.routine.splice(index, 1);
+                renderProtocols(state.currentTab);
+                updateRoutineUI();
+            }
+        }
+
+        function clearRoutine() {
+            state.routine = [];
+            renderProtocols(state.currentTab);
+            updateRoutineUI();
+        }
+
+        function updateRoutineUI() {
+            const listContainer = document.getElementById('routine-list');
+            const totalTimeEl = document.getElementById('total-time');
+            const progressBar = document.getElementById('progress-bar');
+            const timeMsg = document.getElementById('time-message');
+            const emptyState = document.getElementById('empty-state');
+
+            // Safety check
+            if (!listContainer || !totalTimeEl || !progressBar || !timeMsg || !emptyState) {
+                return;
+            }
+
+            // Calculate Time
+            const totalMinutes = state.routine.reduce((sum, item) => sum + item.duration, 0);
+            totalTimeEl.innerText = `${totalMinutes} min`;
+
+            // Update Progress Bar (Target: 15 mins)
+            const percentage = Math.min((totalMinutes / 15) * 100, 100);
+            progressBar.style.width = `${percentage}%`;
+            
+            if (totalMinutes === 0) {
+                timeMsg.innerText = "Start adding exercises";
+                progressBar.classList.remove('bg-green-400', 'bg-yellow-400');
+                progressBar.classList.add('bg-slate-600');
+            } else if (totalMinutes < 5) {
+                timeMsg.innerText = "Keep going (Target: 5-10m)";
+                progressBar.classList.remove('bg-green-400', 'bg-slate-600');
+                progressBar.classList.add('bg-yellow-400');
+            } else {
+                timeMsg.innerText = "Great Daily Duration!";
+                progressBar.classList.remove('bg-yellow-400', 'bg-slate-600');
+                progressBar.classList.add('bg-green-400');
+            }
+
+            // Render List
+            if (state.routine.length === 0) {
+                emptyState.style.display = 'block';
+                listContainer.innerHTML = '';
+                listContainer.appendChild(emptyState);
+            } else {
+                emptyState.style.display = 'none';
+                listContainer.innerHTML = '';
+                
+                state.routine.forEach(item => {
+                    const el = document.createElement('div');
+                    el.className = "flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-100 group hover:bg-white hover:shadow-sm transition-all";
+                    el.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <span class="text-xl">${item.icon}</span>
+                            <div>
+                                <p class="text-sm font-bold text-slate-800">${item.name}</p>
+                                <p class="text-xs text-slate-500 capitalize">${item.type}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs font-medium text-slate-400">${item.duration}m</span>
+                            <button onclick="removeRoutineItem(${item.id})" class="text-slate-300 hover:text-red-500 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                    `;
+                    listContainer.appendChild(el);
+                });
+            }
+        }
+    </script>
+
+</body></html>
