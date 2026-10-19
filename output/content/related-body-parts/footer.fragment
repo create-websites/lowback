@@ -1,0 +1,57 @@
+<footer class="bg-gray-800 text-gray-300">
+  <div class="container mx-auto px-6 py-12 lg:px-8">
+
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+      
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Happy Deppawali</h5>
+        <ul class="space-y-2">
+          <li><a href="https://www.lowback.org/" class="hover:text-white hover:underline transition-colors duration-200">Low Back</a></li>
+          <li><a href="https://www.lowback.org/guide" class="hover:text-white hover:underline transition-colors duration-200">Guide</a></li>
+          <li><a href="https://www.lowback.org/BackInjuries.html" class="hover:text-white hover:underline transition-colors duration-200">Back Injuries</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Guide</h5>
+        <ul class="space-y-2">
+          <li><a href="https://www.lowback.org/guide/" class="hover:text-white hover:underline transition-colors duration-200">Guide</a></li>
+          <li><a href="https://www.lowback.org/tips/" class="hover:text-white hover:underline transition-colors duration-200">Tips</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Pages</h5>
+        <ul class="space-y-2">
+          <li><a href="https://www.lowback.org/related-body-parts/abdominal-muscles.html" class="hover:text-white hover:underline transition-colors duration-200">Abdominal Muscles</a></li>
+          <li><a href="https://www.lowback.org/related-body-parts/groin.html" class="hover:text-white hover:underline transition-colors duration-200">Groin</a></li>
+          <li><a href="https://www.lowback.org/related-body-parts/health-hand-info.html" class="hover:text-white hover:underline transition-colors duration-200">Health Hand Info</a></li>
+          <li><a href="https://www.lowback.org/related-body-parts/health-knee-info.html" class="hover:text-white hover:underline transition-colors duration-200">Health Knee Info</a></li>
+          <li><a href="https://www.lowback.org/related-body-parts/health-leg-info.html" class="hover:text-white hover:underline transition-colors duration-200">Health Leg Info</a></li>
+          <li><a href="https://www.lowback.org/related-body-parts/health-neck-info.html" class="hover:text-white hover:underline transition-colors duration-200">Health Neck Info</a></li>
+          <li><a href="https://www.lowback.org/related-body-parts/health-shoulder-info.html" class="hover:text-white hover:underline transition-colors duration-200">Health Shoulder Info</a></li>
+          <li><a href="https://www.lowback.org/related-body-parts/health-upper-back-info.html" class="hover:text-white hover:underline transition-colors duration-200">Health Upper Back Info</a></li>
+          <li><a href="https://www.lowback.org/related-body-parts/hip-care.html" class="hover:text-white hover:underline transition-colors duration-200">Hip Care</a></li>
+          <li><a href="https://www.lowback.org/related-body-parts/knee-care.html" class="hover:text-white hover:underline transition-colors duration-200">Knee Care</a></li>
+          <li><a href="https://www.lowback.org/related-body-parts/lower-back-care.html" class="hover:text-white hover:underline transition-colors duration-200">Lower Back Care</a></li>
+          <li><a href="https://www.lowback.org/related-body-parts/neck.html" class="hover:text-white hover:underline transition-colors duration-200">Neck</a></li>
+          <li><a href="https://www.lowback.org/related-body-parts/pelvios-and-sacroiliac-joint.html" class="hover:text-white hover:underline transition-colors duration-200">Pelvios And Sacroiliac Joint</a></li>
+          <li><a href="https://www.lowback.org/related-body-parts/shoulder.html" class="hover:text-white hover:underline transition-colors duration-200">Shoulder</a></li>
+          <li><a href="https://www.lowback.org/related-body-parts/thigh.html" class="hover:text-white hover:underline transition-colors duration-200">Thigh</a></li>
+          <li><a href="https://www.lowback.org/related-body-parts/upper-back.html" class="hover:text-white hover:underline transition-colors duration-200">Upper Back</a></li>
+          <li><a href="https://www.lowback.org/related-body-parts/wrist-forearm.html" class="hover:text-white hover:underline transition-colors duration-200">Wrist Forearm</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-8 text-center text-sm text-gray-400">
+      
+    </div>
+
+    <div class="mt-12 border-t border-gray-700 pt-8 flex flex-col items-center justify-between sm:flex-row">
+      <p class="text-sm text-gray-400">&copy; 2026 lowback. All rights reserved.</p>
+      
+    </div>
+
+  </div>
+</footer>

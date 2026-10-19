@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Interactive Guide to Lower Back Care</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com" rel="preconnect"/>
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-    <!-- Chosen Palette: Warm Neutrals with Calming Teal -->
-    <!-- Application Structure Plan: The application is designed as a single-page, scrollable guide with a sticky top navigation for easy access to five core, user-centric sections: 'Understand', 'Prevent', 'Exercise', 'Relieve', and the critical 'When to Seek Help'. This thematic structure, rather than mirroring the report's linear format, allows users to directly address their immediate needs—whether it's understanding the root causes of their pain, learning preventative habits, finding safe exercises, getting quick relief, or identifying serious symptoms. The flow starts with foundational knowledge, moves to actionable prevention and exercise, covers immediate self-care, and concludes with safety-critical medical advice, creating a logical and empowering user journey. -->
-    <!-- Visualization & Content Choices: 
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Interactive Guide to Lower Back Care</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Chosen Palette: Warm Neutrals with Calming Teal -->
+<!-- Application Structure Plan: The application is designed as a single-page, scrollable guide with a sticky top navigation for easy access to five core, user-centric sections: 'Understand', 'Prevent', 'Exercise', 'Relieve', and the critical 'When to Seek Help'. This thematic structure, rather than mirroring the report's linear format, allows users to directly address their immediate needs: whether it's understanding the root causes of their pain, learning preventative habits, finding safe exercises, getting quick relief, or identifying serious symptoms. The flow starts with foundational knowledge, moves to actionable prevention and exercise, covers immediate self-care, and concludes with safety-critical medical advice, creating a logical and empowering user journey. -->
+<!-- Visualization & Content Choices: 
     1. Risk Factors -> Goal: Compare -> Viz: Horizontal Bar Chart (Chart.js) -> Interaction: Hover tooltips -> Justification: To visually quantify the impact of key lifestyle risks, making the data more immediate and impactful than a simple list.
     2. Exercises/Stretches -> Goal: Organize & Demonstrate -> Viz: Interactive Card Gallery (HTML/CSS/JS) -> Interaction: Filtering (strengthening/flexibility) and card expansion/modal to show animated diagrams and instructions -> Justification: To make exercises easy to find and correctly perform. CSS animations provide lightweight, clear visual guidance without needing video or heavy assets.
     3. Posture/Lifting/Sleep Habits -> Goal: Inform & Instruct -> Viz: Accordion with illustrated cards (HTML/CSS Icons) -> Interaction: Click to expand -> Justification: To present dense information in digestible, topic-focused chunks, preventing user overwhelm.
     4. Red Flag Symptoms -> Goal: Warn & Instruct -> Viz: High-contrast static list with icons -> Interaction: None -> Justification: The critical, life-safety nature of this information demands a direct, unambiguous presentation without any interactive elements that might distract from the core message.
     -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-    <style>
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+<style>
         body {
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
@@ -158,50 +158,47 @@
     </style>
 </head>
 <body class="bg-warm-beige text-deep-charcoal">
-
-    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <nav class="flex items-center justify-between h-16">
-                <div class="flex-shrink-0">
-                    <h1 class="text-xl font-bold accent-teal">Back Health Guide</h1>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700" href="#understand">Understand</a>
-                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700" href="#prevent">Prevent</a>
-                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700" href="#exercise">Exercise</a>
-                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700" href="#relief">Relief</a>
-                        <a class="nav-link px-3 py-2 rounded-md text-sm font-medium text-red-600 font-bold" href="#seek-help">Seek Help</a>
-                    </div>
-                </div>
-                <div class="md:hidden">
-                     <button class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" id="mobile-menu-button">
-                        <span class="sr-only">Open main menu</span>
-                        <span aria-hidden="true" class="block h-6 w-6">☰</span>
-                    </button>
-                </div>
-            </nav>
-        </div>
-         <div class="md:hidden hidden" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700" href="#understand">Understand</a>
-                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700" href="#prevent">Prevent</a>
-                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700" href="#exercise">Exercise</a>
-                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700" href="#relief">Relief</a>
-                <a class="nav-link block px-3 py-2 rounded-md text-base font-medium text-red-600 font-bold" href="#seek-help">Seek Help</a>
-            </div>
-        </div>
-    </header>
-
-    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-        
-        <section class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">A Proactive Approach to Lower Back Care</h2>
-            <p class="max-w-3xl mx-auto text-lg text-gray-600">Here are a few options, aiming for a similar size and conveying the same core message:
+<header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<nav class="flex items-center justify-between h-16">
+<div class="flex-shrink-0">
+<h1 class="text-xl font-bold accent-teal">Back Health Guide</h1>
+</div>
+<div class="hidden md:block">
+<div class="ml-10 flex items-baseline space-x-4">
+<a class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700" href="#understand">Understand</a>
+<a class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700" href="#prevent">Prevent</a>
+<a class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700" href="#exercise">Exercise</a>
+<a class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700" href="#relief">Relief</a>
+<a class="nav-link px-3 py-2 rounded-md text-sm font-medium text-red-600 font-bold" href="#seek-help">Seek Help</a>
+</div>
+</div>
+<div class="md:hidden">
+<button class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" id="mobile-menu-button">
+<span class="sr-only">Open main menu</span>
+<span aria-hidden="true" class="block h-6 w-6">☰</span>
+</button>
+</div>
+</nav>
+</div>
+<div class="md:hidden hidden" id="mobile-menu">
+<div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+<a class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700" href="#understand">Understand</a>
+<a class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700" href="#prevent">Prevent</a>
+<a class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700" href="#exercise">Exercise</a>
+<a class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700" href="#relief">Relief</a>
+<a class="nav-link block px-3 py-2 rounded-md text-base font-medium text-red-600 font-bold" href="#seek-help">Seek Help</a>
+</div>
+</div>
+</header>
+<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+<section class="text-center mb-16">
+<h2 class="text-3xl md:text-4xl font-bold mb-4">A Proactive Approach to Lower Back Care</h2>
+<p class="max-w-3xl mx-auto text-lg text-gray-600">Here are a few options, aiming for a similar size and conveying the same core message:
 
 **Option 1 (Concise):**
 
-&gt;Demystifying medical jargon, this guide offers practical solutions. Discover back pain causes, prevention tips, safe exercises, and guidance on when to consult a doctor.
+&gt;Demystifying medical jargon, this guide offers practical solutions. Discover back pain causes, prevention <a href="https://www.lowback.org/tips/">tips</a>, safe exercises, and guidance on when to consult a doctor.
 
 **Option 2 (Slightly more detail):**
 
@@ -210,14 +207,13 @@
 **Option 3 (Focus on benefits):**
 
 &gt;Empowering you with knowledge, this guide turns medical complexities into helpful action. Learn about back pain, its prevention, safe movement, and how to get the right professional support.</p>
-        </section>
-
-        <section class="mb-16 scroll-mt-20" id="understand">
-            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Understanding Lower Back Pain</h3>
-            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">Back pain arises from mechanics (muscle strains), structure (disc issues), or medical conditions. Lifestyle impacts it too. This guide explores those causes and risks.</p>
-            <div class="bg-white p-6 md:p-8 rounded-lg shadow-lg">
-                 <h4 class="text-xl font-semibold mb-4 text-center">Key Lifestyle Risk Factors</h4>
-                 <p class="text-center text-gray-500 mb-6">Here are a few options, keeping the size and intent similar:
+</section>
+<section class="mb-16 scroll-mt-20" id="understand">
+<h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Understanding Lower Back Pain</h3>
+<p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">Back pain arises from mechanics (muscle strains), structure (disc issues), or medical conditions. Lifestyle impacts it too. This guide explores those causes and risks.</p>
+<div class="bg-white p-6 md:p-8 rounded-lg shadow-lg">
+<h4 class="text-xl font-semibold mb-4 text-center">Key Lifestyle Risk Factors</h4>
+<p class="text-center text-gray-500 mb-6">Here are a few options, keeping the size and intent similar:
 
 **Option 1 (Concise):**
 
@@ -240,21 +236,19 @@ The best choice depends on the specific context and visual design of the chart i
 *   **Introduce the topic:** Back pain and its causes.
 *   **Explain the chart's purpose:** Showing risk factors.
 *   **Instruct the user:** How to interact (hover/click for details).</p>
-                <div class="chart-container">
-                    <canvas id="riskFactorChart"></canvas>
-                </div>
-            </div>
-        </section>
-        
-        <section class="mb-16 scroll-mt-20" id="prevent">
-            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Prevention &amp; Daily Habits</h3>
-            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">Maintaining a healthy back involves consistent effort. Everyday posture, lifting form, sleep quality, and diet all play crucial roles. Minor daily changes can significantly lessen strain and pain. Discover essential strategies to develop your back care practices.</p>
-            <div class="space-y-4" id="habits-accordion"></div>
-        </section>
-
-        <section class="mb-16 scroll-mt-20" id="exercise">
-            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Guided Exercises &amp; Stretches</h3>
-            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">**Here are a few options, all keeping a similar length and focusing on clarity:**
+<div class="chart-container">
+<canvas id="riskFactorChart"></canvas>
+</div>
+</div>
+</section>
+<section class="mb-16 scroll-mt-20" id="prevent">
+<h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Prevention &amp; Daily Habits</h3>
+<p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">Maintaining a healthy back involves consistent effort. Everyday posture, lifting form, sleep quality, and diet all play crucial roles. Minor daily changes can significantly lessen strain and pain. Discover essential strategies to develop your back care practices.</p>
+<div class="space-y-4" id="habits-accordion"></div>
+</section>
+<section class="mb-16 scroll-mt-20" id="exercise">
+<h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Guided Exercises &amp; Stretches</h3>
+<p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">**Here are a few options, all keeping a similar length and focusing on clarity:**
 
 **Option 1 (Concise):**
 
@@ -276,38 +270,35 @@ The best choice depends on the specific context and visual design of the chart i
 *   **Focus on the user benefits/experience** (finding relief, explore, view)
 
 These options aim to be clear, concise, and encourage user engagement.</p>
-            <div class="flex justify-center mb-8 space-x-2">
-                <button class="filter-btn bg-accent-teal text-white px-4 py-2 rounded-full" data-filter="all">All</button>
-                <button class="filter-btn bg-white text-gray-700 px-4 py-2 rounded-full border" data-filter="strengthening">Strengthening</button>
-                <button class="filter-btn bg-white text-gray-700 px-4 py-2 rounded-full border" data-filter="flexibility">Flexibility</button>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="exercise-gallery"></div>
-        </section>
-
-        <section class="mb-16 scroll-mt-20" id="relief">
-            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Immediate Relief Strategies</h3>
-             <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">For sudden back pain, these easy self-care tips can ease discomfort and aid healing. Discover the best times for heat or cold and explore suitable OTC treatments.</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h4 class="text-xl font-semibold mb-3 flex items-center"><span class="text-blue-500 mr-2">❄️</span> Cold Therapy</h4>
-                    <p class="font-semibold">Best for: First 48-72 hours (Acute Injury)</p>
-                    <p class="text-gray-600 mt-2">Apply a towel-wrapped ice pack to reduce inflammation, swelling, and pain for up to 20 minutes.</p>
-                </div>
-                 <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h4 class="text-xl font-semibold mb-3 flex items-center"><span class="text-red-500 mr-2">🔥</span> Heat Therapy</h4>
-                    <p class="font-semibold">Best for: After 72 hours (Ongoing Stiffness)</p>
-                    <p class="text-gray-600 mt-2">Soothes muscles, boosts circulation, and enhances suppleness. Use a heating pad/warm bath for 15-20 mins.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="scroll-mt-20" id="seek-help">
-            <h3 class="text-2xl md:text-3xl font-bold text-center mb-8 text-red-700">When to Seek Immediate Medical Attention</h3>
-            <p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">While most back pain eases on its own, certain "red flag" symptoms suggest a serious issue needing prompt medical attention. If these arise, seek immediate medical care.</p>
-            <div class="bg-red-50 border-l-4 border-red-500 p-6 md:p-8 rounded-r-lg" id="red-flags-container"></div>
-        </section>
-    </main>
-
+<div class="flex justify-center mb-8 space-x-2">
+<button class="filter-btn bg-accent-teal text-white px-4 py-2 rounded-full" data-filter="all">All</button>
+<button class="filter-btn bg-white text-gray-700 px-4 py-2 rounded-full border" data-filter="strengthening">Strengthening</button>
+<button class="filter-btn bg-white text-gray-700 px-4 py-2 rounded-full border" data-filter="flexibility">Flexibility</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="exercise-gallery"></div>
+</section>
+<section class="mb-16 scroll-mt-20" id="relief">
+<h3 class="text-2xl md:text-3xl font-bold text-center mb-8">Immediate Relief Strategies</h3>
+<p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">For sudden back pain, these easy self-care tips can ease discomfort and aid healing. Discover the best times for heat or cold and explore suitable OTC treatments.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="bg-white p-6 rounded-lg shadow-md">
+<h4 class="text-xl font-semibold mb-3 flex items-center"><span class="text-blue-500 mr-2">❄️</span> Cold Therapy</h4>
+<p class="font-semibold">Best for: First 48-72 hours (Acute Injury)</p>
+<p class="text-gray-600 mt-2">Apply a towel-wrapped ice pack to reduce inflammation, swelling, and pain for up to 20 minutes.</p>
+</div>
+<div class="bg-white p-6 rounded-lg shadow-md">
+<h4 class="text-xl font-semibold mb-3 flex items-center"><span class="text-red-500 mr-2">🔥</span> Heat Therapy</h4>
+<p class="font-semibold">Best for: After 72 hours (Ongoing Stiffness)</p>
+<p class="text-gray-600 mt-2">Soothes muscles, boosts circulation, and enhances suppleness. Use a heating pad/warm bath for 15-20 mins.</p>
+</div>
+</div>
+</section>
+<section class="scroll-mt-20" id="seek-help">
+<h3 class="text-2xl md:text-3xl font-bold text-center mb-8 text-red-700">When to Seek Immediate Medical Attention</h3>
+<p class="max-w-3xl mx-auto text-center text-gray-600 mb-12">While most back pain eases on its own, certain "red flag" symptoms suggest a serious issue needing prompt medical attention. If these arise, seek immediate medical care.</p>
+<div class="bg-red-50 border-l-4 border-red-500 p-6 md:p-8 rounded-r-lg" id="red-flags-container"></div>
+</section>
+</main>
 <!--
     <footer class="bg-soft-gray mt-16">
         <div class="container mx-auto py-6 px-4 text-center text-gray-500">
@@ -315,8 +306,7 @@ These options aim to be clear, concise, and encourage user engagement.</p>
         </div>
     </footer>
 -->
-
-    <script>
+<script>
         document.addEventListener('DOMContentLoaded', function() {
             const habitsData = [
                 { 
@@ -538,136 +528,99 @@ These options aim to be clear, concise, and encourage user engagement.</p>
 
         });
     </script>
-
-
-<html><head></head><body><footer class="bg-gray-800 text-gray-300">
-  <div class="container mx-auto px-6 py-12 lg:px-8">
-    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-      
-      <div>
-        <h5 class="text-lg font-semibold text-white mb-4">Lowback</h5>
-        <ul class="space-y-2">
-          <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/"></a>Taking care of lowback</li>
-          <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">Different type of pains</a></li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">
-          </a><li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/"></a><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-of-frozen-shoulder.html"></a>Frozen Shoulder</li>
-		  <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-upper-back.html"></a>Frozen Shoulder</li>
-          <li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">Different type of pains</a></li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">
-		  
-		  
-		  
-		  </a><li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pain/">	</a><a href="https://www.lowback.org/yoga/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Yoga</a></li>	
-
-
-
-
-
-												
-		<li>								
-		<a href="https://www.lowback.org/food/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Food</a></li>	
-		<a href="https://www.lowback.org/food/diet-compass.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Food</a>	
-												
-
-
-
-
-
-		 
-        </ul>
-      </div>
-
-      <div>
-        <h5 class="text-lg font-semibold text-white mb-4">Injuries and Cure</h5>
-        <ul class="space-y-2">
-	
-	<li>								
-		<a href="https://www.lowback.org/Back-Spine-Problems.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Back-Spine-Problems</a>
-            </li>	
-		<a href="https://www.lowback.org/related-body-parts/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Related Body Parts</a>	
-
-		<a href="https://www.lowback.org/health-leg-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Leg</a>	
-		<a href="https://www.lowback.org/health-neck-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Neck</a>	
-		<a href="https://www.lowback.org/health-shoulder-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Shoulder</a>	
-		<a href="https://www.lowback.org/health-knee-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Knee</a>	
-
-
-
-												
-		<li>								
-		<a href="https://www.lowback.org/BackInjuries.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">BackInjuries</a>
-            </li>	
-
-
-
-
-
-												
-		<li>								
-		<a href="https://www.lowback.org/BackPain.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl03_title">BackPain</a>
-            </li>	
-
-
-
-
-
-												
-		<li>								
-		<a href="https://www.lowback.org/benefits-of-yoga-for-mental-health.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl04_title">benefits-of-yoga-for-mental-health</a>
-            </li>	
-
-
-
-        </ul>
-      </div>
-
-      <div>
-        <h5 class="text-lg font-semibold text-white mb-4">Taking Care</h5>
-        <ul class="space-y-2">
-		<li><a href="https://www.lowback.org/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Home</a></li>	
-		<li><a href="https://www.lowback.org/sitemap.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Sitemap</a></li>	
-        </ul>
-      </div>
-
-      <div>
-        <h5 class="text-lg font-semibold text-white mb-4">Contact Us</h5>
-        <div class="space-y-2">
-          <p>Redmond<br/>WA, USA</p>
-          <p>
-            <a class="hover:text-white hover:underline transition-colors duration-200" href="mailto:contact@dataknobs.com">contact@kreatewebsites.com</a>
-          </p>
-          <p>
-            <a class="hover:text-white hover:underline transition-colors duration-200" href="tel:+14253411222">+1 (425) 341-1222</a>
-          </p>
-		    <p>
-            <a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/">Un Official Blog</a>
-			<br/>This is an unofficial blog provided solely for educational and informational purposes. The content is not intended to constitute medical or health advice. Always consult a qualified healthcare professional regarding any questions or concerns about your health.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="mt-12 border-t border-gray-700 pt-8 flex flex-col items-center justify-between sm:flex-row">
-      <p class="text-sm text-gray-400">© 2025 Lowback. All rights reserved.</p>
-      
-      <div class="flex space-x-4 mt-4 sm:mt-0">
-        <a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.facebook.com/kreatewebsites/">
-          <span class="sr-only">Facebook</span>
-          <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-            <path clip-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.772-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" fill-rule="evenodd"></path>
-          </svg>
-        </a>
-        <a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.twitter.com/kreatewebsites/">
-          <span class="sr-only">Twitter</span>
-          <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
-          </svg>
-        </a>
-        <a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.linkedin.com/company/kreatewebsites/">
-          <span class="sr-only">LinkedIn</span>
-          <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-            <path clip-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.783-1.75-1.75s.784-1.75 1.75-1.75 1.75.783 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill-rule="evenodd"></path>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </div>
-</footer></body></html></body></html>
+<footer class="bg-gray-800 text-gray-300">
+<div class="container mx-auto px-6 py-12 lg:px-8">
+<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+<div>
+<h5 class="text-lg font-semibold text-white mb-4">Happy Deppawali</h5>
+<ul class="space-y-2">
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/">Low Back</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/guide">Guide</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/BackInjuries.html">Back Injuries</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-lg font-semibold text-white mb-4">Guide</h5>
+<ul class="space-y-2">
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/guide/">Guide</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/tips/">Tips</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-lg font-semibold text-white mb-4">Folders</h5>
+<ul class="space-y-2">
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/care/">Care</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/food/">Food</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/guide/">Guide</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/Pain/">Pain</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/related-body-parts/">Related Body Parts</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/Stretches/">Stretches</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/tips/">Tips</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-lg font-semibold text-white mb-4">Pages</h5>
+<ul class="space-y-2">
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/abdominal-muscles.html">Abdominal Muscles</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/articles-list.html">Articles List</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/Back-Spine-Problems.html">Back Spine Problems</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/BackInjuries.html">Backinjuries</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/BackPain.html">Backpain</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/benefits-of-yoga-for-mental-health.html">Benefits Of Yoga For Mental Health</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/frozen-shoulder.html">Frozen Shoulder</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/groin.html">Groin</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/health-hand.html">Health Hand</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/health-knee.html">Health Knee</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/health-leg.html">Health Leg</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/health-low-back.html">Health Low Back</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/health-neck.html">Health Neck</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/health-shoulder.html">Health Shoulder</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/health-upper-back.html">Health Upper Back</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/hip-care.html">Hip Care</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-of-frozen-shoulder-2.html">How To Take Care Of Frozen Shoulder 2</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-of-frozen-shoulder.html">How To Take Care Of Frozen Shoulder</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-of-hands-2.html">How To Take Care Of Hands 2</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-of-hands.html">How To Take Care Of Hands</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-of-knees-2.html">How To Take Care Of Knees 2</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-of-knees.html">How To Take Care Of Knees</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-of-legs-2.html">How To Take Care Of Legs 2</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-of-legs.html">How To Take Care Of Legs</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-of-muscles-after-50-2.html">How To Take Care Of Muscles After 50 2</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-of-muscles-after-50.html">How To Take Care Of Muscles After 50</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-of-neck-2.html">How To Take Care Of Neck 2</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-of-neck.html">How To Take Care Of Neck</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-of-shoulders-2.html">How To Take Care Of Shoulders 2</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-of-shoulders.html">How To Take Care Of Shoulders</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-upper-back-2.html">How To Take Care Upper Back 2</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/how-to-take-care-upper-back.html">How To Take Care Upper Back</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/knee-care.html">Knee Care</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/lowback.html">Lowback</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/lower-back-care.html">Lower Back Care</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/lowerback.html">Lowerback</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/lowfinal.html">Lowfinal</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/muscle-care-after-50.html">Muscle Care After 50</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/neck.html">Neck</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/pelvios-and-sacroiliac-joint.html">Pelvios And Sacroiliac Joint</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/PostNPer.html">Postnper</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/privacypolicy.html">Privacypolicy</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/shoulder.html">Shoulder</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/sitemap.html">Sitemap</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/Spinal-Abnormalities.html">Spinal Abnormalities</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/spinal.html">Spinal</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/SpinalAnatomy.html">Spinalanatomy</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/SpinalAntamony.html">Spinalantamony</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/spinalfinal.html">Spinalfinal</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/SpineHealthProb.html">Spinehealthprob</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/thigh.html">Thigh</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/upper-back.html">Upper Back</a></li>
+<li><a class="hover:text-white hover:underline transition-colors duration-200" href="https://www.lowback.org/wrist-forearm.html">Wrist Forearm</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-8 text-center text-sm text-gray-400">
+</div>
+<div class="mt-12 border-t border-gray-700 pt-8 flex flex-col items-center justify-between sm:flex-row">
+<p class="text-sm text-gray-400">© 2026 lowback. All rights reserved.</p>
+</div>
+</div>
+</footer></body></html>

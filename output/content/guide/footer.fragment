@@ -1,0 +1,140 @@
+<footer class="bg-gray-800 text-gray-300">
+  <div class="container mx-auto px-6 py-12 lg:px-8">
+
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+      
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Happy Deppawali</h5>
+        <ul class="space-y-2">
+          <li><a href="https://www.lowback.org/" class="hover:text-white hover:underline transition-colors duration-200">Low Back</a></li>
+          <li><a href="https://www.lowback.org/guide" class="hover:text-white hover:underline transition-colors duration-200">Guide</a></li>
+          <li><a href="https://www.lowback.org/BackInjuries.html" class="hover:text-white hover:underline transition-colors duration-200">Back Injuries</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Guide</h5>
+        <ul class="space-y-2">
+          <li><a href="https://www.lowback.org/guide/" class="hover:text-white hover:underline transition-colors duration-200">Guide</a></li>
+          <li><a href="https://www.lowback.org/tips/" class="hover:text-white hover:underline transition-colors duration-200">Tips</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Pages</h5>
+        <ul class="space-y-2">
+          <li><a href="https://www.lowback.org/guide/001-the-anatomy-of-the-lower-back-a-beginners-guide.html" class="hover:text-white hover:underline transition-colors duration-200">001 The Anatomy Of The Lower Back A Beginners Guide</a></li>
+          <li><a href="https://www.lowback.org/guide/002-acute-vs-chronic-low-back-pain-whats-the-difference.html" class="hover:text-white hover:underline transition-colors duration-200">002 Acute Vs Chronic Low Back Pain Whats The Difference</a></li>
+          <li><a href="https://www.lowback.org/guide/003-muscle-strain-or-nerve-pain-how-to-tell-the-difference.html" class="hover:text-white hover:underline transition-colors duration-200">003 Muscle Strain Or Nerve Pain How To Tell The Difference</a></li>
+          <li><a href="https://www.lowback.org/guide/004-the-role-of-the-intervertebral-discs-shock-absorbers-of-the-spine.html" class="hover:text-white hover:underline transition-colors duration-200">004 The Role Of The Intervertebral Discs Shock Absorbers Of The Spine</a></li>
+          <li><a href="https://www.lowback.org/guide/005-red-flag-symptoms-when-to-go-to-the-emergency-room.html" class="hover:text-white hover:underline transition-colors duration-200">005 Red Flag Symptoms When To Go To The Emergency Room</a></li>
+          <li><a href="https://www.lowback.org/guide/006-the-psychology-of-back-pain-why-it-hurts-so-much.html" class="hover:text-white hover:underline transition-colors duration-200">006 The Psychology Of Back Pain Why It Hurts So Much</a></li>
+          <li><a href="https://www.lowback.org/guide/007-reading-your-mri-report-de-jargonizing-the-results.html" class="hover:text-white hover:underline transition-colors duration-200">007 Reading Your Mri Report De Jargonizing The Results</a></li>
+          <li><a href="https://www.lowback.org/guide/008-the-myth-of-the-perfect-posture.html" class="hover:text-white hover:underline transition-colors duration-200">008 The Myth Of The Perfect Posture</a></li>
+          <li><a href="https://www.lowback.org/guide/009-genetics-and-back-pain-is-it-hereditary.html" class="hover:text-white hover:underline transition-colors duration-200">009 Genetics And Back Pain Is It Hereditary</a></li>
+          <li><a href="https://www.lowback.org/guide/010-the-cost-of-back-pain-navigating-healthcare.html" class="hover:text-white hover:underline transition-colors duration-200">010 The Cost Of Back Pain Navigating Healthcare</a></li>
+          <li><a href="https://www.lowback.org/guide/011-sciatica-101-causes-symptoms-and-false-alarms.html" class="hover:text-white hover:underline transition-colors duration-200">011 Sciatica 101 Causes Symptoms And False Alarms</a></li>
+          <li><a href="https://www.lowback.org/guide/012-herniated-vs-bulging-discs-understanding-the-spectrum.html" class="hover:text-white hover:underline transition-colors duration-200">012 Herniated Vs Bulging Discs Understanding The Spectrum</a></li>
+          <li><a href="https://www.lowback.org/guide/013-degenerative-disc-disease-ddd-a-normal-part-of-aging.html" class="hover:text-white hover:underline transition-colors duration-200">013 Degenerative Disc Disease Ddd A Normal Part Of Aging</a></li>
+          <li><a href="https://www.lowback.org/guide/014-spinal-stenosis-the-shopping-cart-condition.html" class="hover:text-white hover:underline transition-colors duration-200">014 Spinal Stenosis The Shopping Cart Condition</a></li>
+          <li><a href="https://www.lowback.org/guide/015-spondylolisthesis-slipped-vertebrae-explained.html" class="hover:text-white hover:underline transition-colors duration-200">015 Spondylolisthesis Slipped Vertebrae Explained</a></li>
+          <li><a href="https://www.lowback.org/guide/016-piriformis-syndrome-a-pain-in-the-buttock.html" class="hover:text-white hover:underline transition-colors duration-200">016 Piriformis Syndrome A Pain In The Buttock</a></li>
+          <li><a href="https://www.lowback.org/guide/017-sacroiliac-si-joint-dysfunction.html" class="hover:text-white hover:underline transition-colors duration-200">017 Sacroiliac Si Joint Dysfunction</a></li>
+          <li><a href="https://www.lowback.org/guide/018-facet-joint-syndrome-the-arthritis-of-the-spine.html" class="hover:text-white hover:underline transition-colors duration-200">018 Facet Joint Syndrome The Arthritis Of The Spine</a></li>
+          <li><a href="https://www.lowback.org/guide/019-ankylosing-spondylitis-inflammatory-back-pain.html" class="hover:text-white hover:underline transition-colors duration-200">019 Ankylosing Spondylitis Inflammatory Back Pain</a></li>
+          <li><a href="https://www.lowback.org/guide/020-scoliosis-in-adults-managing-the-curve.html" class="hover:text-white hover:underline transition-colors duration-200">020 Scoliosis In Adults Managing The Curve</a></li>
+          <li><a href="https://www.lowback.org/guide/021-ice-vs-heat-for-lower-back-pain-the-definitive-guide.html" class="hover:text-white hover:underline transition-colors duration-200">021 Ice Vs Heat For Lower Back Pain The Definitive Guide</a></li>
+          <li><a href="https://www.lowback.org/guide/022-first-aid-for-a-thrown-out-back.html" class="hover:text-white hover:underline transition-colors duration-200">022 First Aid For A Thrown Out Back</a></li>
+          <li><a href="https://www.lowback.org/guide/023-over-the-counter-pain-relief-nsaids-vs-acetaminophen.html" class="hover:text-white hover:underline transition-colors duration-200">023 Over The Counter Pain Relief Nsaids Vs Acetaminophen</a></li>
+          <li><a href="https://www.lowback.org/guide/024-topical-relief-do-creams-gels-and-patches-work.html" class="hover:text-white hover:underline transition-colors duration-200">024 Topical Relief Do Creams Gels And Patches Work</a></li>
+          <li><a href="https://www.lowback.org/guide/025-how-to-sleep-with-severe-low-back-pain.html" class="hover:text-white hover:underline transition-colors duration-200">025 How To Sleep With Severe Low Back Pain</a></li>
+          <li><a href="https://www.lowback.org/guide/026-tens-units-electrical-stimulation-at-home.html" class="hover:text-white hover:underline transition-colors duration-200">026 Tens Units Electrical Stimulation At Home</a></li>
+          <li><a href="https://www.lowback.org/guide/027-the-role-of-muscle-relaxants-in-acute-spasms.html" class="hover:text-white hover:underline transition-colors duration-200">027 The Role Of Muscle Relaxants In Acute Spasms</a></li>
+          <li><a href="https://www.lowback.org/guide/028-safe-resting-positions-for-sciatica-relief.html" class="hover:text-white hover:underline transition-colors duration-200">028 Safe Resting Positions For Sciatica Relief</a></li>
+          <li><a href="https://www.lowback.org/guide/029-back-braces-and-belts-pros-and-cons.html" class="hover:text-white hover:underline transition-colors duration-200">029 Back Braces And Belts Pros And Cons</a></li>
+          <li><a href="https://www.lowback.org/guide/030-getting-out-of-bed-and-chairs-without-pain.html" class="hover:text-white hover:underline transition-colors duration-200">030 Getting Out Of Bed And Chairs Without Pain</a></li>
+          <li><a href="https://www.lowback.org/guide/031-morning-stretching-routine-for-a-stiff-back.html" class="hover:text-white hover:underline transition-colors duration-200">031 Morning Stretching Routine For A Stiff Back</a></li>
+          <li><a href="https://www.lowback.org/guide/032-the-cat-cow-and-childs-pose-yoga-basics-for-backs.html" class="hover:text-white hover:underline transition-colors duration-200">032 The Cat Cow And Childs Pose Yoga Basics For Backs</a></li>
+          <li><a href="https://www.lowback.org/guide/033-hamstring-flexibility-and-lower-back-tension.html" class="hover:text-white hover:underline transition-colors duration-200">033 Hamstring Flexibility And Lower Back Tension</a></li>
+          <li><a href="https://www.lowback.org/guide/034-unlocking-tight-hip-flexors-psoas.html" class="hover:text-white hover:underline transition-colors duration-200">034 Unlocking Tight Hip Flexors Psoas</a></li>
+          <li><a href="https://www.lowback.org/guide/035-nerve-glides-flossing-for-sciatica-relief.html" class="hover:text-white hover:underline transition-colors duration-200">035 Nerve Glides Flossing For Sciatica Relief</a></li>
+          <li><a href="https://www.lowback.org/guide/036-foam-rolling-the-lower-body-safely.html" class="hover:text-white hover:underline transition-colors duration-200">036 Foam Rolling The Lower Body Safely</a></li>
+          <li><a href="https://www.lowback.org/guide/037-decompression-hanging-inversion-tables-and-traction.html" class="hover:text-white hover:underline transition-colors duration-200">037 Decompression Hanging Inversion Tables And Traction</a></li>
+          <li><a href="https://www.lowback.org/guide/038-stretching-vs-strengthening-what-does-your-back-need.html" class="hover:text-white hover:underline transition-colors duration-200">038 Stretching Vs Strengthening What Does Your Back Need</a></li>
+          <li><a href="https://www.lowback.org/guide/039-the-mckenzie-method-extension-exercises.html" class="hover:text-white hover:underline transition-colors duration-200">039 The Mckenzie Method Extension Exercises</a></li>
+          <li><a href="https://www.lowback.org/guide/040-yoga-poses-to-avoid-when-your-back-hurts.html" class="hover:text-white hover:underline transition-colors duration-200">040 Yoga Poses To Avoid When Your Back Hurts</a></li>
+          <li><a href="https://www.lowback.org/guide/041-the-myth-of-crunches-why-traditional-abs-hurt-your-back.html" class="hover:text-white hover:underline transition-colors duration-200">041 The Myth Of Crunches Why Traditional Abs Hurt Your Back</a></li>
+          <li><a href="https://www.lowback.org/guide/042-the-mcgill-big-3-the-gold-standard-of-core-stability.html" class="hover:text-white hover:underline transition-colors duration-200">042 The Mcgill Big 3 The Gold Standard Of Core Stability</a></li>
+          <li><a href="https://www.lowback.org/guide/043-glute-amnesia-waking-up-your-posterior-chain.html" class="hover:text-white hover:underline transition-colors duration-200">043 Glute Amnesia Waking Up Your Posterior Chain</a></li>
+          <li><a href="https://www.lowback.org/guide/044-the-deadbug-exercise-core-strength-without-spinal-movement.html" class="hover:text-white hover:underline transition-colors duration-200">044 The Deadbug Exercise Core Strength Without Spinal Movement</a></li>
+          <li><a href="https://www.lowback.org/guide/045-farmers-walks-and-suitcase-carries.html" class="hover:text-white hover:underline transition-colors duration-200">045 Farmers Walks And Suitcase Carries</a></li>
+          <li><a href="https://www.lowback.org/guide/046-safe-weightlifting-the-hip-hinge-mechanism.html" class="hover:text-white hover:underline transition-colors duration-200">046 Safe Weightlifting The Hip Hinge Mechanism</a></li>
+          <li><a href="https://www.lowback.org/guide/047-pilates-for-low-back-pain.html" class="hover:text-white hover:underline transition-colors duration-200">047 Pilates For Low Back Pain</a></li>
+          <li><a href="https://www.lowback.org/guide/048-swimming-and-water-aerobics-for-spinal-rehab.html" class="hover:text-white hover:underline transition-colors duration-200">048 Swimming And Water Aerobics For Spinal Rehab</a></li>
+          <li><a href="https://www.lowback.org/guide/049-walking-the-most-underrated-back-pain-treatment.html" class="hover:text-white hover:underline transition-colors duration-200">049 Walking The Most Underrated Back Pain Treatment</a></li>
+          <li><a href="https://www.lowback.org/guide/050-returning-to-sport-after-a-back-injury.html" class="hover:text-white hover:underline transition-colors duration-200">050 Returning To Sport After A Back Injury</a></li>
+          <li><a href="https://www.lowback.org/guide/051-the-ergonomic-office-check-chair-desk-and-monitor.html" class="hover:text-white hover:underline transition-colors duration-200">051 The Ergonomic Office Check Chair Desk And Monitor</a></li>
+          <li><a href="https://www.lowback.org/guide/052-standing-desks-the-cure-or-a-new-problem.html" class="hover:text-white hover:underline transition-colors duration-200">052 Standing Desks The Cure Or A New Problem</a></li>
+          <li><a href="https://www.lowback.org/guide/053-driving-and-commuting-pain-free.html" class="hover:text-white hover:underline transition-colors duration-200">053 Driving And Commuting Pain Free</a></li>
+          <li><a href="https://www.lowback.org/guide/054-text-neck-and-the-lumbar-spine-connection.html" class="hover:text-white hover:underline transition-colors duration-200">054 Text Neck And The Lumbar Spine Connection</a></li>
+          <li><a href="https://www.lowback.org/guide/055-the-biomechanics-of-picking-up-children.html" class="hover:text-white hover:underline transition-colors duration-200">055 The Biomechanics Of Picking Up Children</a></li>
+          <li><a href="https://www.lowback.org/guide/056-choosing-the-right-mattress-for-back-pain.html" class="hover:text-white hover:underline transition-colors duration-200">056 Choosing The Right Mattress For Back Pain</a></li>
+          <li><a href="https://www.lowback.org/guide/057-shoes-arch-support-and-spinal-alignment.html" class="hover:text-white hover:underline transition-colors duration-200">057 Shoes Arch Support And Spinal Alignment</a></li>
+          <li><a href="https://www.lowback.org/guide/058-gardening-and-yard-work-without-the-agony.html" class="hover:text-white hover:underline transition-colors duration-200">058 Gardening And Yard Work Without The Agony</a></li>
+          <li><a href="https://www.lowback.org/guide/059-traveling-with-back-pain-airplanes-and-road-trips.html" class="hover:text-white hover:underline transition-colors duration-200">059 Traveling With Back Pain Airplanes And Road Trips</a></li>
+          <li><a href="https://www.lowback.org/guide/060-housework-hacks-for-a-healthy-back.html" class="hover:text-white hover:underline transition-colors duration-200">060 Housework Hacks For A Healthy Back</a></li>
+          <li><a href="https://www.lowback.org/guide/061-when-to-see-a-physical-therapist.html" class="hover:text-white hover:underline transition-colors duration-200">061 When To See A Physical Therapist</a></li>
+          <li><a href="https://www.lowback.org/guide/062-chiropractic-care-adjustments-and-manipulations.html" class="hover:text-white hover:underline transition-colors duration-200">062 Chiropractic Care Adjustments And Manipulations</a></li>
+          <li><a href="https://www.lowback.org/guide/063-epidural-steroid-injections-esis-what-to-expect.html" class="hover:text-white hover:underline transition-colors duration-200">063 Epidural Steroid Injections Esis What To Expect</a></li>
+          <li><a href="https://www.lowback.org/guide/064-acupuncture-and-dry-needling-for-muscle-spasms.html" class="hover:text-white hover:underline transition-colors duration-200">064 Acupuncture And Dry Needling For Muscle Spasms</a></li>
+          <li><a href="https://www.lowback.org/guide/065-massage-therapy-swedish-vs-deep-tissue-vs-mfr.html" class="hover:text-white hover:underline transition-colors duration-200">065 Massage Therapy Swedish Vs Deep Tissue Vs Mfr</a></li>
+          <li><a href="https://www.lowback.org/guide/066-microdiscectomy-surgery-the-minimally-invasive-option.html" class="hover:text-white hover:underline transition-colors duration-200">066 Microdiscectomy Surgery The Minimally Invasive Option</a></li>
+          <li><a href="https://www.lowback.org/guide/067-lumbar-spinal-fusion-the-last-resort.html" class="hover:text-white hover:underline transition-colors duration-200">067 Lumbar Spinal Fusion The Last Resort</a></li>
+          <li><a href="https://www.lowback.org/guide/068-radiofrequency-ablation-rfa-for-facet-pain.html" class="hover:text-white hover:underline transition-colors duration-200">068 Radiofrequency Ablation Rfa For Facet Pain</a></li>
+          <li><a href="https://www.lowback.org/guide/069-cognitive-behavioral-therapy-cbt-for-chronic-pain.html" class="hover:text-white hover:underline transition-colors duration-200">069 Cognitive Behavioral Therapy Cbt For Chronic Pain</a></li>
+          <li><a href="https://www.lowback.org/guide/070-red-light-therapy-and-cold-laser-treatments.html" class="hover:text-white hover:underline transition-colors duration-200">070 Red Light Therapy And Cold Laser Treatments</a></li>
+          <li><a href="https://www.lowback.org/guide/071-the-anti-inflammatory-diet-for-back-pain.html" class="hover:text-white hover:underline transition-colors duration-200">071 The Anti Inflammatory Diet For Back Pain</a></li>
+          <li><a href="https://www.lowback.org/guide/072-weight-loss-and-spinal-load.html" class="hover:text-white hover:underline transition-colors duration-200">072 Weight Loss And Spinal Load</a></li>
+          <li><a href="https://www.lowback.org/guide/073-hydration-and-spinal-disc-health.html" class="hover:text-white hover:underline transition-colors duration-200">073 Hydration And Spinal Disc Health</a></li>
+          <li><a href="https://www.lowback.org/guide/074-smoking-and-degenerative-disc-disease.html" class="hover:text-white hover:underline transition-colors duration-200">074 Smoking And Degenerative Disc Disease</a></li>
+          <li><a href="https://www.lowback.org/guide/075-alcohols-effect-on-muscle-recovery-and-inflammation.html" class="hover:text-white hover:underline transition-colors duration-200">075 Alcohols Effect On Muscle Recovery And Inflammation</a></li>
+          <li><a href="https://www.lowback.org/guide/076-stress-cortisol-and-muscle-tension.html" class="hover:text-white hover:underline transition-colors duration-200">076 Stress Cortisol And Muscle Tension</a></li>
+          <li><a href="https://www.lowback.org/guide/077-sleep-hygiene-the-ultimate-healer.html" class="hover:text-white hover:underline transition-colors duration-200">077 Sleep Hygiene The Ultimate Healer</a></li>
+          <li><a href="https://www.lowback.org/guide/078-magnesium-for-muscle-spasms.html" class="hover:text-white hover:underline transition-colors duration-200">078 Magnesium For Muscle Spasms</a></li>
+          <li><a href="https://www.lowback.org/guide/079-turmeric-curcumin-and-omega-3s.html" class="hover:text-white hover:underline transition-colors duration-200">079 Turmeric Curcumin And Omega 3S</a></li>
+          <li><a href="https://www.lowback.org/guide/080-the-gut-spine-connection.html" class="hover:text-white hover:underline transition-colors duration-200">080 The Gut Spine Connection</a></li>
+          <li><a href="https://www.lowback.org/guide/081-pregnancy-and-low-back-pain.html" class="hover:text-white hover:underline transition-colors duration-200">081 Pregnancy And Low Back Pain</a></li>
+          <li><a href="https://www.lowback.org/guide/082-postpartum-back-recovery-and-diastasis-recti.html" class="hover:text-white hover:underline transition-colors duration-200">082 Postpartum Back Recovery And Diastasis Recti</a></li>
+          <li><a href="https://www.lowback.org/guide/083-golfers-and-back-pain-the-rotational-toll.html" class="hover:text-white hover:underline transition-colors duration-200">083 Golfers And Back Pain The Rotational Toll</a></li>
+          <li><a href="https://www.lowback.org/guide/084-the-runners-back-shock-absorption-and-cadence.html" class="hover:text-white hover:underline transition-colors duration-200">084 The Runners Back Shock Absorption And Cadence</a></li>
+          <li><a href="https://www.lowback.org/guide/085-heavy-lifters-belts-bracing-and-form.html" class="hover:text-white hover:underline transition-colors duration-200">085 Heavy Lifters Belts Bracing And Form</a></li>
+          <li><a href="https://www.lowback.org/guide/086-senior-mobility-combating-sarcopenia-and-stiffness.html" class="hover:text-white hover:underline transition-colors duration-200">086 Senior Mobility Combating Sarcopenia And Stiffness</a></li>
+          <li><a href="https://www.lowback.org/guide/087-teenagers-and-backpacks-the-growing-spine.html" class="hover:text-white hover:underline transition-colors duration-200">087 Teenagers And Backpacks The Growing Spine</a></li>
+          <li><a href="https://www.lowback.org/guide/088-trades-workers-surviving-construction-and-manual-labor.html" class="hover:text-white hover:underline transition-colors duration-200">088 Trades Workers Surviving Construction And Manual Labor</a></li>
+          <li><a href="https://www.lowback.org/guide/089-nurses-and-healthcare-workers-the-danger-of-patient-transfers.html" class="hover:text-white hover:underline transition-colors duration-200">089 Nurses And Healthcare Workers The Danger Of Patient Transfers</a></li>
+          <li><a href="https://www.lowback.org/guide/090-the-tall-persons-guide-to-back-pain.html" class="hover:text-white hover:underline transition-colors duration-200">090 The Tall Persons Guide To Back Pain</a></li>
+          <li><a href="https://www.lowback.org/guide/091-pain-neuroscience-education-pne-rewiring-the-brain.html" class="hover:text-white hover:underline transition-colors duration-200">091 Pain Neuroscience Education Pne Rewiring The Brain</a></li>
+          <li><a href="https://www.lowback.org/guide/092-fear-avoidance-behavior-breaking-the-cycle.html" class="hover:text-white hover:underline transition-colors duration-200">092 Fear Avoidance Behavior Breaking The Cycle</a></li>
+          <li><a href="https://www.lowback.org/guide/093-managing-the-inevitable-flare-up.html" class="hover:text-white hover:underline transition-colors duration-200">093 Managing The Inevitable Flare Up</a></li>
+          <li><a href="https://www.lowback.org/guide/094-tracking-triggers-with-a-pain-diary.html" class="hover:text-white hover:underline transition-colors duration-200">094 Tracking Triggers With A Pain Diary</a></li>
+          <li><a href="https://www.lowback.org/guide/095-building-a-resilient-back-for-the-long-haul.html" class="hover:text-white hover:underline transition-colors duration-200">095 Building A Resilient Back For The Long Haul</a></li>
+          <li><a href="https://www.lowback.org/guide/096-diaphragmatic-breathing-for-core-stability-and-pain-relief.html" class="hover:text-white hover:underline transition-colors duration-200">096 Diaphragmatic Breathing For Core Stability And Pain Relief</a></li>
+          <li><a href="https://www.lowback.org/guide/097-the-link-between-chronic-back-pain-and-depression.html" class="hover:text-white hover:underline transition-colors duration-200">097 The Link Between Chronic Back Pain And Depression</a></li>
+          <li><a href="https://www.lowback.org/guide/098-creating-a-sustainable-daily-maintenance-routine.html" class="hover:text-white hover:underline transition-colors duration-200">098 Creating A Sustainable Daily Maintenance Routine</a></li>
+          <li><a href="https://www.lowback.org/guide/099-navigating-intimacy-and-sex-with-back-pain.html" class="hover:text-white hover:underline transition-colors duration-200">099 Navigating Intimacy And Sex With Back Pain</a></li>
+          <li><a href="https://www.lowback.org/guide/100-celebrating-small-wins-the-journey-of-recovery.html" class="hover:text-white hover:underline transition-colors duration-200">100 Celebrating Small Wins The Journey Of Recovery</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-8 text-center text-sm text-gray-400">
+      
+    </div>
+
+    <div class="mt-12 border-t border-gray-700 pt-8 flex flex-col items-center justify-between sm:flex-row">
+      <p class="text-sm text-gray-400">&copy; 2026 lowback. All rights reserved.</p>
+      
+    </div>
+
+  </div>
+</footer>

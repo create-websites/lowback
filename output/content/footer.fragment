@@ -1,0 +1,106 @@
+<footer class="bg-gray-800 text-gray-300">
+  <div class="container mx-auto px-6 py-12 lg:px-8">
+
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+      
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Happy Deppawali</h5>
+        <ul class="space-y-2">
+          <li><a href="https://www.lowback.org/" class="hover:text-white hover:underline transition-colors duration-200">Low Back</a></li>
+          <li><a href="https://www.lowback.org/guide" class="hover:text-white hover:underline transition-colors duration-200">Guide</a></li>
+          <li><a href="https://www.lowback.org/BackInjuries.html" class="hover:text-white hover:underline transition-colors duration-200">Back Injuries</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Guide</h5>
+        <ul class="space-y-2">
+          <li><a href="https://www.lowback.org/guide/" class="hover:text-white hover:underline transition-colors duration-200">Guide</a></li>
+          <li><a href="https://www.lowback.org/tips/" class="hover:text-white hover:underline transition-colors duration-200">Tips</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Folders</h5>
+        <ul class="space-y-2">
+          <li><a href="https://www.lowback.org/care/" class="hover:text-white hover:underline transition-colors duration-200">Care</a></li>
+          <li><a href="https://www.lowback.org/food/" class="hover:text-white hover:underline transition-colors duration-200">Food</a></li>
+          <li><a href="https://www.lowback.org/guide/" class="hover:text-white hover:underline transition-colors duration-200">Guide</a></li>
+          <li><a href="https://www.lowback.org/Pain/" class="hover:text-white hover:underline transition-colors duration-200">Pain</a></li>
+          <li><a href="https://www.lowback.org/related-body-parts/" class="hover:text-white hover:underline transition-colors duration-200">Related Body Parts</a></li>
+          <li><a href="https://www.lowback.org/Stretches/" class="hover:text-white hover:underline transition-colors duration-200">Stretches</a></li>
+          <li><a href="https://www.lowback.org/tips/" class="hover:text-white hover:underline transition-colors duration-200">Tips</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-lg font-semibold text-white mb-4">Pages</h5>
+        <ul class="space-y-2">
+          <li><a href="https://www.lowback.org/abdominal-muscles.html" class="hover:text-white hover:underline transition-colors duration-200">Abdominal Muscles</a></li>
+          <li><a href="https://www.lowback.org/articles-list.html" class="hover:text-white hover:underline transition-colors duration-200">Articles List</a></li>
+          <li><a href="https://www.lowback.org/Back-Spine-Problems.html" class="hover:text-white hover:underline transition-colors duration-200">Back Spine Problems</a></li>
+          <li><a href="https://www.lowback.org/BackInjuries.html" class="hover:text-white hover:underline transition-colors duration-200">Backinjuries</a></li>
+          <li><a href="https://www.lowback.org/BackPain.html" class="hover:text-white hover:underline transition-colors duration-200">Backpain</a></li>
+          <li><a href="https://www.lowback.org/benefits-of-yoga-for-mental-health.html" class="hover:text-white hover:underline transition-colors duration-200">Benefits Of Yoga For Mental Health</a></li>
+          <li><a href="https://www.lowback.org/frozen-shoulder.html" class="hover:text-white hover:underline transition-colors duration-200">Frozen Shoulder</a></li>
+          <li><a href="https://www.lowback.org/groin.html" class="hover:text-white hover:underline transition-colors duration-200">Groin</a></li>
+          <li><a href="https://www.lowback.org/health-hand.html" class="hover:text-white hover:underline transition-colors duration-200">Health Hand</a></li>
+          <li><a href="https://www.lowback.org/health-knee.html" class="hover:text-white hover:underline transition-colors duration-200">Health Knee</a></li>
+          <li><a href="https://www.lowback.org/health-leg.html" class="hover:text-white hover:underline transition-colors duration-200">Health Leg</a></li>
+          <li><a href="https://www.lowback.org/health-low-back.html" class="hover:text-white hover:underline transition-colors duration-200">Health Low Back</a></li>
+          <li><a href="https://www.lowback.org/health-neck.html" class="hover:text-white hover:underline transition-colors duration-200">Health Neck</a></li>
+          <li><a href="https://www.lowback.org/health-shoulder.html" class="hover:text-white hover:underline transition-colors duration-200">Health Shoulder</a></li>
+          <li><a href="https://www.lowback.org/health-upper-back.html" class="hover:text-white hover:underline transition-colors duration-200">Health Upper Back</a></li>
+          <li><a href="https://www.lowback.org/hip-care.html" class="hover:text-white hover:underline transition-colors duration-200">Hip Care</a></li>
+          <li><a href="https://www.lowback.org/how-to-take-care-of-frozen-shoulder-2.html" class="hover:text-white hover:underline transition-colors duration-200">How To Take Care Of Frozen Shoulder 2</a></li>
+          <li><a href="https://www.lowback.org/how-to-take-care-of-frozen-shoulder.html" class="hover:text-white hover:underline transition-colors duration-200">How To Take Care Of Frozen Shoulder</a></li>
+          <li><a href="https://www.lowback.org/how-to-take-care-of-hands-2.html" class="hover:text-white hover:underline transition-colors duration-200">How To Take Care Of Hands 2</a></li>
+          <li><a href="https://www.lowback.org/how-to-take-care-of-hands.html" class="hover:text-white hover:underline transition-colors duration-200">How To Take Care Of Hands</a></li>
+          <li><a href="https://www.lowback.org/how-to-take-care-of-knees-2.html" class="hover:text-white hover:underline transition-colors duration-200">How To Take Care Of Knees 2</a></li>
+          <li><a href="https://www.lowback.org/how-to-take-care-of-knees.html" class="hover:text-white hover:underline transition-colors duration-200">How To Take Care Of Knees</a></li>
+          <li><a href="https://www.lowback.org/how-to-take-care-of-legs-2.html" class="hover:text-white hover:underline transition-colors duration-200">How To Take Care Of Legs 2</a></li>
+          <li><a href="https://www.lowback.org/how-to-take-care-of-legs.html" class="hover:text-white hover:underline transition-colors duration-200">How To Take Care Of Legs</a></li>
+          <li><a href="https://www.lowback.org/how-to-take-care-of-muscles-after-50-2.html" class="hover:text-white hover:underline transition-colors duration-200">How To Take Care Of Muscles After 50 2</a></li>
+          <li><a href="https://www.lowback.org/how-to-take-care-of-muscles-after-50.html" class="hover:text-white hover:underline transition-colors duration-200">How To Take Care Of Muscles After 50</a></li>
+          <li><a href="https://www.lowback.org/how-to-take-care-of-neck-2.html" class="hover:text-white hover:underline transition-colors duration-200">How To Take Care Of Neck 2</a></li>
+          <li><a href="https://www.lowback.org/how-to-take-care-of-neck.html" class="hover:text-white hover:underline transition-colors duration-200">How To Take Care Of Neck</a></li>
+          <li><a href="https://www.lowback.org/how-to-take-care-of-shoulders-2.html" class="hover:text-white hover:underline transition-colors duration-200">How To Take Care Of Shoulders 2</a></li>
+          <li><a href="https://www.lowback.org/how-to-take-care-of-shoulders.html" class="hover:text-white hover:underline transition-colors duration-200">How To Take Care Of Shoulders</a></li>
+          <li><a href="https://www.lowback.org/how-to-take-care-upper-back-2.html" class="hover:text-white hover:underline transition-colors duration-200">How To Take Care Upper Back 2</a></li>
+          <li><a href="https://www.lowback.org/how-to-take-care-upper-back.html" class="hover:text-white hover:underline transition-colors duration-200">How To Take Care Upper Back</a></li>
+          <li><a href="https://www.lowback.org/knee-care.html" class="hover:text-white hover:underline transition-colors duration-200">Knee Care</a></li>
+          <li><a href="https://www.lowback.org/lowback.html" class="hover:text-white hover:underline transition-colors duration-200">Lowback</a></li>
+          <li><a href="https://www.lowback.org/lower-back-care.html" class="hover:text-white hover:underline transition-colors duration-200">Lower Back Care</a></li>
+          <li><a href="https://www.lowback.org/lowerback.html" class="hover:text-white hover:underline transition-colors duration-200">Lowerback</a></li>
+          <li><a href="https://www.lowback.org/lowfinal.html" class="hover:text-white hover:underline transition-colors duration-200">Lowfinal</a></li>
+          <li><a href="https://www.lowback.org/muscle-care-after-50.html" class="hover:text-white hover:underline transition-colors duration-200">Muscle Care After 50</a></li>
+          <li><a href="https://www.lowback.org/neck.html" class="hover:text-white hover:underline transition-colors duration-200">Neck</a></li>
+          <li><a href="https://www.lowback.org/pelvios-and-sacroiliac-joint.html" class="hover:text-white hover:underline transition-colors duration-200">Pelvios And Sacroiliac Joint</a></li>
+          <li><a href="https://www.lowback.org/PostNPer.html" class="hover:text-white hover:underline transition-colors duration-200">Postnper</a></li>
+          <li><a href="https://www.lowback.org/privacypolicy.html" class="hover:text-white hover:underline transition-colors duration-200">Privacypolicy</a></li>
+          <li><a href="https://www.lowback.org/shoulder.html" class="hover:text-white hover:underline transition-colors duration-200">Shoulder</a></li>
+          <li><a href="https://www.lowback.org/sitemap.html" class="hover:text-white hover:underline transition-colors duration-200">Sitemap</a></li>
+          <li><a href="https://www.lowback.org/Spinal-Abnormalities.html" class="hover:text-white hover:underline transition-colors duration-200">Spinal Abnormalities</a></li>
+          <li><a href="https://www.lowback.org/spinal.html" class="hover:text-white hover:underline transition-colors duration-200">Spinal</a></li>
+          <li><a href="https://www.lowback.org/SpinalAnatomy.html" class="hover:text-white hover:underline transition-colors duration-200">Spinalanatomy</a></li>
+          <li><a href="https://www.lowback.org/SpinalAntamony.html" class="hover:text-white hover:underline transition-colors duration-200">Spinalantamony</a></li>
+          <li><a href="https://www.lowback.org/spinalfinal.html" class="hover:text-white hover:underline transition-colors duration-200">Spinalfinal</a></li>
+          <li><a href="https://www.lowback.org/SpineHealthProb.html" class="hover:text-white hover:underline transition-colors duration-200">Spinehealthprob</a></li>
+          <li><a href="https://www.lowback.org/thigh.html" class="hover:text-white hover:underline transition-colors duration-200">Thigh</a></li>
+          <li><a href="https://www.lowback.org/upper-back.html" class="hover:text-white hover:underline transition-colors duration-200">Upper Back</a></li>
+          <li><a href="https://www.lowback.org/wrist-forearm.html" class="hover:text-white hover:underline transition-colors duration-200">Wrist Forearm</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-8 text-center text-sm text-gray-400">
+      
+    </div>
+
+    <div class="mt-12 border-t border-gray-700 pt-8 flex flex-col items-center justify-between sm:flex-row">
+      <p class="text-sm text-gray-400">&copy; 2026 lowback. All rights reserved.</p>
+      
+    </div>
+
+  </div>
+</footer>
